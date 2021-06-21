@@ -1,2 +1,3 @@
-web: node index.js
+next build
+node index.js
 
