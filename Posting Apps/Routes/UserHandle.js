@@ -140,7 +140,7 @@ uh.post("/verify", async (req, res, next) => {
     };
     transporter.sendMail(mailOptions, function (error, info) {
       if (error) {
-        res.json({ success: false, massage: "Can't Sign In "  + error, exists: false });
+        res.json({ success: false, massage: "Can't Sign In " + error, exists: false });
       } else {
         res.json({ verification: number, success: true, exists: false });
         console.log("Email sent: " + info.response);
