@@ -47,7 +47,7 @@ nextApp
 
     //start server
 
-    app.listen(80, () => {
+    app.listen(process.env.PORT, () => {
       console.log("Listening to the port 80");
     });
   })
