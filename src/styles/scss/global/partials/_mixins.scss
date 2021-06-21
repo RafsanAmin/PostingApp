@@ -1,0 +1,10 @@
+@mixin grid_cent(
+  $place-just: center,
+  $place-align: center,
+  $row: auto,
+  $column: auto
+) {
+  display: grid;
+  justify-items: center;
+  align-items: center;
+}
