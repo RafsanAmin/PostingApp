@@ -16,7 +16,7 @@ const randomNumber = require("../../library/randomNumber");
 const transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
-    user: "rafsanamin2020@gmail.com",
+    user: "rafpost001@gmail.com",
     pass: pass, // naturally, replace both with your real credentials or an application-specific password
   },
 });
