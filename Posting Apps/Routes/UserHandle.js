@@ -11,15 +11,9 @@ const pass = process.env["PASSWORD"];
 const multer = require("multer");
 const path = require("path");
 const { MulterError } = require("multer");
-const nodemailer = require("nodemailer");
+const mailerTransport = require("@sendgrid/mail");
 const randomNumber = require("../../library/randomNumber");
-const transporter = nodemailer.createTransport({
-  service: "gmail",
-  auth: {
-    user: "rafpost001@gmail.com",
-    pass: pass, // naturally, replace both with your real credentials or an application-specific password
-  },
-});
+mailerTransport.setApiKey(pass);
 uh.use(cookieParser());
 uh.use(express.json());
 const diskStrorage = multer.diskStorage({
@@ -53,12 +47,10 @@ uh.get("/login", async (req, res, next) => {
           res.cookie("jwt", scrt, {
             maxAge: 900000000,
             httpOnly: true,
-            sameSite: "lax",
           });
         } else {
           res.cookie("jwt", scrt, {
             httpOnly: true,
-            sameSite: "lax",
           });
         }
         res.status(200).json({ massage: "Done", done: true, exists: true });
@@ -132,20 +124,27 @@ uh.post("/verify", async (req, res, next) => {
   let alExist = await UserModelDB.exists({ username: user });
   console.log(user);
   if (!alExist) {
-    const mailOptions = {
-      from: "rafsanamin2020@gmail.com",
+    const sendMail = {
+      from: "rafpost001@gmail.com",
       to: email,
       subject: "Your Verfication Code in RafPost",
       html: `<p>Your Verfication code is <br> <b style="font-size: 1.5rem">${number}</b>  <br> in RafPost Account. Give it to you Verification Input and Create your Account</p>`,
     };
-    transporter.sendMail(mailOptions, function (error, info) {
-      if (error) {
-        res.json({ success: false, massage: "Can't Sign In " + error, exists: false });
-      } else {
-        res.json({ verification: number, success: true, exists: false });
-        console.log("Email sent: " + info.response);
-      }
-    });
+    try {
+      await mailerTransport.send(sendMail);
+      res.json({
+        massage: "Verification Mail Send",
+        success: true,
+        exists: false,
+        verification: number,
+      });
+    } catch (err) {
+      res.json({
+        massage: "Verification Mail Can't be Sent",
+        success: false,
+        exists: false,
+      });
+    }
   } else {
     res.json({ massage: "User Already Exists", success: false, exists: true });
   }

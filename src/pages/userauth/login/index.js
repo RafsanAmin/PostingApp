@@ -1,8 +1,8 @@
-/* eslint-disable jsx-a11y/no-static-element-interactions */
-/* eslint-disable no-unused-vars */
+import Head from 'next/head';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 import UserAuthenAPI from '../../../API/UserAuthen';
+import Checkbox from '../../UI-COMPS/checkbox';
 import Input from '../../UI-COMPS/Input';
 
 function Login() {
@@ -12,10 +12,11 @@ function Login() {
   const [remMe, setRemMe] = useState(true);
   const [loading, setLoading] = useState(false);
   const Router = useRouter();
+  const remMeLabel = 'Remember Me';
   const setLogin = async () => {
     setLoading(true);
     try {
-      const x = await UserAuthenAPI.login({
+      await UserAuthenAPI.login({
         username: User,
         password: Pass,
         remMe,
@@ -27,11 +28,11 @@ function Login() {
       setLoading(false);
     }
   };
-  const remMeCheck = (checked) => {
-    setRemMe(!checked);
-  };
   return (
     <>
+      <Head>
+        <title>Rafpost - Login</title>
+      </Head>
       <div className="login-page-cont">
         <div className="login-form-cont">
           <div className={`${loading ? 'loading-cont' : 'load-none'}`} />
@@ -52,12 +53,9 @@ function Login() {
                   classP="login"
                 />
               </div>
-              <div className="login-remme" onClick={() => remMeCheck(remMe)}>
-                <div className={remMe ? 'checkbox checked' : 'checkbox'} />
-
-                <p>Remember Me</p>
+              <div className="login-remme">
+                <Checkbox setState={setRemMe} state={remMe} label={remMeLabel} />
               </div>
-
               <div className="buttons">
                 <button className="login" type="button" onClick={setLogin}>
                   Login

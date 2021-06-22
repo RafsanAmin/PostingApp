@@ -3,6 +3,7 @@
 import { useRouter } from 'next/router';
 import React, { useRef, useState } from 'react';
 import UserAuthenAPI from '../../../../API/UserAuthen';
+import Checkbox from '../../../UI-COMPS/checkbox';
 import Input from '../../../UI-COMPS/Input';
 
 function Login(props) {
@@ -17,6 +18,7 @@ function Login(props) {
   const [loading, setLoading] = useState(false);
   const fileRef = useRef(null);
   const Router = useRouter();
+  const remMeLabel = 'Remember If you have to verify via Email to SignUp. Do You Agree ?';
   const setSignUP = async () => {
     setLoading(true);
     try {
@@ -28,6 +30,7 @@ function Login(props) {
         confPass: ConfirmPassword,
       };
       const verficationCode = await UserAuthenAPI.verifyMail(UserInfo);
+      console.log(verficationCode);
       sui({ ...UserInfo, code: verficationCode.verification });
       setstatus(UserInfo.massage);
       setLoading(false);
@@ -43,9 +46,6 @@ function Login(props) {
     if (fileRef.current.files.length !== 0) {
       setImgPath(URL.createObjectURL(fileRef.current.files[0]));
     }
-  };
-  const remMeCheck = (checked) => {
-    setRemMe(!checked);
   };
   return (
     <>
@@ -104,9 +104,8 @@ function Login(props) {
               </div>
             </div>
           </div>
-          <div className="signup-remme" onClick={() => remMeCheck(remMe)}>
-            <div className={remMe ? 'checkbox checked' : 'checkbox'} />
-            <p>Remember If you have to verify via Email to SignUp. Do You Agree ?</p>
+          <div className="signup-remme">
+            <Checkbox setState={setRemMe} state={remMe} label={remMeLabel} />
           </div>
           <div className="buttons">
             <button disabled={!remMe} className="Signup" type="button" onClick={setSignUP}>
