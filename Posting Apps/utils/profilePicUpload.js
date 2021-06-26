@@ -2,7 +2,6 @@ const multer = require("multer");
 const cloudinary = require("cloudinary").v2;
 const stream = require("streamifier");
 const path = require("path");
-const path = require("path");
 const ENV = require("dotenv").config({ path: __dirname + "../../.env" });
 cloudinary.config({
   cloud_name: process.env["CLOUD_NAME"],
@@ -15,7 +14,7 @@ const uploadProfilePicConfig = multer({
 }).single("profile-pic");
 const uploadProfilePic = (req, res) => {
   uploadProfilePicConfig(req, res, (err) => {
-    if (err instanceof MulterError) {
+    if (err instanceof multer.MulterError) {
       console.log(err);
       res.json({ success: false, massage: `${err}` });
     }
