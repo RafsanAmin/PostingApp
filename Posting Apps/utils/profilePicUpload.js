@@ -2,6 +2,7 @@ const multer = require("multer");
 const cloudinary = require("cloudinary").v2;
 const stream = require("streamifier");
 const path = require("path");
+const path = require("path");
 const ENV = require("dotenv").config({ path: __dirname + "../../.env" });
 cloudinary.config({
   cloud_name: process.env["CLOUD_NAME"],
