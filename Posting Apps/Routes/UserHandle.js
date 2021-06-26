@@ -8,25 +8,15 @@ const authen = require("../middleware/authen");
 const ENV = require("dotenv").config({ path: __dirname + "../../.env" });
 const secret = process.env["TOKEN"];
 const pass = process.env["PASSWORD"];
-const multer = require("multer");
-const path = require("path");
 const { MulterError } = require("multer");
+const uploadProfilePic = require("../utils/profilePicUpload");
+
 const mailerTransport = require("@sendgrid/mail");
 const randomNumber = require("../../library/randomNumber");
 mailerTransport.setApiKey(pass);
 uh.use(cookieParser());
 uh.use(express.json());
-const diskStrorage = multer.diskStorage({
-  destination: "./static/imgProfile",
-  filename: (req, file, cb) => {
-    const fileExt = path.extname(file.originalname);
-    const finalName = `${req.body.username}${fileExt}`;
-    cb(null, finalName);
-  },
-});
-const uploadProfilePic = multer({ storage: diskStrorage }).single(
-  "profile-pic",
-);
+
 uh.get("/login", async (req, res, next) => {
   // console.log(req.csrfToken());
   let { username, password, remMe } = req.query;
@@ -110,13 +100,7 @@ uh.post("/signup", async (req, res, next) => {
   }
 });
 uh.post("/addProfilePic", async (req, res, next) => {
-  uploadProfilePic(req, res, (err) => {
-    if (err instanceof MulterError) {
-      console.log(err);
-      res.json({ success: false, massage: `${err}` });
-    }
-  });
-  res.json({ success: true, massage: "SuccessFully Uploaded" });
+  uploadProfilePic(req, res);
 });
 uh.post("/verify", async (req, res, next) => {
   const { user, email } = req.body;
