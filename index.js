@@ -10,6 +10,7 @@ const cookieParser = require("cookie-parser");
 //
 //
 //
+app.enable('trust proxy');
 const dev = process.env.NODE_ENV !== "production";
 
 const DB_KEY = process.env["DB_KEY"];
@@ -18,6 +19,14 @@ const handle = nextApp.getRequestHandler();
 //
 //
 //
+app.use(function(request, response, next) {
+
+    if (process.env.NODE_ENV != 'development' && !request.secure) {
+       return response.redirect("https://" + request.headers.host + request.url);
+    }
+
+    next();
+});
 nextApp
   .prepare()
   .then(() => {
