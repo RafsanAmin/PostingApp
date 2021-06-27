@@ -18,7 +18,7 @@ function Login(props) {
   const [loading, setLoading] = useState(false);
   const fileRef = useRef(null);
   const Router = useRouter();
-  const remMeLabel = 'Remember If you have to verify via Email to SignUp. Do You Agree ?';
+  const remMeLabel = 'Remember that You have to verify via Email to SignUp. Do You Agree ?';
   const setSignUP = async () => {
     setLoading(true);
     try {
@@ -42,9 +42,21 @@ function Login(props) {
   const uploadClick = () => {
     fileRef.current.click();
   };
-  const lol = () => {
-    if (fileRef.current.files.length !== 0) {
-      setImgPath(URL.createObjectURL(fileRef.current.files[0]));
+  const fileSet = () => {
+    const { length } = fileRef.current.files;
+
+    if (length !== 0) {
+      const { size, type } = fileRef.current.files[0];
+      console.log(fileRef.current.files[0]);
+
+      if (type !== 'image/png' && type !== 'image/jpeg') {
+        setstatus('File must have to be a .jpg or .png file');
+      } else if (size > 1000000) {
+        setstatus('File Must Be Less than 1MB');
+      } else {
+        setstatus('');
+        setImgPath(URL.createObjectURL(fileRef.current.files[0]));
+      }
     }
   };
   return (
@@ -60,14 +72,14 @@ function Login(props) {
               type="file"
               ref={fileRef}
               name="profile-pic"
-              onChange={lol}
+              onChange={fileSet}
               hidden
-              accept="image/*"
+              accept="image/jpeg, image/png"
             />
             <img src={imgPath !== '' ? imgPath : '/user.svg'} alt="p" />
             <div className="text">
               <h3>Click Here to Upload Profile Pic</h3>
-              <p>It would have better if the image is square and in 200px.</p>
+              <p>File Size Limit is 1 MB & Only *.jpg and *.png files are allowed</p>
             </div>
           </div>
           <div className="signup-field-group">
