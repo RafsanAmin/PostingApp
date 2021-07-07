@@ -1,0 +1,163 @@
+.topbar {
+  // border: 2px solid #000;
+  box-shadow: 1px 5px 10px 1px rgba(0, 0, 0, 0.192);
+  padding: 0.5rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  .brand {
+    display: flex;
+    align-items: center;
+    h1 {
+      font-size: 1.75rem;
+      font-weight: bold;
+      font-family: Jost;
+      color: $blue-darker;
+    }
+    i {
+      font-size: 1.75rem;
+      font-weight: bold;
+      color: $blue-darker;
+
+      padding-right: 0.75rem;
+      color: $blue-primary;
+      pointer-events: none;
+    }
+  }
+  .icons-container {
+    display: flex;
+    .toggler {
+      display: none;
+    }
+    .icons {
+      display: flex;
+      justify-content: center;
+      .button {
+        display: flex;
+        font-size: 1.75rem;
+        cursor: pointer;
+        padding: 0rem 2rem;
+        margin: 0 1rem;
+        border-radius: 6px;
+        transition: 0.3s linear;
+        &:hover {
+          background-color: $blue-lightest;
+        }
+        &:active {
+          background-color: $blue-lighter;
+        }
+        p {
+          display: none;
+        }
+        i {
+          color: $blue-primary;
+          padding: 0.25rem 0 0.4rem 0;
+        }
+      }
+
+      .active {
+        i {
+          border-bottom: 3px solid $blue-dark;
+        }
+      }
+    }
+  }
+}
+@media only screen and (max-width: 700px) {
+  .topbar {
+    position: relative;
+    overflow-x: clip;
+    overflow-y: visible;
+    .brand {
+      h1 {
+        display: none;
+      }
+    }
+    .icons-container {
+      order: 3;
+      .toggler {
+        display: block;
+        button {
+          font-size: 1.75rem;
+          background-color: #fff;
+          border: none;
+          appearance: none;
+          cursor: pointer;
+          padding: 0rem 1rem;
+          margin: 0;
+          border-radius: 6px;
+          transition: 0.3s linear;
+          &:hover {
+            background-color: $blue-lightest;
+          }
+          &:active {
+            background-color: $blue-lighter;
+          }
+          i {
+            width: 100%;
+            color: $blue-primary;
+            padding: 0.25rem 0 0.4rem 0;
+          }
+        }
+      }
+      .icons {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        padding: 2rem 3rem;
+        transition: 0.3s ease-in-out;
+        box-shadow: 1px 5px 10px 1px rgba(0, 0, 0, 0.192);
+        background-color: #fff;
+
+        .button {
+          width: 100%;
+          border: 0;
+          margin: 0;
+          border-right: 3px solid transparent;
+          display: flex;
+          align-items: center;
+          justify-content: flex-start;
+          font-size: 1rem;
+          position: relative;
+          padding: 0.25rem 1rem 0.25rem 0.5rem;
+          margin: 0.25rem 1rem 0.25rem 0;
+          p {
+            display: inline-block;
+            text-align: right;
+            font-size: 1.25rem;
+            color: $blue-darker;
+            font-weight: 500;
+          }
+          i {
+            width: 40px;
+            font-size: 1.75rem;
+            color: $blue-primary;
+            padding: 0.25rem 0.75rem 0.25rem 0;
+          }
+        }
+        .active {
+          i {
+            border: 0;
+          }
+          &::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 3px;
+            height: 100%;
+            background-color: $blue-dark;
+          }
+        }
+      }
+      .on {
+        right: 0;
+      }
+      .off {
+        right: -100%;
+      }
+    }
+  }
+}

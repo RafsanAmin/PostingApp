@@ -1,0 +1,13 @@
+@mixin grid_cent(
+  $place-just: center,
+  $place-align: center,
+  $row: auto,
+  $column: auto
+) {
+  display: grid;
+  justify-items: center;
+  align-items: center;
+}
+@mixin shadow {
+  box-shadow: 1px 5px 10px 1px rgba(0, 0, 0, 0.192);
+}
