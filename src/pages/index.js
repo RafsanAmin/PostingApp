@@ -10,9 +10,9 @@ export default function Home() {
     const authen = async () => {
       const status = await UserAuthenAPI.authen();
       if (status.done) {
-        Router.push('/api/hello');
+        Router.push('/App/Post');
       } else {
-        Router.push('/userauth/login');
+        Router.push('/Userauth/Login');
       }
     };
     authen();

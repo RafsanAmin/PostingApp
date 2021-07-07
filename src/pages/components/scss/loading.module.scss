@@ -1,0 +1,40 @@
+.loadNone {
+  width: 0;
+  height: 0;
+  position: absolute;
+}
+.loadingCont {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -25%);
+  width: 75px;
+  height: 75px;
+  background: url("/loading.svg") no-repeat center center/cover;
+  z-index: 6;
+  animation: loading 0.7s infinite linear;
+  transform-origin: center center;
+  @keyframes loading {
+    0% {
+      transform: translate(-50%, -50%) rotate(0deg);
+    }
+    100% {
+      transform: translate(-50%, -50%) rotate(360deg);
+    }
+  }
+}
+.loading {
+  position: relative;
+  transition: 0.3s linear;
+  pointer-events: none;
+  & > div {
+    transition: 0.3s linear;
+    opacity: 0.3;
+  }
+}
+.signup-load-cont {
+  left: 25%;
+}
+.verify-load-cont {
+  left: 75%;
+}
