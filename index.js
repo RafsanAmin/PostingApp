@@ -14,6 +14,7 @@ const handle = nextApp.getRequestHandler();
 const port = process.env.PORT || 80;
 app.use(cors({ origin: "http://localhost:3000", credentials: true }));
 app.use(cookieParser());
+app.enable('trust proxy');
 app.use(function(request, response, next) {
 
     if (process.env.NODE_ENV != 'development' && !request.secure) {
