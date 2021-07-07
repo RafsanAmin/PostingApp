@@ -1,22 +1,19 @@
 /* eslint-disable no-undef */
 /* eslint-disable prefer-promise-reject-errors */
-import Axios from "axios";
+import Axios from 'axios';
 
 Axios.interceptors.response.use(
   (response) => response,
-  (err) => err.response,
+  (err) => err.response
 );
 class UserAuthenAPIClass {
   uploadProfilePic = (files, user) =>
     new Promise((resolve, reject) => {
       const formData = new FormData();
-      formData.append("username", user);
-      formData.append("profile-pic", files);
+      formData.append('username', user);
+      formData.append('profile-pic', files);
 
-      Axios.post(
-        "https://rafpost.herokuapp.com/uh/addProfilePic",
-        formData,
-      ).then((res) => {
+      Axios.post('https://rafpost.herokuapp.com/uh/addProfilePic', formData).then((res) => {
         if (res.data.success) {
           resolve(true);
         } else {
@@ -27,7 +24,7 @@ class UserAuthenAPIClass {
 
   login = ({ username, password, remMe }) =>
     new Promise((resolve, reject) => {
-      Axios.get("https://rafpost.herokuapp.com/uh/login", {
+      Axios.get('https://rafpost.herokuapp.com/uh/login', {
         params: {
           username,
           password,
@@ -38,7 +35,7 @@ class UserAuthenAPIClass {
         .then((res) => {
           if (res.status !== 200) {
             if (!res.data.massage) {
-              reject({ data: { massage: "An unexpected error occured" } });
+              reject({ data: { massage: 'An unexpected error occured' } });
             } else {
               reject(res);
             }
@@ -47,15 +44,13 @@ class UserAuthenAPIClass {
           }
         })
         .catch(() => {
-          reject({ err: { massage: "An Unexpected Error Occured" } });
+          reject({ err: { massage: 'An Unexpected Error Occured' } });
         });
     });
 
   authen = () =>
     new Promise((resolve, reject) => {
-      Axios.get("https://rafpost.herokuapp.com/uh/authen", {
-        withCredentials: true,
-      })
+      Axios.get('https://rafpost.herokuapp.com/uh/authen', { withCredentials: true })
         .then((res) => {
           if (res.data.done === true || res.data.done === false) {
             resolve(res.data);
@@ -64,7 +59,7 @@ class UserAuthenAPIClass {
           }
         })
         .catch(() => {
-          reject("Error");
+          reject('Error');
         });
     });
 
@@ -75,20 +70,18 @@ class UserAuthenAPIClass {
       const password = pass.trim();
       const confirmPassword = confPass.trim();
       const email = eml.trim();
-      if (username !== "" || password !== "" || email !== "") {
+      if (username !== '' || password !== '' || email !== '') {
         if (password.length < 8) {
           reject({
-            data: { massage: "Password Must Be more Than 8 Characters" },
+            data: { massage: 'Password Must Be more Than 8 Characters' },
           });
         } else if (
-          !/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(
-            email,
-          )
+          !/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(email)
         ) {
-          reject({ data: { massage: "Give Valid Email" } });
+          reject({ data: { massage: 'Give Valid Email' } });
         } else if (password !== confirmPassword) {
           reject({
-            data: { massage: "Password and Confirm Password are not equal" },
+            data: { massage: 'Password and Confirm Password are not equal' },
           });
         } else {
           const sendData = {
@@ -96,35 +89,35 @@ class UserAuthenAPIClass {
             password,
             email,
             likedPosts: [],
-            profilePic: "",
+            profilePic: '',
           };
-          Axios.post("https://rafpost.herokuapp.com/uh/signup", sendData).then(
-            (res) => {
-              if (res.data.exists === false && res.data.done === true) {
-                this.uploadProfilePic(profilePic, res.data.id).then((resp) => {
-                  if (!resp) {
-                    reject({ data: { massage: "Cannot Upload Photo" } });
-                  } else {
-                    resolve(res.data);
-                  }
-                });
-              } else {
-                reject(res);
-              }
-            },
-          );
+          Axios.post('https://rafpost.herokuapp.com/uh/signup', sendData).then((res) => {
+            if (res.data.exists === false && res.data.done === true) {
+              this.uploadProfilePic(profilePic, res.data.id).then((resp) => {
+                if (!resp) {
+                  reject({ data: { massage: 'Cannot Upload Photo' } });
+                } else {
+                  resolve(res.data);
+                }
+              });
+            } else {
+              reject(res);
+            }
+          });
         }
       } else {
-        reject({ data: { massage: "Everything is Required" } });
+        reject({ data: { massage: 'Everything is Required' } });
       }
     });
 
   logout = () =>
-    new Promise((resolve) => {
-      Axios.get("https://rafpost.herokuapp.com/uh/logout", {
-        withCredentials: true,
-      }).then(() => {
-        resolve("hi");
+    new Promise((resolve, reject) => {
+      Axios.get('https://rafpost.herokuapp.com/uh/logout', { withCredentials: true }).then((res) => {
+        if (res.data.done) {
+          resolve(true);
+        } else {
+          reject(false);
+        }
       });
     });
 
@@ -135,39 +128,49 @@ class UserAuthenAPIClass {
       const password = pass.trim();
       const confirmPassword = confPass.trim();
       const email = eml.trim();
-      if (username !== "" || password !== "" || email !== "") {
+      if (username !== '' || password !== '' || email !== '') {
         if (password.length < 8) {
           reject({
-            data: { massage: "Password Must Be more Than 8 Characters" },
+            data: { massage: 'Password Must Be more Than 8 Characters' },
           });
         } else if (
-          !/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(
-            email,
-          )
+          !/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(email)
         ) {
-          reject({ data: { massage: "Give Valid Email" } });
+          reject({ data: { massage: 'Give Valid Email' } });
         } else if (password !== confirmPassword) {
           reject({
-            data: { massage: "Password and Confirm Password are not equal" },
+            data: { massage: 'Password and Confirm Password are not equal' },
           });
         } else {
           const sendData = {
             user,
             email,
           };
-          Axios.post("https://rafpost.herokuapp.com/uh/verify", sendData).then(
-            (res) => {
-              if (res.data.success && !res.data.exists) {
-                resolve(res.data);
-              } else {
-                reject(res);
-              }
-            },
-          );
+          Axios.post('https://rafpost.herokuapp.com/uh/verify', sendData).then((res) => {
+            if (res.data.success && !res.data.exists) {
+              resolve(res.data);
+            } else {
+              reject(res);
+            }
+          });
         }
       } else {
-        reject({ data: { massage: "Everything is Required" } });
+        reject({ data: { massage: 'Everything is Required' } });
       }
+    });
+
+  getProfilePicPath = () =>
+    new Promise((resolve, reject) => {
+      Axios.get('https://rafpost.herokuapp.com/uh/getProfilePicLink', { withCredentials: true })
+        .then((res) => {
+          const data = res.data.url;
+          if (data) {
+            resolve(res.data.url);
+          } else {
+            reject({ msg: 'an error occured' });
+          }
+        })
+        .catch({ msg: 'An Error Occured' });
     });
 }
 const UserAuthenAPI = new UserAuthenAPIClass();
