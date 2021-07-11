@@ -9,17 +9,22 @@ Axios.interceptors.response.use(
 class UserAuthenAPIClass {
   uploadProfilePic = (files, user) =>
     new Promise((resolve, reject) => {
-      const formData = new FormData();
-      formData.append('username', user);
-      formData.append('profile-pic', files);
+      console.log(files);
+      if (!files) {
+        resolve(true);
+      } else {
+        const formData = new FormData();
+        formData.append('username', user);
+        formData.append('profile-pic', files);
 
-      Axios.post('https://rafpost.herokuapp.com/uh/addProfilePic', formData).then((res) => {
-        if (res.data.success) {
-          resolve(true);
-        } else {
-          reject(false);
-        }
-      });
+        Axios.post('https://rafpost.herokuapp.com/uh/addProfilePic', formData).then((res) => {
+          if (res.data.success) {
+            resolve(true);
+          } else {
+            reject(false);
+          }
+        });
+      }
     });
 
   login = ({ username, password, remMe }) =>
