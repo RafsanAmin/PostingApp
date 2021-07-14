@@ -34,17 +34,18 @@ function Profile(props) {
   };
   return (
     <div className={Styles.ProfileContainer} onClick={toggleMenu}>
-      <img
-        src={imgPath}
-        style={{ borderRadius: '50%' }}
-        onError={() => setImgPath('/user.svg')}
-        width="40px"
-        alt="profilePic"
-      />
+      <div className={Styles.img}>
+        <img src={imgPath} onError={() => setImgPath('/user.svg')} alt="profilePic" />
+      </div>
+
       <div className={`${Styles.ProfileMenu} ${toggle ? Styles.on : Styles.off}`} onClick={logout}>
         <div className={Styles.MenuItem}>
           <i className="fas fa-sign-in-alt" />
           <p>LogOut</p>
+        </div>
+        <div className={Styles.MenuItem}>
+          <i className="fas fa-info-circle" />
+          <p>About</p>
         </div>
       </div>
     </div>

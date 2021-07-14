@@ -3,7 +3,7 @@ const express = require('express');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const cookieParser = require('cookie-parser');
-
+const busboy = require('connect-busboy');
 const uh = express.Router();
 require('dotenv').config({ path: `${__dirname}../../.env` });
 
@@ -18,7 +18,9 @@ const randomNumber = require('../../library/randomNumber');
 mailerTransport.setApiKey(pass);
 uh.use(cookieParser());
 uh.use(express.json());
-
+uh.use(busboy({
+    highWaterMark: 2 * 1024 * 1024, // Set 2MiB buffer
+}));
 uh.get('/login', async (req, res, next) => {
   const { username, password, remMe } = req.query;
   await UserModelDB.findOne({ username }, async (err, data) => {
@@ -85,7 +87,7 @@ uh.post('/signup', async (req, res, next) => {
         });
       }
     });
-  } else {
+  } else { 
     res.json({ massage: 'User Already Exists', success: false, exists: true });
   }
 });
@@ -96,7 +98,7 @@ uh.post('/verify', async (req, res, next) => {
   const { user, email } = req.body;
   const number = randomNumber(7);
   const alExist = await UserModelDB.exists({ username: user });
-  console.log(user);
+  console.log(user); 
   if (!alExist) {
     const sendMail = {
       from: 'rafpost001@gmail.com',

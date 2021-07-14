@@ -75,39 +75,52 @@
     place-items: center;
     cursor: pointer;
     position: relative;
-    img {
+    .img {
+      display: grid;
+      place-items: center;
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
       box-sizing: content-box;
       border: 5px solid transparent;
       transition: 0.3s linear;
-    }
-    img:hover {
-      border: 5px solid $grey-lightest;
-    }
-    img:active {
-      border: 5px solid $grey-lighter;
+      overflow: hidden;
+      img {
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+        border: 2px solid $blue-dark;
+        padding: 2px;
+      }
+      &:hover {
+        border: 5px solid $grey-lightest;
+      }
+      &:active {
+        border: 5px solid $grey-lighter;
+      }
     }
 
     .ProfileMenu {
       position: absolute;
       width: 75vw;
-      max-width: 250px;
+      max-width: 200px;
       top: 135%;
       left: 10%;
       background-color: #fff;
-      padding: 1.5rem 1rem;
+      padding: 1rem 1rem;
       border-radius: 5px;
       transition: 0.15s linear;
       @include shadow;
       .MenuItem {
         display: flex;
         align-items: center;
-        justify-content: center;
+        justify-content: flex-start;
         border-radius: 5px;
         padding: 0.25rem;
         transition: 0.15s linear;
         i {
           background-color: $blue-lightest;
-          font-size: 1.5rem;
+          font-size: 1.4rem;
           color: $blue-primary;
           padding: 0.75rem;
           margin-right: 1rem;
@@ -116,7 +129,7 @@
           place-items: center;
         }
         p {
-          font-size: 1.3rem;
+          font-size: 1.2rem;
           color: $blue-light;
           font-weight: 500;
         }

@@ -1,6 +1,4 @@
-const multer = require("multer");
 const cloudinary = require("cloudinary").v2;
-const stream = require("streamifier");
 require("dotenv").config({ path: __dirname + "../../.env" });
 cloudinary.config({
   cloud_name: process.env["CLOUD_NAME"],
@@ -8,15 +6,13 @@ cloudinary.config({
   api_secret: process.env["API_SECRET"],
   secure: true,
 });
-const uploadProfilePicConfig = multer({
-  storage: multer.memoryStorage(),
-}).single("profile-pic");
-const uploadProfilePic = (req, res) => {
-  uploadProfilePicConfig(req, res, (err) => {
-    if (err instanceof multer.MulterError) {
-      console.log(err);
-      res.json({ success: false, massage: `${err}` });
-    }
+const uploadProfilePic =(req, res) => {
+  console.log(req.body);
+  req.pipe(req.busboy);
+  req.busboy.on('field', (fieldname, val) => {
+    req.body[fieldname] = val;
+  })
+  req.busboy.on('file', (fieldname, file, filename) => {
     const uploadStream = cloudinary.uploader.upload_stream(
       {
         folder: "profilepic",
@@ -30,7 +26,7 @@ const uploadProfilePic = (req, res) => {
         res.json({ success: true, massage: "hello" });
       },
     );
-    stream.createReadStream(req.file.buffer).pipe(uploadStream);
-  });
-};
+    file.pipe(uploadStream);
+  })
+} 
 module.exports = uploadProfilePic;

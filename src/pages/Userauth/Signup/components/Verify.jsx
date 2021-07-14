@@ -5,7 +5,7 @@ import Input from '../../../components/Input';
 import Loading from '../../../components/Loading';
 
 const Verify = (props) => {
-  const { uinf, sui } = props;
+  const { uinf, sui, alertBox } = props;
   const [verCode, setVerCode] = useState('');
   const [status, setStatus] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -18,16 +18,29 @@ const Verify = (props) => {
     try {
       const x = await UserAuthenAPI.signUp(uinf);
       setStatus({ success: true, massage: x.massage });
-      // eslint-disable-next-line no-undef
+      alertBox({ state: true, title: 'Signup Successful!', desc: x.massage, type: 'success' });
       setTimeout(() => {
         Router.push('/Userauth/Login');
       }, 3000);
       setLoading(false);
     } catch (err) {
       setStatus({ massage: err.data.massage });
+      alertBox({ state: true, title: 'Error!', desc: err.data.massage, type: 'error' });
       setLoading(false);
     }
   };
+  useEffect(() => {
+    const listen = (e) => {
+      if (e.which === 13) {
+        signin();
+      }
+    };
+    document.addEventListener('keypress', listen);
+    return () => {
+      document.removeEventListener('keypress', listen);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [verCode]);
   return (
     <>
       <Loading classP="verify" contClass="signup-verify" loadState={loading}>
@@ -62,10 +75,6 @@ const Verify = (props) => {
             setValue={setVerCode}
             classP="verify"
           />
-          <p className={status.success ? 'succ' : 'failed'}>
-            {status.success ? <i className="far fa-check-circle" /> : null}
-            {status.massage}
-          </p>
           <div className="buttons">
             <button type="button" disabled={!status} onClick={signin}>
               Verify

@@ -1,7 +1,6 @@
 import Styles from './scss/loading.module.scss';
 
 const Loading = (props) => {
-  console.log(props);
   const { classP, contClass, loadState, children } = props;
   return (
     <>

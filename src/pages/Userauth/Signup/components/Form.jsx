@@ -1,25 +1,24 @@
 /* sfeslint-disable @next/next/no-img-element */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
-import { useRouter } from 'next/router';
-import React, { useRef, useState } from 'react';
+import Link from 'next/link';
+import React, { useEffect, useRef, useState } from 'react';
 import UserAuthenAPI from '../../../../API/UserAuthen';
 import Checkbox from '../../../components/checkbox';
 import Input from '../../../components/Input';
 import Loading from '../../../components/Loading';
 
 function Login(props) {
-  const { sui } = props;
+  const { sui, alertBox } = props;
   const [User, setUser] = useState('');
   const [Pass, setPass] = useState('');
   const [ConfirmPassword, setConfirmPassword] = useState('');
   const [Email, setEmail] = useState('');
-  const [status, setstatus] = useState('');
   const [remMe, setRemMe] = useState(true);
   const [imgPath, setImgPath] = useState('');
   const [loading, setLoading] = useState(false);
   const fileRef = useRef(null);
-  const Router = useRouter();
   const remMeLabel = 'Remember that You have to verify via Email to SignUp. Do You Agree ?';
+
   const setSignUP = async () => {
     setLoading(true);
     try {
@@ -33,13 +32,24 @@ function Login(props) {
       const verficationCode = await UserAuthenAPI.verifyMail(UserInfo);
       console.log(verficationCode);
       sui({ ...UserInfo, code: verficationCode.verification });
-      setstatus(UserInfo.massage);
       setLoading(false);
     } catch (err) {
-      setstatus(err.data.massage);
+      alertBox({ state: true, title: 'Error!', desc: err.data.massage, type: 'error' });
       setLoading(false);
     }
   };
+  useEffect(() => {
+    const listen = (e) => {
+      if (e.which === 13) {
+        setSignUP();
+      }
+    };
+    document.addEventListener('keypress', listen);
+    return () => {
+      document.removeEventListener('keypress', listen);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [User, Pass, ConfirmPassword, Email, remMe, imgPath]);
   const uploadClick = () => {
     fileRef.current.click();
   };
@@ -51,11 +61,20 @@ function Login(props) {
       console.log(fileRef.current.files[0]);
 
       if (type !== 'image/png' && type !== 'image/jpeg') {
-        setstatus('File must have to be a .jpg or .png file');
+        alertBox({
+          state: true,
+          title: 'Error!',
+          desc: 'File must have to be a .jpg or .png file',
+          type: 'error',
+        });
       } else if (size > 1000000) {
-        setstatus('File Must Be Less than 1MB');
+        alertBox({
+          state: true,
+          title: 'Error!',
+          desc: 'File Must Be Less than 1MB',
+          type: 'error',
+        });
       } else {
-        setstatus('');
         setImgPath(URL.createObjectURL(fileRef.current.files[0]));
       }
     }
@@ -125,15 +144,9 @@ function Login(props) {
             </button>
           </div>
           <div className="signup-foot">
-            <button
-              type="button"
-              onClick={() => {
-                Router.push('/Userauth/Login');
-              }}
-            >
-              Have Account? Login
-            </button>
-            <p>{status}</p>
+            <Link href="/Userauth/Login">
+              <button type="button">Have Account? Login</button>
+            </Link>
           </div>
         </div>
       </Loading>

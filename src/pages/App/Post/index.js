@@ -28,7 +28,7 @@ const PostApp = () => {
       <Head>
         <title>Rafpost - Postapp</title>
       </Head>
-      <div className="postapp-window">
+      <div style={{ height: '5000px' }} className="postapp-window">
         <PageInfoContext.Provider value={pageInfo}>
           <TopBar />
         </PageInfoContext.Provider>
