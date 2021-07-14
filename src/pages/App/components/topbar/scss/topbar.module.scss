@@ -73,9 +73,9 @@
     flex: 1;
     display: grid;
     place-items: center;
-    cursor: pointer;
     position: relative;
     .img {
+      cursor: pointer;
       display: grid;
       place-items: center;
       width: 45px;
@@ -112,6 +112,7 @@
       transition: 0.15s linear;
       @include shadow;
       .MenuItem {
+        cursor: pointer;
         display: flex;
         align-items: center;
         justify-content: flex-start;
@@ -134,7 +135,7 @@
           font-weight: 500;
         }
         &:hover {
-          background-color: lighten($color: $blue-lightest, $amount: 4);
+          background-color: lighten($color: $blue-lightest, $amount: 2);
         }
         &:active {
           background-color: $blue-lightest;

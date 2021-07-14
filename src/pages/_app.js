@@ -22,7 +22,7 @@ function MyApp({ Component, pageProps }) {
           textAlign: 'right',
         }}
       >
-        Indev v0.3.6
+        Indev v0.3.9
         <br />
         It is not finished yet so it is missing many features and has major issues
       </p>

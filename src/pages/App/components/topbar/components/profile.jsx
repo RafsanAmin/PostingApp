@@ -33,13 +33,13 @@ function Profile(props) {
     }
   };
   return (
-    <div className={Styles.ProfileContainer} onClick={toggleMenu}>
-      <div className={Styles.img}>
+    <div className={Styles.ProfileContainer}>
+      <div className={Styles.img} onClick={toggleMenu}>
         <img src={imgPath} onError={() => setImgPath('/user.svg')} alt="profilePic" />
       </div>
 
-      <div className={`${Styles.ProfileMenu} ${toggle ? Styles.on : Styles.off}`} onClick={logout}>
-        <div className={Styles.MenuItem}>
+      <div className={`${Styles.ProfileMenu} ${toggle ? Styles.on : Styles.off}`}>
+        <div className={Styles.MenuItem} onClick={logout}>
           <i className="fas fa-sign-in-alt" />
           <p>LogOut</p>
         </div>
