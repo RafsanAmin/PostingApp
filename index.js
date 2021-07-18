@@ -21,7 +21,6 @@ app.use((request, response, next) => {
   if (process.env.NODE_ENV != 'development' && !request.secure) {
     return response.redirect(`https://${request.headers.host}${request.url}`);
   }
-
   next();
 });
 nextApp

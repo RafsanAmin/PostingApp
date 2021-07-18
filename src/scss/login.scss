@@ -214,3 +214,29 @@
     }
   }
 }
+
+@media only screen and (max-height: 780px) {
+  .login-page-cont {
+    .login-form-cont {
+      width: 100%;
+      height: 100%;
+      .login-form {
+        border: {
+          radius: 0;
+        }
+      }
+      .login-brand-cont {
+        border: {
+          radius: 0;
+        }
+      }
+    }
+  }
+}
+@media only screen and (max-height: 624px) {
+  .login-page-cont {
+    .login-form-cont {
+      overflow-y: scroll;
+    }
+  }
+} ;

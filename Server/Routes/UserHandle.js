@@ -127,6 +127,7 @@ uh.post('/verify', async (req, res, next) => {
 });
 uh.get('/getProfilePicLink', async(req, res, next) => {
   let jwtToken = req.cookies.jwt;
+  console.log(jwtToken);
   const verified = jwt.verify(jwtToken, secret);
   res.json({url: `https://res.cloudinary.com/dyjrfa6c2/image/upload/profilepic/${verified.id}`})
 })

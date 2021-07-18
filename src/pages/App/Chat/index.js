@@ -1,4 +1,4 @@
-import PageInfoContext from '../../../Contexts/PageInfoContext';
+import AppContext from '../../../Contexts/AppContext';
 import TopBar from '../components/topbar/topbar';
 
 const pageInfo = {
@@ -20,10 +20,10 @@ const tempstyle = {
 };
 const ChatApp = () => (
   <div style={tempstyle.cont} className="chatapp-window">
-    <PageInfoContext.Provider value={pageInfo}>
+    <AppContext.Provider value={{ state: pageInfo }}>
       <TopBar />
       <h1 style={tempstyle.head}>Feature isnt Available</h1>
-    </PageInfoContext.Provider>
+    </AppContext.Provider>
   </div>
 );
 

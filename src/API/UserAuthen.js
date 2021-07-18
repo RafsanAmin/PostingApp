@@ -6,7 +6,15 @@ Axios.interceptors.response.use(
   (response) => response,
   (err) => err.response
 );
+
 class UserAuthenAPIClass {
+  getURL = () => {
+    if (process.env.NODE_ENV !== 'development') {
+      return 'https://rafpost.herokuapp.com';
+    }
+    return 'http://localhost';
+  };
+
   uploadProfilePic = (files, user) =>
     new Promise((resolve, reject) => {
       console.log(files);
@@ -17,7 +25,7 @@ class UserAuthenAPIClass {
         formData.append('username', user);
         formData.append('profile-pic', files);
 
-        Axios.post('https://rafpost.herokuapp.com/uh/addProfilePic', formData).then((res) => {
+        Axios.post(`${this.getURL()}/uh/addProfilePic`, formData).then((res) => {
           if (res.data.success) {
             resolve(true);
           } else {
@@ -29,7 +37,8 @@ class UserAuthenAPIClass {
 
   login = ({ username, password, remMe }) =>
     new Promise((resolve, reject) => {
-      Axios.get('https://rafpost.herokuapp.com/uh/login', {
+      console.log(this.getURL());
+      Axios.get(`${this.getURL()}/uh/login`, {
         params: {
           username,
           password,
@@ -55,7 +64,7 @@ class UserAuthenAPIClass {
 
   authen = () =>
     new Promise((resolve, reject) => {
-      Axios.get('https://rafpost.herokuapp.com/uh/authen', { withCredentials: true })
+      Axios.get(`${this.getURL()}/uh/authen`, { withCredentials: true })
         .then((res) => {
           if (res.data.done === true || res.data.done === false) {
             resolve(res.data);
@@ -96,7 +105,7 @@ class UserAuthenAPIClass {
             likedPosts: [],
             profilePic: '',
           };
-          Axios.post('https://rafpost.herokuapp.com/uh/signup', sendData).then((res) => {
+          Axios.post(`${this.getURL()}/uh/signup`, sendData).then((res) => {
             if (res.data.exists === false && res.data.done === true) {
               this.uploadProfilePic(profilePic, res.data.id).then((resp) => {
                 if (!resp) {
@@ -117,7 +126,7 @@ class UserAuthenAPIClass {
 
   logout = () =>
     new Promise((resolve, reject) => {
-      Axios.get('https://rafpost.herokuapp.com/uh/logout', { withCredentials: true }).then((res) => {
+      Axios.get(`${this.getURL()}/uh/logout`, { withCredentials: true }).then((res) => {
         if (res.data.done) {
           resolve(true);
         } else {
@@ -151,7 +160,7 @@ class UserAuthenAPIClass {
             user,
             email,
           };
-          Axios.post('https://rafpost.herokuapp.com/uh/verify', sendData).then((res) => {
+          Axios.post(`${this.getURL()}/uh/verify`, sendData).then((res) => {
             if (res.data.success && !res.data.exists) {
               resolve(res.data);
             } else {
@@ -166,7 +175,7 @@ class UserAuthenAPIClass {
 
   getProfilePicPath = () =>
     new Promise((resolve, reject) => {
-      Axios.get('https://rafpost.herokuapp.com/uh/getProfilePicLink', { withCredentials: true })
+      Axios.get(`${this.getURL()}/uh/getProfilePicLink`, { withCredentials: true })
         .then((res) => {
           const data = res.data.url;
           if (data) {

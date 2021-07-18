@@ -8,6 +8,29 @@
   justify-items: center;
   align-items: center;
 }
-@mixin shadow {
-  box-shadow: 1px 5px 10px 1px rgba(0, 0, 0, 0.192);
+@mixin shadow(
+  $color: rgba(0, 0, 0, 0.192),
+  $a: 1px,
+  $b: 5px,
+  $c: 10px,
+  $d: 1px
+) {
+  box-shadow: $a $b $c $d $color;
+}
+@mixin input {
+  transition: 0.3s ease-in-out;
+  font-size: 1rem;
+  resize: none;
+  border: 1px solid $grey-lighter;
+  $color: opacify(
+    $color: $blue-lighter,
+    $amount: 0.02,
+  );
+  border-radius: 5px;
+  padding: 0.5rem 1rem;
+  color: #000;
+  &:focus {
+    border: 1px solid $blue-light;
+    @include shadow($color, 0px, 0px, 1px, 3.5px);
+  }
 }

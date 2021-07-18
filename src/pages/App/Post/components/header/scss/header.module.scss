@@ -1,0 +1,93 @@
+@import "../../../../../../scss/global/global";
+
+.headerCont {
+  display: grid;
+  place-items: center;
+  padding-top: 2rem;
+  & > div {
+    width: 100%;
+    max-width: 400px;
+    display: grid;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    justify-items: center;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr;
+    .addPostCont {
+      width: 100%;
+      max-width: 190px;
+      height: 100%;
+      margin: 0 0rem 0 0;
+      background-color: #fff;
+      border: 1.5px solid $grey-light;
+      border-radius: 5px;
+      padding: 1rem 2rem;
+      cursor: pointer;
+      transition: all 0.2s linear;
+      .text {
+        font-size: 1.1rem;
+        padding: 0 0 0.5rem 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        i {
+          font-size: 1.5rem;
+          padding-right: 0.25rem;
+          color: $blue-primary;
+        }
+        p {
+          color: $blue-darker;
+          font-weight: 500;
+        }
+      }
+      .image {
+        width: 5rem;
+      }
+      &:hover {
+        border-color: $blue-primary;
+        @include shadow;
+      }
+    }
+  }
+  .clockContP {
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    border: 1.5px solid $blue-light;
+    padding: 1rem;
+    border-radius: 5px;
+    height: 100%;
+    i {
+      font-size: 3rem;
+      color: $blue-dark;
+    }
+    h1 {
+      font-family: cascadia mono;
+      color: $blue-primary;
+      font-size: 1.6rem;
+    }
+    h3 {
+      color: $blue-dark;
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+  }
+}
+@media only screen and (max-width: 410px) {
+  .headerCont {
+    & > div {
+      grid-template-columns: 1fr;
+      grid-template-rows: 1fr 1fr;
+      .addPostCont {
+        max-width: 90%;
+        grid-row: 2 / 3;
+        margin-top: 0.5rem;
+      }
+      .clockContP {
+        width: 90%;
+        grid-row: 1 / 2;
+      }
+    }
+  }
+}

@@ -1,15 +1,15 @@
 /* eslint-disable consistent-return */
 import Link from 'next/link';
 import { useContext, useState } from 'react';
-import PageInfoContext from '../../../../../Contexts/PageInfoContext';
+import AppContext from '../../../../../Contexts/AppContext';
 
 function Icons(props) {
   const { Styles } = props;
   const [toggle, setToggle] = useState(false);
-  const pageName = useContext(PageInfoContext);
-
+  const { state } = useContext(AppContext);
+  console.log(state);
   const activeSelector = (name) => {
-    if (pageName.name === name) {
+    if (state.name === name) {
       return Styles.active;
     }
     return Styles.none;
@@ -28,7 +28,8 @@ function Icons(props) {
       <div className={`${Styles.icons} ${toggle ? Styles.on : Styles.off}`}>
         <Link href="/App/Post">
           <div className={`${Styles.button} ${activeSelector('post')}`}>
-            <i className="fas fa-file-invoice" />
+            <img width="28" src="/posts.svg" alt="" />
+
             <p type="button" name="post">
               Post
             </p>

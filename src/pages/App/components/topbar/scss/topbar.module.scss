@@ -62,7 +62,8 @@
       }
 
       .active {
-        i {
+        i,
+        img {
           border-bottom: 3px solid $blue-dark;
         }
       }
@@ -109,8 +110,9 @@
       background-color: #fff;
       padding: 1rem 1rem;
       border-radius: 5px;
-      transition: 0.15s linear;
+      transition: all 0.3s ease-in-out;
       @include shadow;
+      overflow: hidden;
       .MenuItem {
         cursor: pointer;
         display: flex;
@@ -143,10 +145,12 @@
       }
     }
     .on {
-      opacity: 1;
+      max-height: 200px;
     }
     .off {
-      opacity: 0;
+      max-height: 0;
+      padding: 0 1rem;
+      box-shadow: none;
     }
   }
 }
@@ -229,12 +233,16 @@
             color: $blue-primary;
             padding: 0.25rem 0.75rem 0.25rem 0;
           }
+          img {
+            margin: 0.15rem 17px 0.15rem 0;
+          }
           &:hover {
             background-color: $blue-lighter;
           }
         }
         .active {
-          i {
+          i,
+          img {
             border: 0;
           }
           &::before {
@@ -266,6 +274,19 @@
         top: 120%;
         left: auto;
         right: 5%;
+      }
+    }
+  }
+}
+@media only screen and (min-width: 1400px) {
+  .topbar {
+    .ProfileContainer {
+      position: relative;
+      .ProfileMenu {
+        position: absolute;
+        top: 120%;
+        left: auto;
+        left: 25%;
       }
     }
   }
