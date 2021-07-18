@@ -80,7 +80,7 @@ class UserAuthenAPIClass {
   signUp = (newUser) =>
     new Promise((resolve, reject) => {
       const { user, pass, eml, profilePic, confPass } = newUser;
-      const username = user.trim().toLowerCase();
+      const username = user.trim();
       const password = pass.trim();
       const confirmPassword = confPass.trim();
       const email = eml.trim();
