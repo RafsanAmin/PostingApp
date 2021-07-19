@@ -14,102 +14,152 @@
     width: 90%;
     max-width: 500px;
     height: auto;
-    max-height: 90%;
+    max-height: 80%;
     background-color: #fff;
     display: flex;
-    padding: 1.5rem 2rem 1rem 2rem;
     flex-direction: column;
     border-radius: 7.5px;
     @include shadow;
-    .inputTitle {
-      padding: 1rem 0rem;
-      input {
-        width: 100%;
-        height: auto;
-        transition: 0.3s ease-in-out;
-        font-size: 1.5rem;
-        border: 1px solid $grey-lighter;
-        $color: opacify(
-          $color: $blue-lighter,
-          $amount: 0.02,
-        );
-        border-radius: 5px;
-        padding: 0.15rem 1rem;
-        color: #000;
-        &:focus {
-          border: 1px solid $blue-light;
-          @include shadow($color, 0px, 0px, 1px, 3.5px);
-        }
-      }
-    }
-    .closeBtnCont {
-      display: block;
-      text-align: left;
-      width: 100%;
-      padding: 0.45rem 0;
-      display: flex;
-      justify-content: space-between;
-      .closeBtn {
-        border: none;
-        background-color: #fff;
-        cursor: pointer;
-        height: 40px;
-        width: 40px;
-        transition: 0.15s linear;
-        border-radius: 50%;
-        &:hover {
-          background-color: $grey-lighter;
-        }
-        &:active {
-          background-color: $grey-light;
-        }
-      }
-      .addPost {
-        color: #fff;
-        background-color: $blue-primary;
-        font-size: 1.05rem;
-        padding: 0.2em 1.75rem;
-        border: 0;
-        height: auto;
-        border-radius: 20px;
-        transition: 0.15s linear;
-        cursor: pointer;
-        &:hover {
-          background-color: $blue-dark;
-        }
-        &:active {
+    & > div {
+      padding: 1.5rem 2rem 1rem 2rem;
+      overflow-y: auto;
+      .inputTitle {
+        padding: 0.5rem 0;
+        input {
+          width: 100%;
+          height: auto;
+          transition: 0.3s ease-in-out;
+          font-size: 1.5rem;
+          border: 1px solid $grey-lighter;
           $color: opacify(
             $color: $blue-lighter,
-            $amount: 0.1,
+            $amount: 0.02,
           );
-          @include shadow($color, 0px, 0px, 0px, 4px);
+          border-radius: 5px;
+          padding: 0.15rem 1rem;
+          color: #000;
+          &:focus {
+            border: 1px solid $blue-light;
+            @include shadow($color, 0px, 0px, 1px, 3.5px);
+          }
         }
       }
-    }
-    .postTextCont {
-      width: 100%;
-      textarea {
+      .closeBtnCont {
+        display: block;
+        text-align: left;
         width: 100%;
-        height: 10rem;
-        transition: 0.3s ease-in-out;
-        font-size: 1rem;
-        resize: none;
-        border: 1px solid $grey-lighter;
-        $color: opacify(
-          $color: $blue-lighter,
-          $amount: 0.02,
-        );
-        border-radius: 5px;
-        padding: 0.5rem 1rem;
-        color: #000;
-        &:focus {
-          border: 1px solid $blue-light;
-          @include shadow($color, 0px, 0px, 1px, 3.5px);
+        padding: 0.45rem 0;
+        display: flex;
+        justify-content: space-between;
+        .closeBtn {
+          border: none;
+          background-color: #fff;
+          cursor: pointer;
+          height: 35px;
+          width: 35px;
+          font-size: 1.25rem;
+          transition: 0.15s linear;
+          border-radius: 50%;
+          color: $blue-dark;
+          &:hover {
+            background-color: $blue-lightest;
+          }
+          &:active {
+            background-color: $blue-lighter;
+          }
+        }
+        .addPost {
+          color: #fff;
+          background-color: $blue-primary;
+          font-size: 1.05rem;
+          font-weight: 500;
+          padding: 0.2em 1.75rem;
+          border: 0;
+          height: auto;
+          border-radius: 20px;
+          transition: 0.15s linear;
+          cursor: pointer;
+          &:hover {
+            background-color: $blue-dark;
+          }
+          &:active {
+            $color: opacify(
+              $color: $blue-lighter,
+              $amount: 0.1,
+            );
+            @include shadow($color, 0px, 0px, 0px, 4px);
+          }
         }
       }
+      .postTextCont {
+        width: 100%;
+        textarea {
+          width: 100%;
+          height: 10rem;
+          transition: 0.3s ease-in-out;
+          font-size: 1rem;
+          resize: none;
+          border: 1px solid $grey-lighter;
+          $color: opacify(
+            $color: $blue-lighter,
+            $amount: 0.02,
+          );
+          border-radius: 5px;
+          padding: 0.5rem 1rem;
+          color: #000;
+          &:focus {
+            border: 1px solid $blue-light;
+            @include shadow($color, 0px, 0px, 1px, 3.5px);
+          }
+        }
+      }
+      .addResources {
+        padding: 0.25rem 0 0.25rem 0;
+        .addPic {
+          border: 1px solid $blue-primary;
+          border-radius: 16px;
+          background-color: #fff;
+          cursor: pointer;
+          font-size: 1rem;
+          font-weight: 400;
+          padding: 0.2em 0.75rem;
+          color: $blue-primary;
+          transition: 0.15s linear;
+          i {
+            position: relative;
+            margin-right: 0.3rem;
+            .plus {
+              background-color: #fff;
+              position: absolute;
+              bottom: -15%;
+              right: -40%;
+              font-size: 0.25rem;
+            }
+          }
+          &:hover {
+            $color: opacify(
+              $color: $blue-lighter,
+              $amount: 0.02,
+            );
+            @include shadow($color, 0px, 0px, 1px, 3.5px);
+          }
+          &:active {
+            background-color: $blue-primary;
+            color: #fff;
+          }
+        }
+      }
+      img {
+        width: 90%;
+      }
     }
-    img {
-      width: 90%;
+  }
+}
+@media screen and (max-width: 375px) {
+  .npFormWin {
+    .npFormCont {
+      width: 95%;
+      padding: 1rem 1.25rem 1rem 1.25rem;
     }
   }
 }

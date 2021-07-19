@@ -22,7 +22,7 @@ function Icons(props) {
     <div className={Styles.iconsContainer}>
       <div className={Styles.toggler}>
         <button type="button" onClick={toggler}>
-          <i className="fas fa-align-left" />
+          {toggle ? <i className="fas fa-times" /> : <i className="fas fa-align-left" />}
         </button>
       </div>
       <div className={`${Styles.icons} ${toggle ? Styles.on : Styles.off}`}>

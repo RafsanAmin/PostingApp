@@ -12,7 +12,7 @@ class UserAuthenAPIClass {
     if (process.env.NODE_ENV !== 'development') {
       return 'https://rafpost.herokuapp.com';
     }
-    return 'http://localhost';
+    return '';
   };
 
   uploadProfilePic = (files, user) =>
