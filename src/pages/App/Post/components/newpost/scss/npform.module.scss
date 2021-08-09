@@ -12,7 +12,7 @@
     left: 50%;
     transform: translate(-50%, -50%);
     width: 90%;
-    max-width: 500px;
+    max-width: 600px;
     height: auto;
     max-height: 80%;
     background-color: #fff;
@@ -21,136 +21,184 @@
     border-radius: 7.5px;
     @include shadow;
     & > div {
-      padding: 1.5rem 2rem 1rem 2rem;
+      margin: 1.5rem 1rem 1rem 1.75rem;
+      padding: 0.25rem 1rem 0rem 0.25rem;
       overflow-y: auto;
-      .inputTitle {
-        padding: 0.5rem 0;
-        input {
-          width: 100%;
-          height: auto;
-          transition: 0.3s ease-in-out;
-          font-size: 1.5rem;
-          border: 1px solid $grey-lighter;
-          $color: opacify(
-            $color: $blue-lighter,
-            $amount: 0.02,
-          );
-          border-radius: 5px;
-          padding: 0.15rem 1rem;
-          color: #000;
-          &:focus {
-            border: 1px solid $blue-light;
-            @include shadow($color, 0px, 0px, 1px, 3.5px);
-          }
-        }
-      }
-      .closeBtnCont {
+      @include scrollbar;
+      .bottomBar {
         display: block;
         text-align: left;
         width: 100%;
-        padding: 0.45rem 0;
+        padding: 0 0 0.45rem 0;
         display: flex;
         justify-content: space-between;
-        .closeBtn {
-          border: none;
-          background-color: #fff;
-          cursor: pointer;
-          height: 35px;
-          width: 35px;
-          font-size: 1.25rem;
-          transition: 0.15s linear;
-          border-radius: 50%;
-          color: $blue-dark;
-          &:hover {
-            background-color: $blue-lightest;
-          }
-          &:active {
-            background-color: $blue-lighter;
+        .addResources {
+          .addPic {
+            border: 1px solid $blue-primary;
+            border-radius: 20px;
+            background-color: #fff;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 400;
+            padding: 0.2em 0.75rem;
+            height: 100%;
+            color: $blue-primary;
+            transition: 0.15s linear;
+            i {
+              position: relative;
+              margin-right: 0.3rem;
+              .plus {
+                background-color: #fff;
+                position: absolute;
+                bottom: -15%;
+                right: -40%;
+                font-size: 0.25rem;
+              }
+            }
+            &:hover {
+              $color: opacify(
+                $color: $blue-lighter,
+                $amount: 0.02,
+              );
+              @include shadow($color, 0px, 0px, 1px, 3.5px);
+            }
+            &:active {
+              background-color: $blue-primary;
+              color: #fff;
+            }
           }
         }
-        .addPost {
-          color: #fff;
-          background-color: $blue-primary;
-          font-size: 1.05rem;
-          font-weight: 500;
-          padding: 0.2em 1.75rem;
-          border: 0;
-          height: auto;
-          border-radius: 20px;
-          transition: 0.15s linear;
-          cursor: pointer;
-          &:hover {
-            background-color: $blue-dark;
+        .btnCont {
+          margin-block: auto;
+          padding-left: 0.75rem;
+          position: relative;
+          height: 100%;
+          &::before {
+            content: "";
+            position: absolute;
+            height: 1.5rem;
+            width: 1.5px;
+            background-color: $grey-light;
+            top: 50%;
+            transform: translateY(-50%);
+            left: 0;
           }
-          &:active {
-            $color: opacify(
-              $color: $blue-lighter,
-              $amount: 0.1,
-            );
-            @include shadow($color, 0px, 0px, 0px, 4px);
+          .closeBtn {
+            border: 1px solid $blue-primary;
+            background-color: #fff;
+            cursor: pointer;
+            font-size: 1rem;
+            height: 35px;
+            width: 35px;
+            margin-inline: 5px;
+            transition: 0.15s linear;
+            border-radius: 50%;
+            color: $blue-primary;
+            &:hover {
+              background-color: $blue-lightest;
+            }
+            &:active {
+              $color: opacify(
+                $color: $blue-lighter,
+                $amount: 0.1,
+              );
+              @include shadow($color, 0px, 0px, 0px, 4px);
+            }
+          }
+          .addPost {
+            color: #fff;
+            background-color: $blue-primary;
+            font-size: 1.05rem;
+            font-weight: 500;
+            padding: 0.3em 1.5rem;
+            border: 0;
+            height: auto;
+            border-radius: 20px;
+            transition: 0.15s linear;
+            cursor: pointer;
+            &:hover {
+              background-color: $blue-dark;
+            }
+            &:active {
+              $color: opacify(
+                $color: $blue-lighter,
+                $amount: 0.1,
+              );
+              @include shadow($color, 0px, 0px, 0px, 4px);
+            }
           }
         }
       }
       .postTextCont {
         width: 100%;
+        padding: 0.5rem 0.5rem 0.5rem 0.5rem;
         textarea {
           width: 100%;
-          height: 10rem;
           transition: 0.3s ease-in-out;
-          font-size: 1rem;
+          font-size: 1.2rem;
           resize: none;
-          border: 1px solid $grey-lighter;
+          border: none;
+          overflow-y: hidden;
           $color: opacify(
             $color: $blue-lighter,
             $amount: 0.02,
           );
-          border-radius: 5px;
-          padding: 0.5rem 1rem;
-          color: #000;
-          &:focus {
-            border: 1px solid $blue-light;
-            @include shadow($color, 0px, 0px, 1px, 3.5px);
-          }
+          line-height: 24px;
+          color: $grey-darker;
+          caret-color: $blue-primary;
+          @include scrollbar(10px);
         }
       }
-      .addResources {
-        padding: 0.25rem 0 0.25rem 0;
-        .addPic {
-          border: 1px solid $blue-primary;
-          border-radius: 16px;
-          background-color: #fff;
-          cursor: pointer;
-          font-size: 1rem;
-          font-weight: 400;
-          padding: 0.2em 0.75rem;
-          color: $blue-primary;
-          transition: 0.15s linear;
+
+      .imagesGridCont {
+        margin-bottom: 1rem;
+        border: 2px solid $blue-primary;
+        border-radius: 10px;
+        padding: 0.2rem;
+        text-align: center;
+        p {
+          color: $blue-dark;
           i {
-            position: relative;
-            margin-right: 0.3rem;
-            .plus {
-              background-color: #fff;
-              position: absolute;
-              bottom: -15%;
-              right: -40%;
-              font-size: 0.25rem;
-            }
-          }
-          &:hover {
-            $color: opacify(
-              $color: $blue-lighter,
-              $amount: 0.02,
-            );
-            @include shadow($color, 0px, 0px, 1px, 3.5px);
-          }
-          &:active {
-            background-color: $blue-primary;
-            color: #fff;
+            color: $blue-primary;
+            margin-right: 0.25rem;
           }
         }
-      }
-      img {
-        width: 90%;
+        div {
+          display: grid;
+          grid-gap: 2.5px;
+          @include scrollbar(5px);
+          img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+          }
+        }
+        .one {
+          grid-template-columns: 1fr;
+          grid-template-rows: 1fr;
+        }
+        .two {
+          grid-template-columns: 1fr 1fr;
+          grid-template-rows: 1fr;
+        }
+        .three {
+          grid-template-columns: 1fr 1fr;
+          grid-template-rows: 1fr 1fr;
+          .one {
+            grid-row: span 2;
+          }
+        }
+        .four {
+          grid-template-columns: 1fr 1fr;
+          grid-template-rows: 1fr 1fr;
+        }
+        .five {
+          grid-template-columns: 1fr 1fr 1fr;
+          grid-template-rows: 1fr 1fr;
+          .one {
+            grid-row: span 2;
+          }
+        }
       }
     }
   }
@@ -159,7 +207,16 @@
   .npFormWin {
     .npFormCont {
       width: 95%;
-      padding: 1rem 1.25rem 1rem 1.25rem;
+      & > div {
+        margin: 0.5rem 0.5rem 0.5rem 0.75rem;
+        padding: 0.45rem 1rem 0rem 0.25rem;
+        overflow-y: auto;
+        .postTextCont {
+          textarea {
+            padding: 0.5rem 0.25rem 0 0.25rem;
+          }
+        }
+      }
     }
   }
 }

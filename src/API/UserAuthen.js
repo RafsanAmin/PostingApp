@@ -8,6 +8,8 @@ Axios.interceptors.response.use(
 );
 
 class UserAuthenAPIClass {
+  urlPrefix = process.env.NODE_ENV !== 'development' ? 'https://rafpost.herokuapp.com' : ' ';
+
   getURL = () => {
     if (process.env.NODE_ENV !== 'development') {
       return 'https://rafpost.herokuapp.com';
@@ -25,7 +27,7 @@ class UserAuthenAPIClass {
         formData.append('username', user);
         formData.append('profile-pic', files);
 
-        Axios.post(`${this.getURL()}/uh/addProfilePic`, formData).then((res) => {
+        Axios.post(`${this.urlPrefix}/uh/addProfilePic`, formData).then((res) => {
           if (res.data.success) {
             resolve(true);
           } else {
@@ -37,8 +39,8 @@ class UserAuthenAPIClass {
 
   login = ({ username, password, remMe }) =>
     new Promise((resolve, reject) => {
-      console.log(this.getURL());
-      Axios.get(`${this.getURL()}/uh/login`, {
+      console.log(this.urlPrefix);
+      Axios.get(`${this.urlPrefix}/uh/login`, {
         params: {
           username,
           password,
@@ -64,7 +66,7 @@ class UserAuthenAPIClass {
 
   authen = () =>
     new Promise((resolve, reject) => {
-      Axios.get(`${this.getURL()}/uh/authen`, { withCredentials: true })
+      Axios.get(`${this.urlPrefix}/uh/authen`, { withCredentials: true })
         .then((res) => {
           if (res.data.done === true || res.data.done === false) {
             resolve(res.data);
@@ -105,7 +107,7 @@ class UserAuthenAPIClass {
             likedPosts: [],
             profilePic: '',
           };
-          Axios.post(`${this.getURL()}/uh/signup`, sendData).then((res) => {
+          Axios.post(`${this.urlPrefix}/uh/signup`, sendData).then((res) => {
             if (res.data.exists === false && res.data.done === true) {
               this.uploadProfilePic(profilePic, res.data.id).then((resp) => {
                 if (!resp) {
@@ -126,7 +128,7 @@ class UserAuthenAPIClass {
 
   logout = () =>
     new Promise((resolve, reject) => {
-      Axios.get(`${this.getURL()}/uh/logout`, { withCredentials: true }).then((res) => {
+      Axios.get(`${this.urlPrefix}/uh/logout`, { withCredentials: true }).then((res) => {
         if (res.data.done) {
           resolve(true);
         } else {
@@ -160,7 +162,7 @@ class UserAuthenAPIClass {
             user,
             email,
           };
-          Axios.post(`${this.getURL()}/uh/verify`, sendData).then((res) => {
+          Axios.post(`${this.urlPrefix}/uh/verify`, sendData).then((res) => {
             if (res.data.success && !res.data.exists) {
               resolve(res.data);
             } else {
@@ -175,7 +177,7 @@ class UserAuthenAPIClass {
 
   getProfilePicPath = () =>
     new Promise((resolve, reject) => {
-      Axios.get(`${this.getURL()}/uh/getProfilePicLink`, { withCredentials: true })
+      Axios.get(`${this.urlPrefix}/uh/getProfilePicLink`, { withCredentials: true })
         .then((res) => {
           const data = res.data.url;
           if (data) {

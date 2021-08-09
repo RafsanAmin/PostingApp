@@ -7,7 +7,6 @@ function Icons(props) {
   const { Styles } = props;
   const [toggle, setToggle] = useState(false);
   const { state } = useContext(AppContext);
-  console.log(state);
   const activeSelector = (name) => {
     if (state.name === name) {
       return Styles.active;

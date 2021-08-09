@@ -34,3 +34,16 @@
     @include shadow($color, 0px, 0px, 1px, 3.5px);
   }
 }
+@mixin scrollbar($width: 2px) {
+  &::-webkit-scrollbar {
+    width: $width;
+    background-color: $grey-lighter;
+    border-radius: 15px;
+    cursor: grab;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: $grey-light;
+    border-radius: 15px;
+    cursor: grab;
+  }
+}
