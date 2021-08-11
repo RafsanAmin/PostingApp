@@ -1,17 +1,29 @@
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable consistent-return */
 import { toWords } from 'number-to-words';
 import { useContext, useRef, useState } from 'react';
+import PostAPI from '../../../../../API/PostsAPI';
 import AppContext from '../../../../../Contexts/AppContext';
 import TextArea from '../../../../components/textarea';
 import Styles from './scss/npform.module.scss';
 
 let limit = 5;
+const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 const newPostForm = () => {
   const [postText, setPostText] = useState('');
   const [images, setImages] = useState(null);
   const { setState, Alert } = useContext(AppContext);
   const File = useRef(null);
   const placeholder = 'Write Your Thoughts Here';
+  const postHandle = async () => {
+    const time = new Date();
+    const res = await PostAPI.addPost({
+      text: postText,
+      images,
+      date: `${time.toLocaleTimeString()} ${time.toLocaleDateString()} - ${days[time.getDay()]}`,
+    });
+    console.log(res);
+  };
   const changeImg = () => {
     console.log(limit);
     const oleLimit = limit;
@@ -66,7 +78,20 @@ const newPostForm = () => {
                 {images
                   ? images.map((arr, index) => {
                       const ImgPath = URL.createObjectURL(arr);
-                      return <img className={Styles[toWords(index + 1)]} src={ImgPath} alt="" />;
+                      return (
+                        <img
+                          onClick={() => {
+                            window.open(
+                              ImgPath,
+                              'popUpWindow',
+                              'height=500,width=500,left=100,top=100,resizable=yes,scrollbars=yes,toolbar=yes,menubar=no,location=no,directories=no, status=yes'
+                            );
+                          }}
+                          className={Styles[toWords(index + 1)]}
+                          src={ImgPath}
+                          alt=""
+                        />
+                      );
                     })
                   : null}
               </div>
@@ -94,7 +119,7 @@ const newPostForm = () => {
               <button className={Styles.closeBtn} type="button" onClick={close}>
                 <i className="fas fa-times" />
               </button>
-              <button className={Styles.addPost} type="button">
+              <button className={Styles.addPost} type="button" onClick={postHandle}>
                 Post
               </button>
             </div>

@@ -12,7 +12,7 @@ function MyApp({ Component, pageProps }) {
         <link rel="icon" href="/user.svg" />
       </Head>
       <Component {...pageProps} />
-      <p
+      {/* <p
         style={{
           position: 'fixed',
           bottom: 0,
@@ -20,12 +20,13 @@ function MyApp({ Component, pageProps }) {
           fontSize: '0.75rem',
           maxWidth: '50%',
           textAlign: 'right',
+          zIndex: 1
         }}
       >
         Indev v0.3.31
         <br />
         It is not finished yet so it is missing many features and has major issues
-      </p>
+      </p> */}
     </>
   );
 }

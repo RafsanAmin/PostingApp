@@ -1,6 +1,7 @@
 /* eslint-disable no-undef */
 /* eslint-disable prefer-promise-reject-errors */
 import Axios from 'axios';
+import urlPrefix from './getURL';
 
 Axios.interceptors.response.use(
   (response) => response,
@@ -8,14 +9,7 @@ Axios.interceptors.response.use(
 );
 
 class UserAuthenAPIClass {
-  urlPrefix = process.env.NODE_ENV !== 'development' ? 'https://rafpost.herokuapp.com' : ' ';
-
-  getURL = () => {
-    if (process.env.NODE_ENV !== 'development') {
-      return 'https://rafpost.herokuapp.com';
-    }
-    return '';
-  };
+  urlPrefix = urlPrefix;
 
   uploadProfilePic = (files, user) =>
     new Promise((resolve, reject) => {
