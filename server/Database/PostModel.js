@@ -1,13 +1,13 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const postSchema = new mongoose.Schema({
-  uid: {type: mongoose.Schema.Types.ObjectId, ref: "User"},
+  uid: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
   text: String,
   photos: [],
-  like: [{type: mongoose.Schema.Types.ObjectId, ref: "User"}],
-  date: String
+  likes: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
+  date: String,
 });
 
-const postModel = new mongoose.model("Posts", postSchema);
+const postModel = new mongoose.model("Post", postSchema);
 
 module.exports = postModel;

@@ -110,12 +110,28 @@
             background-color: $blue-primary;
             font-size: 1.05rem;
             font-weight: 500;
-            padding: 0.3em 1.5rem;
+            padding: 0.3em 1.5rem 0.3rem 1.5rem;
             border: 0;
             height: auto;
             border-radius: 20px;
             transition: 0.15s linear;
             cursor: pointer;
+            img {
+              position: absolute;
+              top: 50%;
+              left: 47.5%;
+              transform: translateY(-50%);
+              width: 20px;
+              animation: spin 1s linear infinite;
+            }
+            @keyframes spin {
+              0% {
+                transform: translateY(-50%) rotate(0deg);
+              }
+              100% {
+                transform: translateY(-50%) rotate(360deg);
+              }
+            }
             &:hover {
               background-color: $blue-dark;
             }
@@ -125,6 +141,17 @@
                 $amount: 0.1,
               );
               @include shadow($color, 0px, 0px, 0px, 4px);
+            }
+          }
+          .disable {
+            opacity: 0.6;
+            cursor: not-allowed;
+            padding-left: 2.5rem;
+            &:hover {
+              background-color: $blue-primary;
+            }
+            &:active {
+              box-shadow: none;
             }
           }
         }

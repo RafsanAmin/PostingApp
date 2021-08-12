@@ -36,15 +36,7 @@ const chars = [
   "7",
   "8",
   "9",
-  "!",
-  "@",
-  "#",
-  "$",
-  "%",
-  "^",
-  "&",
-  "&",
-  "*",
+  "_",
   "A",
   "B",
   "C",
@@ -84,7 +76,7 @@ const getRandomString = (amount) => {
     return "too big";
   }
   for (let i = 0; i < amount; i++) {
-    const string = chars[Math.floor(Math.random() * 69)];
+    const string = chars[Math.floor(Math.random() * chars.length)];
     returnString += string;
   }
   return returnString;

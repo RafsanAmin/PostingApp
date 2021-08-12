@@ -21,11 +21,11 @@ function MyApp({ Component, pageProps }) {
           maxWidth: '50%',
           textAlign: 'right',
           zIndex: 1,
-          pointerEvents: 'none'          
+          pointerEvents: 'none',
         }}
       >
-        Indev v0.3.35
-        <br /> 
+        Indev v0.3.37
+        <br />
         It is not finished yet so it is missing many features and has major issues
       </p>
     </>

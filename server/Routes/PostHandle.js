@@ -1,9 +1,12 @@
 const express = require("express");
 const postModel = require("../Database/PostModel");
+const userModelDB = require("../Database/UserModel");
 const pH = express.Router();
 const busboy = require("connect-busboy");
 const cloudinary = require("cloudinary").v2;
 const { getRandomString } = require("../../library/random");
+const secret = process.env["TOKEN"];
+const jwt = require("jsonwebtoken");
 pH.use(
   busboy({
     highWaterMark: 2 * 1024 * 1024, // Set 2MiB buffer
@@ -39,9 +42,17 @@ const handlePostRequest = (req, res) => {
   });
 };
 pH.post("/addPost", async (req, res) => {
-  const ret = await handlePostRequest(req, res);
-  console.log(ret);
-  res.end("Hello");
+  const data = await handlePostRequest(req, res);
+  const UID = jwt.verify(req.cookies.jwt, secret);
+  if (UID) {
+    const uid = UID.id;
+    const newPost = { ...data, likes: [], uid };
+    postModel.create(newPost, (err, data) => {
+      res.status(200).json({ done: true, massage: "Done Bro!" });
+    });
+  } else {
+    res.status(403).json({ done: false, massage: "User Not Logged In" });
+  }
 });
 
 module.exports = pH;

@@ -12,18 +12,43 @@ const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 const newPostForm = () => {
   const [postText, setPostText] = useState('');
   const [images, setImages] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
   const { setState, Alert } = useContext(AppContext);
   const File = useRef(null);
   const placeholder = 'Write Your Thoughts Here';
-  const postHandle = async () => {
-    const time = new Date();
-    const res = await PostAPI.addPost({
-      text: postText,
-      images,
-      date: `${time.toLocaleTimeString()} ${time.toLocaleDateString()} - ${days[time.getDay()]}`,
-    });
-    console.log(res);
-  };
+  const postHandle = !isLoading
+    ? async () => {
+        try {
+          const time = new Date();
+          setIsLoading(true);
+          await PostAPI.addPost({
+            text: postText,
+            images,
+            date: `${time.toLocaleTimeString()} ${time.toLocaleDateString()} - ${
+              days[time.getDay()]
+            }`,
+          });
+          setIsLoading(false);
+          setState((state) => ({ ...state, addPost: false }));
+          setImages(null);
+          limit = 5;
+          Alert({
+            title: 'Successfull!',
+            desc: 'Your Post is successfully added!',
+            type: 'success',
+            state: true,
+          });
+        } catch (err) {
+          setIsLoading(false);
+          Alert({
+            title: 'Error!',
+            desc: err,
+            type: 'error',
+            state: true,
+          });
+        }
+      }
+    : null;
   const changeImg = () => {
     console.log(limit);
     const oleLimit = limit;
@@ -119,7 +144,12 @@ const newPostForm = () => {
               <button className={Styles.closeBtn} type="button" onClick={close}>
                 <i className="fas fa-times" />
               </button>
-              <button className={Styles.addPost} type="button" onClick={postHandle}>
+              <button
+                className={`${Styles.addPost} ${isLoading ? Styles.disable : ''}`}
+                type="button"
+                onClick={postHandle}
+              >
+                {isLoading ? <img style={Styles.load} src="/loadingW.svg" alt="" /> : null}
                 Post
               </button>
             </div>
