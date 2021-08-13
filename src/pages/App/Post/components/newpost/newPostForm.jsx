@@ -1,5 +1,3 @@
-/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
-/* eslint-disable consistent-return */
 import { toWords } from 'number-to-words';
 import { useContext, useRef, useState } from 'react';
 import PostAPI from '../../../../../API/PostsAPI';
@@ -149,8 +147,10 @@ const newPostForm = () => {
                 type="button"
                 onClick={postHandle}
               >
-                {isLoading ? <img style={Styles.load} src="/loadingW.svg" alt="" /> : null}
-                Post
+                <div>
+                  {isLoading ? <img style={Styles.load} src="/loadingW.svg" alt="" /> : null}
+                  <p>Post</p>
+                </div>
               </button>
             </div>
           </div>

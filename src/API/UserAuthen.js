@@ -1,5 +1,3 @@
-/* eslint-disable no-undef */
-/* eslint-disable prefer-promise-reject-errors */
 import Axios from 'axios';
 import urlPrefix from './getURL';
 

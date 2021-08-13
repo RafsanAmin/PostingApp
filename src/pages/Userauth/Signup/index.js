@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/no-static-element-interactions */
 import Head from 'next/head';
 import React, { useState } from 'react';
 import Alert from '../../components/alert';

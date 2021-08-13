@@ -34,7 +34,12 @@ function Login(props) {
       sui({ ...UserInfo, code: verficationCode.verification });
       setLoading(false);
     } catch (err) {
-      alertBox({ state: true, title: 'Error!', desc: err.data.massage, type: 'error' });
+      alertBox({
+        state: true,
+        title: 'Error!',
+        desc: err.data.massage,
+        type: 'error',
+      });
       setLoading(false);
     }
   };
