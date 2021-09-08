@@ -1,0 +1,57 @@
+@import './global/global';
+.cont {
+  display: flex;
+  justify-content: space-between;
+  min-height: 40px;
+  margin: 0.5rem 0;
+  background-color: transparent;
+  border-radius: 3px;
+  // overflow: hidden;
+  border: 1px solid $blue-light;
+  width: 100%;
+  .copy {
+    background-color: $blue-lightest;
+    flex-grow: 1;
+    display: grid;
+    place-items: center;
+    font-size: 1.1rem;
+    color: $blue-primary;
+    margin: 0;
+    padding: 0 0.5rem;
+    outline: 0;
+    border: 0;
+  }
+  .btn {
+    flex-basis: 40px;
+    margin: 0;
+    padding: 0;
+    button {
+      cursor: pointer;
+      background-color: $blue-light;
+      border: 0;
+      height: 100%;
+      width: 100%;
+      color: #fff;
+      border-radius: 0;
+      border-left: 1px solid $blue-light;
+      margin: 0;
+      padding: 0;
+      &:hover {
+        opacity: 0.8;
+      }
+      &:active {
+        opacity: 0.5;
+      }
+      i {
+        font-size: 1.2rem;
+      }
+    }
+  }
+}
+@media only screen and (max-width: 340px) {
+  .cont {
+    .copy {
+      max-width: 85%;
+    }
+  }
+}

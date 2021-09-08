@@ -1,0 +1,293 @@
+@import './global/global';
+.topbar {
+  padding: 0.5rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  position: relative;
+  @include shadow;
+  .brandContainer {
+    display: flex;
+    align-items: center;
+    flex: 1;
+    justify-content: center;
+    h1 {
+      font-size: 1.75rem;
+      font-weight: bold;
+      font-family: Jost;
+      color: $blue-darker;
+    }
+    i {
+      font-size: 1.75rem;
+      font-weight: bold;
+      color: $blue-darker;
+
+      padding-right: 0.75rem;
+      color: $blue-primary;
+      pointer-events: none;
+    }
+  }
+  .iconsContainer {
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    .toggler {
+      display: none;
+    }
+    .icons {
+      display: flex;
+      justify-content: center;
+      .button {
+        display: flex;
+        font-size: 1.75rem;
+        cursor: pointer;
+        padding: 0rem 2rem;
+        margin: 0 1rem;
+        border-radius: 6px;
+        transition: 0.3s linear;
+        &:hover {
+          background-color: $blue-lightest;
+        }
+        &:active {
+          background-color: $blue-lighter;
+        }
+        p {
+          display: none;
+        }
+        i {
+          color: $blue-primary;
+          padding: 0.25rem 0 0.4rem 0;
+        }
+      }
+
+      .active {
+        i,
+        img {
+          border-bottom: 3px solid $blue-dark;
+        }
+      }
+    }
+  }
+  .ProfileContainer {
+    order: 3;
+    flex: 1;
+    display: grid;
+    place-items: center;
+    position: relative;
+    .img {
+      cursor: pointer;
+      display: grid;
+      place-items: center;
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      box-sizing: content-box;
+      border: 5px solid transparent;
+      transition: 0.3s linear;
+      overflow: hidden;
+      img {
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+        border: 2px solid $blue-dark;
+        padding: 2px;
+      }
+      &:hover {
+        border: 5px solid $grey-lightest;
+      }
+      &:active {
+        border: 5px solid $grey-lighter;
+      }
+    }
+
+    .ProfileMenu {
+      position: absolute;
+      width: 75vw;
+      max-width: 200px;
+      top: 135%;
+      left: 10%;
+      background-color: #fff;
+      padding: 1rem 1rem;
+      border-radius: 5px;
+      transition: all 0.3s ease-in-out;
+      transform-origin: top;
+      @include shadow;
+      overflow: hidden;
+      .MenuItem {
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        border-radius: 5px;
+        padding: 0.25rem;
+        transition: 0.15s linear;
+        i {
+          background-color: $blue-lightest;
+          font-size: 1.4rem;
+          color: $blue-primary;
+          padding: 0.75rem;
+          margin-right: 1rem;
+          border-radius: 50%;
+          display: grid;
+          place-items: center;
+        }
+        p {
+          font-size: 1.2rem;
+          color: $blue-light;
+          font-weight: 500;
+        }
+        &:hover {
+          background-color: lighten($color: $blue-lightest, $amount: 2);
+        }
+        &:active {
+          background-color: $blue-lightest;
+        }
+      }
+    }
+    .on {
+      transform: scaleY(1);
+    }
+    .off {
+      transform: scaleY(0);
+    }
+  }
+}
+@media only screen and (max-width: 700px) {
+  .topbar {
+    position: relative;
+    overflow-x: clip;
+    overflow-y: visible;
+
+    .brandContainer {
+      order: 2;
+      h1 {
+        display: none;
+      }
+    }
+    .iconsContainer {
+      order: 1;
+      .toggler {
+        display: block;
+        button {
+          font-size: 1.75rem;
+          background-color: #fff;
+          border: none;
+          appearance: none;
+          cursor: pointer;
+          padding: 0rem 1rem;
+          margin: 0;
+          border-radius: 6px;
+          transition: 0.3s linear;
+          &:hover {
+            background-color: $blue-lightest;
+          }
+          &:active {
+            background-color: $blue-lighter;
+          }
+          i {
+            width: 100%;
+            color: $blue-primary;
+            padding: 0.25rem 0 0.4rem 0;
+          }
+        }
+      }
+      .icons {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        padding: 1.5rem 2rem;
+        width: 65%;
+        max-width: 250px;
+        transition: 0.3s ease-in-out;
+        box-shadow: 5px 6px 10px 1px rgba(0, 0, 0, 0.192);
+        background-color: #fff;
+        border: {
+          bottom-right-radius: 5px;
+        }
+        z-index: 3;
+        .button {
+          width: 100%;
+          border: 0;
+          margin: 0;
+          border-right: 3px solid transparent;
+          background-color: $blue-lightest;
+          display: flex;
+          align-items: center;
+          justify-content: flex-start;
+          font-size: 1rem;
+          position: relative;
+          padding: 0.15rem 0.75rem 0.15rem 0.75rem;
+          margin: 0.15rem 0rem 0.15rem 0;
+          p {
+            display: inline-block;
+            font-size: 1.2rem;
+            color: $blue-darker;
+            font-weight: 500;
+          }
+          i {
+            width: 45px;
+            font-size: 1.75rem;
+            color: $blue-primary;
+            padding: 0.25rem 0.75rem 0.25rem 0;
+          }
+          img {
+            margin: 0.15rem 17px 0.15rem 0;
+          }
+          &:hover {
+            background-color: $blue-lighter;
+          }
+        }
+        .active {
+          i,
+          img {
+            border: 0;
+          }
+          &::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            right: 0;
+            width: 3px;
+            height: 60%;
+            background-color: $blue-primary;
+          }
+        }
+      }
+      .on {
+        transform: translateX(0);
+      }
+      .off {
+        transform: translateX(-100%);
+      }
+    }
+  }
+}
+@media only screen and (max-width: 976px) {
+  .topbar {
+    .ProfileContainer {
+      position: static;
+      .ProfileMenu {
+        top: 120%;
+        left: auto;
+        right: 5%;
+      }
+    }
+  }
+}
+@media only screen and (min-width: 1400px) {
+  .topbar {
+    .ProfileContainer {
+      position: relative;
+      .ProfileMenu {
+        position: absolute;
+        top: 120%;
+        left: auto;
+        left: 25%;
+      }
+    }
+  }
+}

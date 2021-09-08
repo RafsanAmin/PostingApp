@@ -1,0 +1,16 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Jost', sans-serif;
+
+  &:focus {
+    outline: none;
+  }
+  &:active {
+    -webkit-tap-highlight-color: transparent;
+  }
+}
+p {
+  word-wrap: break-word;
+}
