@@ -24,7 +24,7 @@ function MyApp({ Component, pageProps }) {
           pointerEvents: 'none',
         }}
       >
-        Alpha v0.2.20
+        Alpha v0.2.21
         <br />
         It is not finished yet so it is missing many features and has major issues
       </p>

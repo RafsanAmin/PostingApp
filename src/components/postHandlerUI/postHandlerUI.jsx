@@ -20,7 +20,6 @@ const newNeditPostForm = () => {
   const File = useRef(null);
   const placeholder = 'Write Your Thoughts Here';
   useEffect(() => {
-    console.log('Hello');
     if (state.editPost.state) {
       const { text, photos, _id } = state.editPost.post;
       setPostText(text);
@@ -33,7 +32,6 @@ const newNeditPostForm = () => {
       setIsLoading(true);
       const time = new Date();
       if (state.editPost.state) {
-        console.log('Hello');
         const msg = await PostAPI.updatePost({
           ...oldPost,
           text: postText,
@@ -96,7 +94,6 @@ const newNeditPostForm = () => {
     setPostText('');
     setImages({ type: 'CLEAR' });
   };
-  console.log(images);
   const delImg = (e) => {
     setImages({ type: 'DELETE', index: e.target.name });
   };
@@ -117,7 +114,7 @@ const newNeditPostForm = () => {
               limit={6000}
             />
           </div>
-          <ImagePreview Styles={Styles} images={images} delImg={delImg} />
+          <ImagePreview Styles={Styles} image={images} delImg={delImg} />
           <input
             ref={File}
             type="file"

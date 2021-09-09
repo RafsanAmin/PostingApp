@@ -24,7 +24,6 @@ const Reducer = (state, action) => {
     const s = state.images;
     const newLimit = state.limit + 1;
     s.splice(action.index, 1);
-    console.log(s);
     if (s.length === 0) {
       return { ...state, images: [], limit: newLimit };
     }
