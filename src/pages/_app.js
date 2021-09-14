@@ -9,9 +9,11 @@ function MyApp({ Component, pageProps }) {
   return (
     <>
       <Head>
-        <link rel="icon" href="/user.svg" />
+        <link rel="icon" href="/icon_32.png" />
+        <link rel="manifest" href="/manifest.json" />
       </Head>
       <Component {...pageProps} />
+
       <p
         style={{
           position: 'fixed',
@@ -24,7 +26,7 @@ function MyApp({ Component, pageProps }) {
           pointerEvents: 'none',
         }}
       >
-        Alpha v0.2.21
+        Alpha v0.2.22
         <br />
         It is not finished yet so it is missing many features and has major issues
       </p>

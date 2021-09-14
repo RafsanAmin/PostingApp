@@ -14,7 +14,6 @@ import AppContext from '../../Contexts/AppContext';
 import Styles from '../../scss/postapp.module.scss';
 import { AppReducer, initalization } from '../../state/postAppState';
 // AP_S = new post form state
-
 const PostApp = () => {
   const Router = useRouter();
   const [appState, setAppState] = useReducer(AppReducer, initalization);
@@ -34,6 +33,7 @@ const PostApp = () => {
   useEffect(() => {
     xy([appState, setAppState]);
   }, [appState]);
+  console.log('Hello World!');
   return (
     <>
       <Head>
