@@ -20,7 +20,7 @@
     }
   ],
   "shortcuts": [],
-  "start_url": "/",
+  "start_url": "/App/Post",
   "background_color": "#FFFFFF",
   "display": "standalone",
   "scope": "/",
