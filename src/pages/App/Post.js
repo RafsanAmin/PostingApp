@@ -29,11 +29,18 @@ const PostApp = () => {
       Router.push('/Userauth/Login');
     };
     authen();
+    setTimeout(() => {
+      setAlert({
+        state: true,
+        title: 'Hello',
+        desc: 'Welcome to Rafpost!! You can now add our website as App just by clicking Add to Home Button',
+        type: 'info',
+      });
+    }, 6000);
   }, []);
   useEffect(() => {
     xy([appState, setAppState]);
   }, [appState]);
-  console.log('Hello World!');
   return (
     <>
       <Head>

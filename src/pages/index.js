@@ -8,11 +8,12 @@ export default function Home() {
   const Router = useRouter();
   useEffect(() => {
     const authen = async () => {
+      console.log(Router);
       const status = await UserAuthenAPI.authen();
       if (status.done) {
-        Router.push('/App/Post');
+        Router.replace('/App/Post');
       } else {
-        Router.push('/Userauth/Login');
+        Router.replace('/Userauth/Login');
       }
     };
     authen();

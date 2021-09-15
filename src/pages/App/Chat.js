@@ -27,7 +27,7 @@ const ChatApp = () => {
   return (
     <>
       <Head>
-        <title>Rafpost- ChatApp</title>
+        <title>RafPost- ChatApp</title>
       </Head>
       <div style={tempstyle.cont} className="chatapp-window">
         <Alert

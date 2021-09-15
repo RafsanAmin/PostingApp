@@ -4,9 +4,10 @@ module.exports = withPWA({
   reactStrictMode: true,
   pageExtensions: ['js'],
   distDir: 'build',
-  ignoreDuringBuilds: true,
   pwa: {
     dest: 'public',
-    sw: 'sw.js',
+    swSrc: 'sw.js',
+    dynamicStartUrl: true,
+    dynamicStartUrlRedirect: '/App/Post',
   },
 });

@@ -6,24 +6,26 @@
     {
       "src": "/icon_192.png",
       "type": "image/png",
-      "sizes": "192x192"
+      "sizes": "192x192",
+      "purpose": "any maskable"
     },
     {
       "src": "/icon_512.png",
       "type": "image/png",
-      "sizes": "512x512"
+      "sizes": "512x512",
+      "purpose": "any maskable"
     },
     {
       "src": "/icon_32.png",
       "type": "image/png",
-      "sizes": "32x32"
+      "sizes": "32x32",
+      "purpose": "any maskable"
     }
   ],
   "shortcuts": [],
   "start_url": "/",
   "background_color": "#FFFFFF",
   "display": "standalone",
-  "scope": "/",
   "theme_color": "#000000",
   "orientation": "portrait"
 }
