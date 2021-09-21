@@ -9,5 +9,6 @@ module.exports = withPWA({
     swSrc: 'sw.js',
     dynamicStartUrl: true,
     dynamicStartUrlRedirect: '/App/Post',
+    disable: process.env.NODE_ENV === 'development',
   },
 });

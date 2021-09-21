@@ -1,16 +1,10 @@
 @import './global/global';
 .npFormWin {
   position: fixed;
-  top: 0;
-  left: 0;
-  height: 100vh;
-  width: 100vw;
-  background-color: rgba(0, 0, 0, 0.5);
+  top: 50%;
+  width: 100%;
   z-index: 5;
-  display: grid;
-  align-items: center;
-  justify-items: center;
-  grid-template-columns: 1fr;
+
   .npFormCont {
     width: 90%;
     max-width: 600px;
@@ -19,6 +13,7 @@
     background-color: #fff;
     display: flex;
     flex-direction: column;
+    margin: 0 auto;
     border-radius: 7.5px;
     transition: 0.3s ease-in-out;
     @include shadow;
@@ -258,12 +253,12 @@
   pointer-events: none;
   background-color: transparent;
   .npFormCont {
-    transform: scale(0);
+    transform: scale(0) translateY(-50%);
   }
 }
 .on {
   .npFormCont {
-    transform: scale(1);
+    transform: scale(1) translateY(-50%);
   }
 }
 @media screen and (max-width: 375px) {

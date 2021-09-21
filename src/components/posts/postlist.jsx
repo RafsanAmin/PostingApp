@@ -2,12 +2,21 @@
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable react-hooks/exhaustive-deps */
 import { memo, useContext, useEffect, useReducer, useState } from 'react';
+import {
+  AutoSizer,
+  CellMeasurer,
+  CellMeasurerCache,
+  List,
+  // eslint-disable-next-line prettier/prettier
+  WindowScroller
+} from 'react-virtualized';
 import postAPI from '../../API/PostsAPI';
 import AlertContext from '../../Contexts/AlertContext';
 import Context from '../../Contexts/AppContext';
+import ContContext from '../../Contexts/ContContext';
 import PostCont from './postCont';
 
-const limit = 20;
+const limit = 100;
 const initialize = { before: 0, posts: [] };
 const reducer = (state, action) => {
   switch (action.type) {
@@ -33,6 +42,20 @@ const PostList = ({ type, user }) => {
   const [state, setState] = useContext(Context);
   const [loading, setLoading] = useState(false);
   const Alert = useContext(AlertContext);
+  const cont = useContext(ContContext);
+  console.log(cont);
+  const heightCache = new CellMeasurerCache({
+    defaultHeight: 400,
+    fixedWidth: true,
+  });
+  const render = ({ index, key, style, parent }) => (
+    <CellMeasurer cache={heightCache} key={key} parent={parent} columnIndex={0} rowIndex={index}>
+      <div style={style}>
+        <PostCont post={post.posts[index]} />
+      </div>
+    </CellMeasurer>
+  );
+  console.log(state.cont);
   const main = async (newP) => {
     try {
       setLoading(true);
@@ -91,9 +114,27 @@ const PostList = ({ type, user }) => {
           padding: '1rem 0',
         }}
       >
-        {post.posts
-          ? post.posts.map((arr) => <PostCont key={Math.random().toString()} post={arr} />)
-          : null}
+        <WindowScroller scrollElement={cont}>
+          {({ height, isScrolling, registerChild, scrollTop }) => (
+            <AutoSizer disableHeight style={{ width: '100%' }}>
+              {({ width }) => (
+                <div ref={registerChild}>
+                  <List
+                    autoHeight
+                    height={height}
+                    width={width}
+                    isScrolling={isScrolling}
+                    scrollTop={scrollTop}
+                    rowRenderer={render}
+                    deferredMeasurementCache={heightCache}
+                    rowHeight={heightCache.rowHeight}
+                    rowCount={post.posts.length}
+                  />
+                </div>
+              )}
+            </AutoSizer>
+          )}
+        </WindowScroller>
       </div>
       <div>
         <div
@@ -101,7 +142,7 @@ const PostList = ({ type, user }) => {
           style={{
             width: '100%',
             height: '50px',
-            color: 'salmon',
+            color: '#fff',
             textAlign: 'center',
             paddingBottom: '5rem',
           }}

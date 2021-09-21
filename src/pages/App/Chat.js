@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Alert from '../../components/alert';
 import TopBar from '../../components/topbar/topbar';
 import AlertContext from '../../Contexts/AlertContext';
@@ -24,6 +24,9 @@ const tempstyle = {
 };
 const ChatApp = () => {
   const [alert, setAlert] = useState({ state: false, title: '', desc: '', type: '' });
+  useEffect(() => {
+    console.log('Hello World!');
+  }, []);
   return (
     <>
       <Head>

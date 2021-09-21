@@ -5,11 +5,16 @@ Axios.interceptors.response.use(
   (response) => response,
   (err) => err.response
 );
-
+Axios.interceptors.request.use(
+  (response) => response,
+  (err) => err
+);
+const { CancelToken } = Axios;
+const source = CancelToken.source();
 const postAPI = {
   postLimit: 15,
-  addPost: (postData) =>
-    new Promise((resolve, reject) => {
+  addPost(postData) {
+    return new Promise((resolve, reject) => {
       const formData = new FormData();
       const { text, images, date } = postData;
       const texta = text.trim();
@@ -23,7 +28,9 @@ const postAPI = {
         }
         Axios.post(`${urlPrefix}/pH/addPost`, formData, {
           withCredentials: true,
+          cancelToken: source.token,
         }).then((res) => {
+          console.log(res);
           if (res.data.done) {
             setTimeout(() => {
               resolve(res.data.done);
@@ -36,7 +43,8 @@ const postAPI = {
         const err = 'There is no text in post.';
         reject(err);
       }
-    }),
+    });
+  },
   getPostLatest: (before, limit) =>
     new Promise((resolve, reject) => {
       Axios.get(`${urlPrefix}/pH/getPostsByDate`, { params: { limit, before } }).then((res) => {

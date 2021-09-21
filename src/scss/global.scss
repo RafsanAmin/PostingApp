@@ -14,3 +14,10 @@
 p {
   word-wrap: break-word;
 }
+.freeze {
+  pointer-events: none;
+  opacity: 0.2;
+}
+.s {
+  transition: 0.2s ease-in-out;
+}

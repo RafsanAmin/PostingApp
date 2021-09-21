@@ -16,6 +16,9 @@ const AppReducer = (state, action) => {
       return { ...state, addPost: false, editPost: { state: false, post: null } };
     case 'USER':
       return { ...state, userid: action.id };
+    case 'CONT': {
+      return { ...state, cont: action.e };
+    }
     default:
       return state;
   }
@@ -29,5 +32,6 @@ const initalization = {
   fullReload: false,
   stop: false,
   userid: null,
+  cont: null,
 };
 export { AppReducer, initalization };

@@ -52,7 +52,7 @@ const newNeditPostForm = () => {
         setState({ type: 'PF_0', addPost: false });
         setTimeout(() => {
           setState({ type: 'FULL_RELOAD', addPost: false });
-        }, 5000);
+        }, 3000);
       } else {
         await PostAPI.addPost({
           text: postText,
@@ -89,11 +89,14 @@ const newNeditPostForm = () => {
   const changeImg = () => {
     setImages({ type: 'ADD', images: File.current.files, Alert });
   };
-  const close = () => {
-    setState({ type: 'PF_0' });
-    setPostText('');
-    setImages({ type: 'CLEAR' });
-  };
+  const close = !isLoading
+    ? () => {
+        setState({ type: 'PF_0' });
+        setPostText('');
+        setImages({ type: 'CLEAR' });
+      }
+    : () => {};
+
   const delImg = (e) => {
     setImages({ type: 'DELETE', index: e.target.name });
   };

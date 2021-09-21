@@ -1,12 +1,35 @@
 const Text = ({ text }) => {
   const textR = text.split('\n');
+  const urlReg =
+    /[(http(s)?):\/\/(www\.)?a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/gi;
   return (
     <>
-      {textR.map((arr) => (
-        <p key={Math.random().toString()}>
-          {arr} <br />
-        </p>
-      ))}
+      {textR.map((arr) => {
+        if (arr.match(urlReg)) {
+          const ptext = arr.replace(urlReg, (x) => `&;l${x}&;l`);
+          const stext = ptext.split('&;l');
+          return (
+            <>
+              {stext.map((texte) => {
+                if (texte.match(urlReg)) {
+                  return (
+                    <a key={Math.random().toString()} href={texte} target="_blank" rel="noreferrer">
+                      {texte}
+                    </a>
+                  );
+                }
+                return <>{texte}</>;
+              })}
+              <br />
+            </>
+          );
+        }
+        return (
+          <p key={Math.random().toString()}>
+            {arr} <br />
+          </p>
+        );
+      })}
     </>
   );
 };

@@ -67,7 +67,7 @@ function Login() {
           state={alert.state}
           setState={setAlert}
         />
-        <div className="login-form-cont">
+        <div className={`login-form-cont ${alert.state ? 'freeze' : ''}`}>
           <Loading classP="" contClass="login-form" loadState={loading}>
             <div className="supp">
               <div className="login-brand-cont" />

@@ -3,7 +3,7 @@
   justify-items: center;
   align-items: center;
 }
-@mixin shadow($color: rgba(0, 0, 0, 0.192), $a: 1px, $b: 5px, $c: 10px, $d: 1px) {
+@mixin shadow($color: rgba(0, 0, 0, 0.192), $a: 0px, $b: 0px, $c: 15px, $d: 3px) {
   box-shadow: $a $b $c $d $color;
 }
 @mixin input {
@@ -60,11 +60,11 @@
 @mixin gridCont() {
   .one {
     grid-template-columns: 1fr;
-    grid-template-rows: minmax(0px, min(100%, 400px));
+    grid-template-rows: 400px;
   }
   .two {
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr;
+    grid-template-rows: 400px;
   }
   .three {
     grid-template-columns: 1fr 1fr;
