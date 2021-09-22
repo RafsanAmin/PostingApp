@@ -1,5 +1,6 @@
 import Head from 'next/head';
 import { useEffect, useState } from 'react';
+import UserAuthenAPI from '../../API/UserAuthen';
 import Alert from '../../components/alert';
 import TopBar from '../../components/topbar/topbar';
 import AlertContext from '../../Contexts/AlertContext';
@@ -24,8 +25,13 @@ const tempstyle = {
 };
 const ChatApp = () => {
   const [alert, setAlert] = useState({ state: false, title: '', desc: '', type: '' });
+  const [appState, setAppState] = useState({ ...pageInfo, userid: null });
   useEffect(() => {
-    console.log('Hello World!');
+    const main = async () => {
+      const { id } = await UserAuthenAPI.authen();
+      setAppState({ ...pageInfo, userid: id });
+    };
+    main();
   }, []);
   return (
     <>
@@ -41,7 +47,7 @@ const ChatApp = () => {
           setState={setAlert}
           cIcon={alert.cIcon || false}
         />
-        <AppContext.Provider value={[pageInfo]}>
+        <AppContext.Provider value={[appState]}>
           <AlertContext.Provider value={setAlert}>
             <h1 style={tempstyle.head}>Feature isnt Available</h1>
             <TopBar />

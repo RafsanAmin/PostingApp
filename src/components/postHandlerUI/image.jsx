@@ -16,7 +16,7 @@ const Image = ({ arr, index, Styles, delImg }) => (
         alt=""
       />
       <button title="Click to Remove" name={index} type="button" onClick={delImg}>
-        <i className="fas fa-times    " />
+        <i className="fas fa-times" />
       </button>
       <p>{`${(arr.size / (1024 * 1024)).toFixed(3)} MB`}</p>
     </div>

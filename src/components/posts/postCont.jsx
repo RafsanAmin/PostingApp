@@ -77,6 +77,7 @@ const PostCont = ({ post }) => {
     });
   };
   const editPost = () => {
+    setToggle(false);
     ss({ type: 'EP_1', post });
   };
   return (

@@ -1,6 +1,3 @@
-/* eslint-disable no-case-declarations */
-/* eslint-disable no-underscore-dangle */
-/* eslint-disable react-hooks/exhaustive-deps */
 import { memo, useContext, useEffect, useReducer, useState } from 'react';
 import {
   AutoSizer,
@@ -19,9 +16,9 @@ import PostCont from './postCont';
 const limit = 100;
 const initialize = { before: 0, posts: [] };
 const reducer = (state, action) => {
+  const newPosts = state.posts.concat(action.posts);
   switch (action.type) {
     case 'ADD':
-      const newPosts = state.posts.concat(action.posts);
       if (newPosts.length === state.posts.length) {
         return state;
       }

@@ -1,5 +1,10 @@
+import React from 'react';
+
 const Text = ({ text }) => {
   const textR = text.split('\n');
+  const rndm = () => {
+    Math.random().toString();
+  };
   const urlReg =
     /[(http(s)?):\/\/(www\.)?a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/gi;
   return (
@@ -13,7 +18,7 @@ const Text = ({ text }) => {
               {stext.map((texte) => {
                 if (texte.match(urlReg)) {
                   return (
-                    <a key={Math.random().toString()} href={texte} target="_blank" rel="noreferrer">
+                    <a key={rndm()} href={texte} target="_blank" rel="noreferrer">
                       {texte}
                     </a>
                   );
@@ -25,7 +30,7 @@ const Text = ({ text }) => {
           );
         }
         return (
-          <p key={Math.random().toString()}>
+          <p key={rndm()}>
             {arr} <br />
           </p>
         );

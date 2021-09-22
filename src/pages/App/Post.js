@@ -17,7 +17,7 @@ import { AppReducer, initalization } from '../../state/postAppState';
 // AP_S = new post form state
 const PostApp = () => {
   const { push } = useRouter();
-  const [appState, setAppState] = useReducer(AppReducer, initalization);
+  const [appState, setAppState] = useReducer(AppReducer, initalization('post'));
   const [alert, setAlert] = useState({ state: false, title: '', desc: '', type: '', button: null });
   const [contState, setContState] = useState();
   const [AppStateReducer, xy] = useState([appState, setAppState]);
@@ -40,45 +40,53 @@ const PostApp = () => {
       <Head>
         <title>Rafpost - Postapp</title>
       </Head>
-      {appState.userid ? (
-        <div
-          onScroll={({ target }) => {
-            if (target.offsetHeight + target.scrollTop >= target.scrollHeight - 500) {
-              if (!appState.stop) {
-                setAppState({ type: 'RELOAD_1' });
-              }
+      <div
+        onScroll={({ target }) => {
+          if (target.offsetHeight + target.scrollTop >= target.scrollHeight - 500) {
+            if (!appState.stop) {
+              setAppState({ type: 'RELOAD_1' });
             }
-          }}
-          ref={(e) => setContState(e)}
-          className={Styles.postAppWindow}
-        >
-          <AppContext.Provider value={AppStateReducer}>
-            <AlertContext.Provider value={setAlert}>
-              <Alert
-                state={alert.state}
-                header={alert.title}
-                text={alert.desc}
-                type={alert.type}
-                setState={setAlert}
-                button={alert.button}
-                cIcon={alert.cIcon || false}
-              />
-              <PostHandlerUI />
-              <div
-                className={`s ${
-                  appState.editPost.state || appState.addPost || alert.state ? 'freeze' : ''
-                }`}
-              >
-                <TopBar />
-                <Header />
-                <ContContext.Provider value={contState}>
-                  <Posts />
-                </ContContext.Provider>
-              </div>
-            </AlertContext.Provider>
-          </AppContext.Provider>
-        </div>
-      ) : null}
+          }
+        }}
+        ref={(e) => setContState(e)}
+        className={Styles.postAppWindow}
+      >
+        <AppContext.Provider value={AppStateReducer}>
+          <AlertContext.Provider value={setAlert}>
+            <div
+              className={`s ${
+                appState.editPost.state || appState.addPost || alert.state ? 'freeze' : ''
+              }`}
+            >
+              <TopBar />
+            </div>
+            {appState.userid && (
+              <>
+                <Alert
+                  state={alert.state}
+                  header={alert.title}
+                  text={alert.desc}
+                  type={alert.type}
+                  setState={setAlert}
+                  button={alert.button}
+                  cIcon={alert.cIcon || false}
+                />
+                <PostHandlerUI />
+                <div
+                  className={`s ${
+                    appState.editPost.state || appState.addPost || alert.state ? 'freeze' : ''
+                  }`}
+                >
+                  <Header />
+                  <ContContext.Provider value={contState}>
+                    <Posts />
+                  </ContContext.Provider>
+                </div>
+              </>
+            )}
+          </AlertContext.Provider>
+        </AppContext.Provider>
+      </div>
     </>
   );
 };

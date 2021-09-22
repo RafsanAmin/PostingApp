@@ -223,6 +223,9 @@
               border-radius: 50%;
               cursor: pointer;
               transition: 0.3s linear;
+              i {
+                pointer-events: none;
+              }
               @include shadow;
               &:hover {
                 color: #fff;

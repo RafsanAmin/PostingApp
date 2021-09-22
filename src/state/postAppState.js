@@ -23,8 +23,8 @@ const AppReducer = (state, action) => {
       return state;
   }
 };
-const initalization = {
-  name: 'post',
+const initalization = (page) => ({
+  name: page,
   description: 'Posting App Made by HRM Rafsan Amin',
   addPost: false,
   editPost: { state: false, post: null },
@@ -33,5 +33,5 @@ const initalization = {
   stop: false,
   userid: null,
   cont: null,
-};
+});
 export { AppReducer, initalization };

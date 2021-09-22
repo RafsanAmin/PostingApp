@@ -98,6 +98,7 @@ const newNeditPostForm = () => {
     : () => {};
 
   const delImg = (e) => {
+    console.log(e.target.name);
     setImages({ type: 'DELETE', index: e.target.name });
   };
   return (
