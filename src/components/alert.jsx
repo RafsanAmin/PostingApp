@@ -1,8 +1,8 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 import Styles from '../scss/alert.module.scss';
 
-const Alert = (props) => {
-  const { header, text, type, state, setState, button, cIcon } = props;
+const Alert = ({ props }) => {
+  const { state, title, desc, type, button, cIcon, setState } = props;
   let iconType;
   if (cIcon) {
     iconType = cIcon;
@@ -29,9 +29,9 @@ const Alert = (props) => {
           </div>
           <div className={Styles.icon}>{iconType}</div>
           <div className={Styles.header}>
-            <h3>{header || ''}</h3>
+            <h3>{title || ''}</h3>
           </div>
-          <div className={Styles.p}>{text || ''}</div>
+          <div className={Styles.p}>{desc || ''}</div>
           {button ? <div className={Styles.button}>{button}</div> : null}
         </div>
       </div>

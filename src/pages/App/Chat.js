@@ -1,16 +1,11 @@
 import Head from 'next/head';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import UserAuthenAPI from '../../API/UserAuthen';
 import Alert from '../../components/alert';
 import TopBar from '../../components/topbar/topbar';
-import AlertContext from '../../Contexts/AlertContext';
-import AppContext from '../../Contexts/AppContext';
+import { AlertContext, useAlert } from '../../hooks/useAlert';
+import { AppContext, useAppState } from '../../hooks/useAppState';
 
-const pageInfo = {
-  name: 'chat',
-  route: 'app/chat',
-  description: 'Posting App Made by HRM Rafsan Amin',
-};
 const tempstyle = {
   cont: { position: 'relative', height: '100vh' },
   head: {
@@ -24,29 +19,22 @@ const tempstyle = {
   },
 };
 const ChatApp = () => {
-  const [alert, setAlert] = useState({ state: false, title: '', desc: '', type: '' });
-  const [appState, setAppState] = useState({ ...pageInfo, userid: null });
+  const [alertProp, setAlert] = useAlert();
+  const [appState, setAppState] = useAppState('chat');
   useEffect(() => {
     const main = async () => {
       const { id } = await UserAuthenAPI.authen();
-      setAppState({ ...pageInfo, userid: id });
+      setAppState({ type: 'USER', id });
     };
     main();
   }, []);
   return (
     <>
       <Head>
-        <title>RafPost- ChatApp</title>
+        <title>Rafpost- ChatApp</title>
       </Head>
       <div style={tempstyle.cont} className="chatapp-window">
-        <Alert
-          state={alert.state}
-          header={alert.title}
-          text={alert.desc}
-          type={alert.type}
-          setState={setAlert}
-          cIcon={alert.cIcon || false}
-        />
+        <Alert props={alertProp} />
         <AppContext.Provider value={[appState]}>
           <AlertContext.Provider value={setAlert}>
             <h1 style={tempstyle.head}>Feature isnt Available</h1>

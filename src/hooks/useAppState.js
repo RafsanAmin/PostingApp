@@ -1,3 +1,6 @@
+import { useEffect, useReducer, useState } from 'react';
+import AppContext from '../Contexts/AppContext';
+
 const AppReducer = (state, action) => {
   switch (action.type) {
     case 'AP_1':
@@ -34,4 +37,12 @@ const initalization = (page) => ({
   userid: null,
   cont: null,
 });
-export { AppReducer, initalization };
+const useAppState = (pageName) => {
+  const [appState, setAppState] = useReducer(AppReducer, initalization(pageName));
+  const [AppStateReducer, xy] = useState([appState, setAppState]);
+  useEffect(() => {
+    xy([appState, setAppState]);
+  }, [appState]);
+  return AppStateReducer;
+};
+export { useAppState, AppContext };

@@ -8,13 +8,14 @@ import Alert from '../../components/alert';
 import Checkbox from '../../components/checkbox';
 import Input from '../../components/Input';
 import Loading from '../../components/Loading';
+import { useAlert } from '../../hooks/useAlert';
 
 function Login() {
   const [User, setUser] = useState('');
   const [Pass, setPass] = useState('');
   const [remMe, setRemMe] = useState(true);
   const [loading, setLoading] = useState(false);
-  const [alert, setAlert] = useState({ state: false, title: '', desc: '', type: '' });
+  const [alert, setAlert] = useAlert();
   const Router = useRouter();
 
   const remMeLabel = 'Remember Me';
@@ -60,13 +61,7 @@ function Login() {
         <title>Rafpost - Login</title>
       </Head>
       <div className="login-page-cont">
-        <Alert
-          header={alert.title}
-          text={alert.desc}
-          type={alert.type}
-          state={alert.state}
-          setState={setAlert}
-        />
+        <Alert props={alert} />
         <div className={`login-form-cont ${alert.state ? 'freeze' : ''}`}>
           <Loading classP="" contClass="login-form" loadState={loading}>
             <div className="supp">

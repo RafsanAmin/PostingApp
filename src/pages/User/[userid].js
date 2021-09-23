@@ -1,33 +1,21 @@
-import { useEffect, useReducer, useState } from 'react';
+import { useEffect } from 'react';
 import Alert from '../../components/alert';
 import TopBar from '../../components/topbar/topbar';
-import AlertContext from '../../Contexts/AlertContext';
-import AppContext from '../../Contexts/AppContext';
-import { AppReducer, initalization } from '../../state/postAppState';
+import { AlertContext, useAlert } from '../../hooks/useAlert';
+import { AppContext, useAppState } from '../../hooks/useAppState';
 
 const UserProfile = ({ name }) => {
-  const [appState, setAppState] = useReducer(AppReducer, initalization('myProfile'));
-  const [alert, setAlert] = useState({ state: false, title: '', desc: '', type: '', button: null });
-  const [context, setContext] = useState([appState, setAppState]);
+  const AppStateArr = useAppState('myProfile');
+  const [, setAppState] = AppStateArr;
+  const [alertProps, setAlert] = useAlert();
   useEffect(() => {
     setAppState({ type: 'USER', id: name });
   }, []);
-  useEffect(() => {
-    setContext([appState, setAppState]);
-  }, [appState]);
   return (
     <>
-      <AppContext.Provider value={context}>
-        <AlertContext.Provider value={alert}>
-          <Alert
-            state={alert.state}
-            header={alert.title}
-            text={alert.desc}
-            type={alert.type}
-            setState={setAlert}
-            button={alert.button}
-            cIcon={alert.cIcon || false}
-          />
+      <AppContext.Provider value={AppStateArr}>
+        <AlertContext.Provider value={setAlert}>
+          <Alert props={alertProps} />
           <TopBar />
           <p>{name}</p>
         </AlertContext.Provider>

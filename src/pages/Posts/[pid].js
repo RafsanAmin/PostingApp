@@ -1,27 +1,19 @@
 import Head from 'next/head';
-import { useState } from 'react';
 import postAPI from '../../API/PostsAPI';
 import Alert from '../../components/alert';
 import PostCont from '../../components/posts/postCont';
-import AlertContext from '../../Contexts/AlertContext';
+import { AlertContext, useAlert } from '../../hooks/useAlert';
 import Styles from '../../scss/postp.module.scss';
 
 const postPage = ({ post, error }) => {
-  const [alert, setAlert] = useState({ state: false, title: '', desc: '', type: '' });
+  const [alertProps, setAlert] = useAlert();
   return (
     <>
       <Head>
         <title>Rafpost - PostSpecific</title>
       </Head>
       <div className={Styles.cont}>
-        <Alert
-          state={alert.state}
-          header={alert.title}
-          text={alert.desc}
-          type={alert.type}
-          setState={setAlert}
-          cIcon={alert.cIcon || false}
-        />
+        <Alert props={alertProps} />
         <AlertContext.Provider value={setAlert}>
           {error ? (
             <div className={Styles.error}>
