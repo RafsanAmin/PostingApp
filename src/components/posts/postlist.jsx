@@ -13,7 +13,7 @@ import Context from '../../Contexts/AppContext';
 import ContContext from '../../Contexts/ContContext';
 import PostCont from './postCont';
 
-const limit = 100;
+const limit = 40;
 const initialize = { before: 0, posts: [] };
 const reducer = (state, action) => {
   const newPosts = state.posts.concat(action.posts);
@@ -40,7 +40,6 @@ const PostList = ({ type, user }) => {
   const [loading, setLoading] = useState(false);
   const Alert = useContext(AlertContext);
   const cont = useContext(ContContext);
-  console.log(cont);
   const heightCache = new CellMeasurerCache({
     defaultHeight: 400,
     fixedWidth: true,
@@ -52,7 +51,6 @@ const PostList = ({ type, user }) => {
       </div>
     </CellMeasurer>
   );
-  console.log(state.cont);
   const main = async (newP) => {
     try {
       setLoading(true);

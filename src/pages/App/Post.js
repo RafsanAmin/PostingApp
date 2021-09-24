@@ -17,7 +17,6 @@ const PostApp = () => {
   const { push } = useRouter();
   const AppStateArr = useAppState('post');
   const [appState, setAppState] = AppStateArr;
-  console.log(AlertContext, useAlert);
   const [alertProp, setAlert] = useAlert();
   const [contState, setContState] = useState();
   useEffect(() => {

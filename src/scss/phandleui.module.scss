@@ -185,6 +185,7 @@
         border-radius: 10px;
         padding: 0.2rem;
         text-align: center;
+
         p {
           color: $blue-dark;
           i {
@@ -199,6 +200,7 @@
           max-height: 402.5px;
           div {
             position: relative;
+
             img {
               width: 100%;
               height: 100%;
@@ -206,6 +208,7 @@
               cursor: pointer;
               position: relative;
               max-height: 402.5px;
+              z-index: 0;
               &:hover {
                 opacity: 0.8;
               }

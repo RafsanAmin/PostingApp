@@ -61,10 +61,16 @@
   .one {
     grid-template-columns: 1fr;
     grid-template-rows: 400px;
+    img {
+      height: 400px;
+    }
   }
   .two {
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 400px;
+    img {
+      height: 400px;
+    }
   }
   .three {
     grid-template-columns: 1fr 1fr;
@@ -72,16 +78,32 @@
     .onex {
       grid-row: span 2;
     }
+    .twox img,
+    .threex img {
+      height: 200px;
+    }
   }
   .four {
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 200px 200px;
+    img {
+      height: 200px;
+    }
   }
   .five {
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 200px 200px;
     .onex {
       grid-row: span 2;
+    }
+    .onex img {
+      height: 400px;
+    }
+    .twox img,
+    .threex img,
+    .fourx img,
+    .fivex img {
+      height: 200px;
     }
   }
 }
