@@ -23,7 +23,7 @@ const Text = ({ text }) => {
                     </a>
                   );
                 }
-                return <>{texte}</>;
+                return <span key={rndm()}>{texte}</span>;
               })}
               <br />
             </>

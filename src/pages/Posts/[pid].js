@@ -1,12 +1,21 @@
 import Head from 'next/head';
 import postAPI from '../../API/PostsAPI';
 import Alert from '../../components/alert';
+import Error from '../../components/error';
+import PHI from '../../components/postHandlerUI/postHandlerUI';
 import PostCont from '../../components/posts/postCont';
 import { AlertContext, useAlert } from '../../hooks/useAlert';
+import { AppContext, useAppState } from '../../hooks/useAppState';
+import useUserInfo from '../../hooks/useUserInfo';
 import Styles from '../../scss/postp.module.scss';
 
 const postPage = ({ post, error }) => {
   const [alertProps, setAlert] = useAlert();
+  const AppReducer = useAppState('PostSpecific');
+  const [appState, setAppState] = AppReducer;
+  useUserInfo(({ id }) => {
+    setAppState({ type: 'USER', id });
+  }, []);
   return (
     <>
       <Head>
@@ -14,16 +23,14 @@ const postPage = ({ post, error }) => {
       </Head>
       <div className={Styles.cont}>
         <Alert props={alertProps} />
-        <AlertContext.Provider value={setAlert}>
-          {error ? (
-            <div className={Styles.error}>
-              <h1>{error.code}</h1>
-              {error.massage}
-            </div>
-          ) : (
-            <PostCont post={post} />
-          )}
-        </AlertContext.Provider>
+        <AppContext.Provider value={AppReducer}>
+          <PHI />
+          <div className={alertProps.state || appState.editPost.state ? 'freeze' : ''}>
+            <AlertContext.Provider value={setAlert}>
+              {error ? <Error type={error.code} /> : <PostCont post={post} />}
+            </AlertContext.Provider>
+          </div>
+        </AppContext.Provider>
       </div>
     </>
   );

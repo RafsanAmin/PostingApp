@@ -1,4 +1,5 @@
-import { memo, useContext, useEffect, useReducer, useState } from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import { memo, useCallback, useContext, useEffect, useReducer, useState } from 'react';
 import {
   AutoSizer,
   CellMeasurer,
@@ -11,6 +12,8 @@ import postAPI from '../../API/PostsAPI';
 import AlertContext from '../../Contexts/AlertContext';
 import Context from '../../Contexts/AppContext';
 import ContContext from '../../Contexts/ContContext';
+import useForceUpdate from '../../hooks/useForceUpdate';
+import useResizeTrigger from '../../hooks/useResizeTrigger';
 import PostCont from './postCont';
 
 const limit = 40;
@@ -22,12 +25,10 @@ const reducer = (state, action) => {
       if (newPosts.length === state.posts.length) {
         return state;
       }
-
       return {
         before: state.before + action.posts.length,
         posts: state.posts.concat(action.posts),
       };
-
     case 'NEW':
       return { before: limit, posts: action.posts };
     default:
@@ -40,6 +41,7 @@ const PostList = ({ type, user }) => {
   const [loading, setLoading] = useState(false);
   const Alert = useContext(AlertContext);
   const cont = useContext(ContContext);
+  const [, forceUpdate] = useForceUpdate();
   const heightCache = new CellMeasurerCache({
     defaultHeight: 400,
     fixedWidth: true,
@@ -51,29 +53,35 @@ const PostList = ({ type, user }) => {
       </div>
     </CellMeasurer>
   );
-  const main = async (newP) => {
-    try {
-      setLoading(true);
-      if (newP) {
-        const { posts } = await postAPI.getPost(type, 0, limit, user);
-        setPosts({ type: 'NEW', posts });
-      } else {
-        const { posts, hasMore } = await postAPI.getPost(type, post.before, limit, user);
-        if (!hasMore) {
-          setState({ type: 'STOP' });
+  const main = useCallback(
+    async (newP) => {
+      try {
+        setLoading(true);
+        if (newP) {
+          const { posts } = await postAPI.getPost(type, 0, limit, user);
+          setPosts({ type: 'NEW', posts });
         } else {
-          setPosts({ type: 'ADD', posts });
+          const { posts, hasMore } = await postAPI.getPost(type, post.before, limit, user);
+          if (!hasMore) {
+            setState({ type: 'STOP' });
+          } else {
+            setPosts({ type: 'ADD', posts });
+          }
         }
+        setLoading(false);
+        setState({ type: 'RELOAD_0' });
+      } catch (err) {
+        Alert({ type: 'error', state: true, title: 'Error', desc: err.massage });
       }
-      setLoading(false);
-      setState({ type: 'RELOAD_0' });
-    } catch (err) {
-      Alert({ type: 'error', state: true, title: 'Error', desc: err.massage });
-    }
-  };
+    },
+    [user, state]
+  );
+  useResizeTrigger(() => {
+    forceUpdate();
+  }, []);
   useEffect(() => {
     main(true);
-  }, []);
+  }, [user]);
   useEffect(() => {
     if (!loading) {
       if (state.fullReload === true) {
@@ -82,7 +90,7 @@ const PostList = ({ type, user }) => {
         main();
       }
     }
-  }, [state]);
+  }, [state.fullReload, state.repost]);
   return (
     <>
       <style jsx>{`
@@ -115,6 +123,7 @@ const PostList = ({ type, user }) => {
               {({ width }) => (
                 <div ref={registerChild}>
                   <List
+                    overscanRowCount={1}
                     autoHeight
                     height={height}
                     width={width}

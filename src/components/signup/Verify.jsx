@@ -29,18 +29,6 @@ const Verify = (props) => {
       setLoading(false);
     }
   };
-  useEffect(() => {
-    const listen = (e) => {
-      if (e.which === 13) {
-        signin();
-      }
-    };
-    document.addEventListener('keypress', listen);
-    return () => {
-      document.removeEventListener('keypress', listen);
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [verCode]);
   return (
     <>
       <Loading classP="verify" contClass="signup-verify" loadState={loading}>

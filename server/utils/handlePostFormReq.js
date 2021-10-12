@@ -1,11 +1,7 @@
-// const handleUpdatePost = (req, res) => {
-//   return new Promise((resolve, reject) => {
-//     const r = { text: null, date: null, id: null, dPhotos: [], kPhotos: [] };
-//     req.pipe(req.busboy);
-//   });
-// };
+const { wordFilter } = require('../../library/filter');
 const cloudinary = require('cloudinary').v2;
 const { getRandomString } = require('../../library/random');
+const moderations = ['webpurify', 'aws_rek'];
 const handlePostFormReq = (req, s) => {
   return new Promise((resolve, reject) => {
     const r = {};
@@ -22,7 +18,7 @@ const handlePostFormReq = (req, s) => {
       } else if (fieldname.includes('kPhotos')) {
         r.kPhotos.push(val);
       } else {
-        r[fieldname] = val;
+        r[fieldname] = wordFilter(val);
       }
     });
     req.busboy.on('file', (fieldname, file, filename) => {
@@ -37,6 +33,7 @@ const handlePostFormReq = (req, s) => {
           filename_override: fileName,
           unique_filename: false,
           resource_type: 'auto',
+          moderation: moderations[Math.floor(Math.random() * 2)],
         },
         (err, res) => {
           console.log(err, res);

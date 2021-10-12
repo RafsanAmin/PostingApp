@@ -41,7 +41,7 @@ function Icons(props) {
             </p>
           </div>
         </Link>
-        <Link href={`/User/${state.userid}`}>
+        <Link href={`/User/${state.userid}?r=1`}>
           <div className={`${Styles.button} ${activeSelector('myProfile')}`}>
             <i className="far fa-user" />
             <p type="button" name="myProfile">

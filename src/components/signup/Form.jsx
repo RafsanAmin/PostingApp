@@ -1,7 +1,7 @@
 /* sfeslint-disable @next/next/no-img-element */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 import Link from 'next/link';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import UserAuthenAPI from '../../API/UserAuthen';
 import Checkbox from '../checkbox';
 import Input from '../Input';
@@ -29,8 +29,8 @@ function Login(props) {
         profilePic: fileRef.current.files[0],
         confPass: ConfirmPassword,
       };
+      console.log(UserInfo);
       const verficationCode = await UserAuthenAPI.verifyMail(UserInfo);
-      console.log(verficationCode);
       sui({ ...UserInfo, code: verficationCode.verification });
       setLoading(false);
     } catch (err) {
@@ -43,18 +43,6 @@ function Login(props) {
       setLoading(false);
     }
   };
-  useEffect(() => {
-    const listen = (e) => {
-      if (e.which === 13) {
-        setSignUP();
-      }
-    };
-    document.addEventListener('keypress', listen);
-    return () => {
-      document.removeEventListener('keypress', listen);
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [User, Pass, ConfirmPassword, Email, remMe, imgPath]);
   const uploadClick = () => {
     fileRef.current.click();
   };

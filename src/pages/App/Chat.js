@@ -1,10 +1,9 @@
 import Head from 'next/head';
-import { useEffect } from 'react';
-import UserAuthenAPI from '../../API/UserAuthen';
 import Alert from '../../components/alert';
 import TopBar from '../../components/topbar/topbar';
 import { AlertContext, useAlert } from '../../hooks/useAlert';
 import { AppContext, useAppState } from '../../hooks/useAppState';
+import useUserInfo from '../../hooks/useUserInfo';
 
 const tempstyle = {
   cont: { position: 'relative', height: '100vh' },
@@ -21,12 +20,8 @@ const tempstyle = {
 const ChatApp = () => {
   const [alertProp, setAlert] = useAlert();
   const [appState, setAppState] = useAppState('chat');
-  useEffect(() => {
-    const main = async () => {
-      const { id } = await UserAuthenAPI.authen();
-      setAppState({ type: 'USER', id });
-    };
-    main();
+  useUserInfo(({ id }) => {
+    setAppState({ type: 'USER', id });
   }, []);
   return (
     <>

@@ -8,12 +8,12 @@ const uh = express.Router();
 const checkExistsAndResponse = require('../utils/checkExistAndRes');
 const secret = process.env.TOKEN;
 const pass = process.env.PASSWORD;
-
+const IdIsValid = require('mongoose').Types.ObjectId.isValid;
 const mailerTransport = require('@sendgrid/mail');
 const uploadProfilePic = require('../utils/profilePicUpload');
 const authen = require('../middleware/authen');
 const { getRandomNumber } = require('../../library/random');
-
+const { wordIncludes } = require('../../library/filter');
 mailerTransport.setApiKey(pass);
 uh.use(cookieParser());
 uh.use(express.json());
@@ -55,12 +55,12 @@ uh.get('/login', async (req, res, next) => {
     }
   });
 });
-uh.get('/logout', async (req, res, next) => {
+uh.get('/logout', authen, async (req, res, next) => {
   res.clearCookie('jwt');
   res.json({ done: true });
 });
 uh.post('/signup', async (req, res, next) => {
-  const { username, password, email, likedPosts, profilePic } = req.body;
+  const { username, password, email, bio } = req.body;
   const alExist = await UserModelDB.exists({ username });
   if (!alExist) {
     const sPass = await bcrypt.hash(password, 10);
@@ -68,8 +68,7 @@ uh.post('/signup', async (req, res, next) => {
       username,
       password: sPass,
       email,
-      likedPosts,
-      profilePic,
+      bio: bio || '',
     };
     await UserModelDB.create(newUserData, (err, data) => {
       if (err) {
@@ -99,8 +98,8 @@ uh.post('/verify', async (req, res, next) => {
   const { user, email } = req.body;
   const number = getRandomNumber(7);
   const alExist = await UserModelDB.exists({ username: user });
-  console.log(user);
-  if (!alExist) {
+  console.log(user, wordIncludes(user));
+  if (!alExist && !wordIncludes(user)) {
     const sendMail = {
       from: 'rafpost002@gmail.com',
       to: email,
@@ -138,6 +137,7 @@ uh.get('/getProfilePic/:user', async (req, res) => {
 });
 uh.get('/authen', async (req, res, next) => {
   let jwtToken = req.cookies.jwt;
+  console.log(req.cookies.jwt);
   if (!jwtToken) {
     res.status(200).json({
       massage: 'Not Logged In',
@@ -158,6 +158,34 @@ uh.get('/authen', async (req, res, next) => {
       });
     }
   }
+});
+uh.get('/getUserData/:id', async (req, res, next) => {
+  const userid = req.params.id;
+  const isValid = await IdIsValid(userid);
+  const alExist = isValid ? await UserModelDB.exists({ _id: userid }) : false;
+  if (alExist) {
+    UserModelDB.findOne({ _id: userid })
+      .select(['-password', '-__v'])
+      .then((resp) => {
+        res.json({ done: true, user: resp });
+      })
+      .catch(() => {
+        res.status(500).json({ done: false, massage: 'An Unexpected Error!' });
+      });
+  } else {
+    res.json({ done: true, user: null });
+  }
+});
+uh.get('/addBio', async (req, res, next) => {
+  const { id, bio } = req.query;
+
+  UserModelDB.findOneAndUpdate({ _id: id }, { bio: bio }, (err) => {
+    if (err) {
+      res.json({ err: err, done: false });
+    } else {
+      res.json({ done: true });
+    }
+  });
 });
 
 module.exports = uh;

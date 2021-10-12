@@ -1,17 +1,15 @@
 import Axios from 'axios';
-import urlPrefix from './getURL';
 
 Axios.interceptors.response.use(
   (response) => response,
   (err) => err.response
 );
 
+const mailRegexp =
+  /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@(google|outlook|hotmail|gmail)+(?:\.(com|org|io)+)*$/;
 class UserAuthenAPIClass {
-  urlPrefix = urlPrefix;
-
   uploadProfilePic = (files, user) =>
     new Promise((resolve, reject) => {
-      console.log(files);
       if (!files) {
         resolve(true);
       } else {
@@ -19,7 +17,7 @@ class UserAuthenAPIClass {
         formData.append('username', user);
         formData.append('profile-pic', files);
 
-        Axios.post(`${this.urlPrefix}/uh/addProfilePic`, formData).then((res) => {
+        Axios.post(`/uh/addProfilePic`, formData).then((res) => {
           if (res.data.success) {
             resolve(true);
           } else {
@@ -31,8 +29,7 @@ class UserAuthenAPIClass {
 
   login = ({ username, password, remMe }) =>
     new Promise((resolve, reject) => {
-      console.log(this.urlPrefix);
-      Axios.get(`${this.urlPrefix}/uh/login`, {
+      Axios.get(`/uh/login`, {
         params: {
           username,
           password,
@@ -58,7 +55,7 @@ class UserAuthenAPIClass {
 
   authen = () =>
     new Promise((resolve, reject) => {
-      Axios.get(`${this.urlPrefix}/uh/authen`, { withCredentials: true })
+      Axios.get(`/uh/authen`, { withCredentials: true })
         .then((res) => {
           if (res.data.done === true || res.data.done === false) {
             resolve(res.data);
@@ -83,9 +80,7 @@ class UserAuthenAPIClass {
           reject({
             data: { massage: 'Password Must Be more Than 8 Characters' },
           });
-        } else if (
-          !/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(email)
-        ) {
+        } else if (!mailRegexp.test(email)) {
           reject({ data: { massage: 'Give Valid Email' } });
         } else if (password !== confirmPassword) {
           reject({
@@ -97,9 +92,8 @@ class UserAuthenAPIClass {
             password,
             email,
             likedPosts: [],
-            profilePic: '',
           };
-          Axios.post(`${this.urlPrefix}/uh/signup`, sendData).then((res) => {
+          Axios.post(`/uh/signup`, sendData).then((res) => {
             if (res.data.exists === false && res.data.done === true) {
               this.uploadProfilePic(profilePic, res.data.id).then((resp) => {
                 if (!resp) {
@@ -120,7 +114,7 @@ class UserAuthenAPIClass {
 
   logout = () =>
     new Promise((resolve, reject) => {
-      Axios.get(`${this.urlPrefix}/uh/logout`, { withCredentials: true }).then((res) => {
+      Axios.get(`/uh/logout`, { withCredentials: true }).then((res) => {
         if (res.data.done) {
           resolve(true);
         } else {
@@ -136,14 +130,12 @@ class UserAuthenAPIClass {
       const password = pass.trim();
       const confirmPassword = confPass.trim();
       const email = eml.trim();
-      if (username !== '' || password !== '' || email !== '') {
+      if (username && password && email) {
         if (password.length < 8) {
           reject({
             data: { massage: 'Password Must Be more Than 8 Characters' },
           });
-        } else if (
-          !/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(email)
-        ) {
+        } else if (!mailRegexp.test(email)) {
           reject({ data: { massage: 'Give Valid Email' } });
         } else if (password !== confirmPassword) {
           reject({
@@ -154,7 +146,7 @@ class UserAuthenAPIClass {
             user,
             email,
           };
-          Axios.post(`${this.urlPrefix}/uh/verify`, sendData).then((res) => {
+          Axios.post(`/uh/verify`, sendData).then((res) => {
             if (res.data.success && !res.data.exists) {
               resolve(res.data);
             } else {
@@ -165,6 +157,17 @@ class UserAuthenAPIClass {
       } else {
         reject({ data: { massage: 'Everything is Required' } });
       }
+    });
+
+  getUserInfo = (id) =>
+    new Promise((resolve, reject) => {
+      Axios.get(`/uh/getUserData/${id}`).then((res) => {
+        if (res.data.done) {
+          resolve(res.data.user);
+        } else {
+          reject(res.data.massage);
+        }
+      });
     });
 }
 const UserAuthenAPI = new UserAuthenAPIClass();

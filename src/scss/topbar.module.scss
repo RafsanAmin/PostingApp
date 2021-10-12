@@ -114,6 +114,7 @@
       transform-origin: top;
       @include shadow;
       overflow: hidden;
+      z-index: 5;
       .MenuItem {
         cursor: pointer;
         display: flex;

@@ -1,5 +1,4 @@
 import Axios from 'axios';
-import urlPrefix from './getURL';
 
 Axios.interceptors.response.use(
   (response) => response,
@@ -26,7 +25,7 @@ const postAPI = {
             formData.append(`images${index}`, val);
           });
         }
-        Axios.post(`${urlPrefix}/pH/addPost`, formData, {
+        Axios.post(`/pH/addPost`, formData, {
           withCredentials: true,
           cancelToken: source.token,
         }).then((res) => {
@@ -47,7 +46,7 @@ const postAPI = {
   },
   getPostLatest: (before, limit) =>
     new Promise((resolve, reject) => {
-      Axios.get(`${urlPrefix}/pH/getPostsByDate`, { params: { limit, before } }).then((res) => {
+      Axios.get(`/pH/getPostsByDate`, { params: { limit, before } }).then((res) => {
         if (res.data) {
           resolve(res.data);
         } else {
@@ -57,7 +56,7 @@ const postAPI = {
     }),
   getPostById: (pid) =>
     new Promise((resolve, reject) => {
-      Axios.get(`${urlPrefix}/pH/getPost`, { params: { pid } }).then((res) => {
+      Axios.get(`/pH/getPost`, { params: { pid } }).then((res) => {
         if (res.data) {
           if (res.data.done) {
             resolve(res.data.post);
@@ -73,7 +72,7 @@ const postAPI = {
     return new Promise((resolve, reject) => {
       const add = user === 'own' ? 'getPostsMine' : 'getPostsByUser';
 
-      Axios.get(`${urlPrefix}/pH/${add}`, {
+      Axios.get(`/pH/${add}`, {
         params: { limit, before, uid: user },
         withCredentials: true,
       }).then((res) => {
@@ -112,7 +111,7 @@ const postAPI = {
   },
   deletePost(post) {
     return new Promise((resolve, reject) => {
-      Axios.post(`${urlPrefix}/pH/deletePost`, { data: post }, { withCredentials: true })
+      Axios.post(`/pH/deletePost`, { data: post }, { withCredentials: true })
         .then((res) => {
           if (res.data.done) {
             resolve(res.data.massage);

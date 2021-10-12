@@ -1,4 +1,6 @@
+import Link from 'next/link';
 import { memo, useContext, useState } from 'react';
+import urlPrefix from '../../API/getURL';
 import postAPI from '../../API/PostsAPI';
 import Context from '../../Contexts/AlertContext';
 import AppContext from '../../Contexts/AppContext';
@@ -22,7 +24,10 @@ const PostCont = ({ post }) => {
     },
   ];
   const { userid } = appState;
-  const own = userid === uid;
+  const own =
+    userid === uid ||
+    userid === '61346cba5f69790468c69b2d' ||
+    userid === '614ca3dadca93a001614286a';
 
   let textSizeIsBig = false;
   if (text.length > 120) {
@@ -37,7 +42,7 @@ const PostCont = ({ post }) => {
       desc: (
         <>
           Click The Button to Copy and Share The Link
-          <Clipboard copyText={`https://rafpost.herokuapp.com/Posts/${_id}`} />
+          <Clipboard copyText={`${urlPrefix}/Posts/${_id}`} />
         </>
       ),
       type: 'info',
@@ -59,7 +64,7 @@ const PostCont = ({ post }) => {
       document.body.style.cursor = 'default';
     } catch (err) {
       Alert({
-        state: false,
+        state: true,
         title: 'Not Deleted',
         desc: err,
         type: 'error',
@@ -83,16 +88,18 @@ const PostCont = ({ post }) => {
   return (
     <div className={Styles.postCont}>
       <div className={Styles.titleCont}>
-        <div className={Styles.left}>
-          <div className={Styles.profPic}>
-            {/* {uid} */}
-            <img src={imgPath} alt="" />
+        <Link href={`/User/${uid}`} prefetch={false}>
+          <div style={{ cursor: 'pointer' }} className={Styles.left}>
+            <div className={Styles.profPic}>
+              {/* {uid} */}
+              <img src={imgPath} alt="" />
+            </div>
+            <div className={Styles.nameNdate}>
+              <h3>{username}</h3>
+              <p>{date}</p>
+            </div>
           </div>
-          <div className={Styles.nameNdate}>
-            <h3>{username}</h3>
-            <p>{date}</p>
-          </div>
-        </div>
+        </Link>
         <div className={Styles.right}>
           <MenuCont state={[toggle, setToggle]}>
             <Menu>

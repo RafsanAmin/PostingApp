@@ -5,6 +5,8 @@ const AppReducer = (state, action) => {
   switch (action.type) {
     case 'AP_1':
       return { ...state, addPost: true };
+    case 'UE_1':
+      return { ...state, userEdit: true };
     case 'RELOAD_1':
       return { ...state, repost: true };
     case 'RELOAD_0':
@@ -16,7 +18,7 @@ const AppReducer = (state, action) => {
     case 'EP_1':
       return { ...state, editPost: { state: true, post: action.post } };
     case 'PF_0':
-      return { ...state, addPost: false, editPost: { state: false, post: null } };
+      return { ...state, addPost: false, editPost: { state: false, post: null }, userEdit: false };
     case 'USER':
       return { ...state, userid: action.id };
     case 'CONT': {
@@ -36,6 +38,7 @@ const initalization = (page) => ({
   stop: false,
   userid: null,
   cont: null,
+  userEdit: false,
 });
 const useAppState = (pageName) => {
   const [appState, setAppState] = useReducer(AppReducer, initalization(pageName));
@@ -45,4 +48,13 @@ const useAppState = (pageName) => {
   }, [appState]);
   return AppStateReducer;
 };
-export { useAppState, AppContext };
+const reloadPost = (target, appStateArr) => {
+  const [appState, setAppState] = appStateArr;
+  if (target.clientHeight + target.scrollTop >= target.sc0rollHeight - 1500) {
+    if (!appState.stop) {
+      setAppState({ type: 'RELOAD_1' });
+    }
+  }
+};
+
+export { useAppState, AppContext, reloadPost };
