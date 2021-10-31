@@ -1,0 +1,47 @@
+@import './global/global';
+.errorCont {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80%;
+  text-align: center;
+  font-family: ubuntu;
+  .icon {
+    i {
+      font-size: 5rem;
+      transition: 0.3s ease-in-out;
+      @keyframes beauty {
+        to {
+          background-position: 200% center;
+        }
+      }
+      &::before {
+        background: linear-gradient(90deg, $blue-primary 0%, $blue-darker 50%, $blue-primary 100%);
+        background-clip: text;
+        color: transparent;
+        background-size: 200% auto;
+        animation: beauty 7s infinite linear;
+      }
+      &:hover {
+        transform: rotate(90deg);
+      }
+    }
+  }
+  h1 {
+    font-family: ubuntu;
+    font-size: 2rem;
+    color: $blue-primary;
+    span {
+      font-family: inherit;
+      font-size: 3rem;
+      background: linear-gradient(27deg, $blue-dark 50%, $blue-darkest 100%);
+      background-clip: text;
+      color: transparent;
+    }
+  }
+  p {
+    color: $blue-darker;
+    font-size: 1.2rem;
+  }
+}

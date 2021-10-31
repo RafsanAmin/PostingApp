@@ -1,0 +1,286 @@
+@import './global/global';
+.npFormWin {
+  position: fixed;
+  top: 50%;
+  width: 100%;
+  z-index: 5;
+
+  .npFormCont {
+    width: 90%;
+    max-width: 600px;
+    height: auto;
+    max-height: 80%;
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    border-radius: 7.5px;
+    transition: 0.3s ease-in-out;
+    @include shadow;
+    & > div {
+      margin: 1.5rem 1rem 1rem 1.75rem;
+      padding: 0.25rem 1rem 0rem 0.25rem;
+      overflow-y: auto;
+      @include scrollbar;
+      .bottomBar {
+        display: block;
+        text-align: left;
+        width: 100%;
+        padding: 0 0 0.45rem 0;
+        display: flex;
+        justify-content: space-between;
+        .addResources {
+          .addPic {
+            border: 1px solid $blue-primary;
+            border-radius: 20px;
+            background-color: #fff;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 400;
+            padding: 0.2em 0.75rem;
+            height: 100%;
+            color: $blue-primary;
+            transition: 0.15s linear;
+            i {
+              position: relative;
+              margin-right: 0.3rem;
+              .plus {
+                background-color: #fff;
+                position: absolute;
+                bottom: -15%;
+                right: -40%;
+                font-size: 0.6rem;
+              }
+            }
+            &:hover {
+              $color: opacify(
+                $color: $blue-lighter,
+                $amount: 0.02,
+              );
+              @include shadow($color, 0px, 0px, 1px, 3.5px);
+            }
+            &:active {
+              background-color: $blue-primary;
+              color: #fff;
+            }
+          }
+        }
+        .btnCont {
+          margin-block: auto;
+          padding-left: 0.75rem;
+          position: relative;
+          height: 100%;
+          display: flex;
+          &::before {
+            content: '';
+            position: absolute;
+            height: 1.5rem;
+            width: 1.5px;
+            background-color: $grey-light;
+            top: 50%;
+            transform: translateY(-50%);
+            left: 0;
+          }
+          .closeBtn {
+            border: 1px solid $blue-primary;
+            background-color: #fff;
+            cursor: pointer;
+            font-size: 1rem;
+            height: 35px;
+            width: 35px;
+            margin-inline: 5px;
+            transition: 0.15s linear;
+            border-radius: 50%;
+            color: $blue-primary;
+            &:hover {
+              background-color: $blue-lightest;
+            }
+            &:active {
+              $color: opacify(
+                $color: $blue-lighter,
+                $amount: 0.1,
+              );
+              @include shadow($color, 0px, 0px, 0px, 4px);
+            }
+          }
+          .addPost {
+            color: #fff;
+            background-color: $blue-primary;
+            font-size: 1.05rem;
+            font-weight: 500;
+            padding: 0.3em 1.5rem 0.25rem 1rem;
+            border: 0;
+            height: auto;
+            border-radius: 20px;
+            transition: 0.15s linear;
+            cursor: pointer;
+            position: relative;
+            div {
+              display: flex;
+              img {
+                width: 1.25rem;
+                animation: spin 1s linear infinite;
+                transform-origin: center center;
+                margin: auto 0;
+              }
+              @keyframes spin {
+                0% {
+                  transform: rotate(0deg);
+                }
+                100% {
+                  transform: rotate(360deg);
+                }
+              }
+              p {
+                margin-left: 0.35rem;
+              }
+            }
+            &:hover {
+              background-color: $blue-dark;
+            }
+            &:active {
+              $color: opacify(
+                $color: $blue-lighter,
+                $amount: 0.1,
+              );
+              @include shadow($color, 0px, 0px, 0px, 4px);
+            }
+          }
+          .disable {
+            opacity: 0.6;
+            cursor: not-allowed;
+            &:hover {
+              background-color: $blue-primary;
+            }
+            &:active {
+              box-shadow: none;
+            }
+          }
+        }
+      }
+      .postTextCont {
+        width: 100%;
+        padding: 0.5rem 0.5rem 0.5rem 0.5rem;
+        textarea {
+          width: 100%;
+          transition: 0.3s ease-in-out;
+          font-size: 1.2rem;
+          resize: none;
+          border: none;
+          overflow-y: hidden;
+          $color: opacify(
+            $color: $blue-lighter,
+            $amount: 0.02,
+          );
+          line-height: 24px;
+          color: $grey-darker;
+          caret-color: $blue-primary;
+          @include scrollbar(10px);
+        }
+      }
+
+      .imagesGridCont {
+        margin-bottom: 1rem;
+        border: 2px solid $blue-primary;
+        border-radius: 10px;
+        padding: 0.2rem;
+        text-align: center;
+
+        p {
+          color: $blue-dark;
+          i {
+            color: $blue-primary;
+            margin-right: 0.25rem;
+          }
+        }
+        div {
+          display: grid;
+          grid-gap: 2.5px;
+          @include scrollbar(5px);
+          max-height: 402.5px;
+          div {
+            position: relative;
+
+            img {
+              width: 100%;
+              height: 100%;
+              object-fit: cover;
+              cursor: pointer;
+              position: relative;
+              max-height: 402.5px;
+              z-index: 0;
+              &:hover {
+                opacity: 0.8;
+              }
+            }
+            button {
+              z-index: 5;
+              position: absolute;
+              top: 0;
+              right: 0;
+              width: 30px;
+              height: 30px;
+              background-color: #fff;
+              border: 1px solid $red-primary;
+              color: $red-primary;
+              border-radius: 50%;
+              cursor: pointer;
+              transition: 0.3s linear;
+              i {
+                pointer-events: none;
+              }
+              @include shadow;
+              &:hover {
+                color: #fff;
+                background-color: $red-primary;
+              }
+            }
+            p {
+              z-index: 5;
+              position: absolute;
+              padding: 0 0.5rem;
+              margin: 1rem;
+              bottom: 0;
+              right: 0;
+              color: #fff;
+              font-size: 0.8rem;
+              background-color: $blue-primary;
+              border-radius: 10px;
+              @include shadow;
+            }
+          }
+        }
+        @include gridCont;
+      }
+    }
+  }
+}
+.off {
+  pointer-events: none;
+  background-color: transparent;
+  .npFormCont {
+    transform: scale(0) translateY(-50%);
+  }
+}
+.on {
+  .npFormCont {
+    transform: scale(1) translateY(-50%);
+  }
+}
+@media screen and (max-width: 375px) {
+  .npFormWin {
+    .npFormCont {
+      width: 95%;
+      & > div {
+        margin: 0.5rem 0.5rem 0.5rem 0.75rem;
+        padding: 0.45rem 1rem 0rem 0.25rem;
+        overflow-y: auto;
+        .postTextCont {
+          textarea {
+            padding: 0.5rem 0.25rem 0 0.25rem;
+          }
+        }
+      }
+    }
+  }
+}

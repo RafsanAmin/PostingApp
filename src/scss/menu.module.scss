@@ -1,0 +1,76 @@
+@import './global/global';
+.toggler {
+  position: relative;
+  .button {
+    height: 40px;
+    width: 40px;
+    background-color: #fff;
+    border: none;
+    color: $grey-dark;
+    font-size: 1.2rem;
+    transform: translateY(-10%);
+    transition: 0.25s linear;
+    cursor: pointer;
+    border-radius: 10px;
+    &:hover {
+      background-color: $grey-lighter;
+      border-radius: 50%;
+    }
+    &:active {
+      background-color: $grey-light;
+    }
+  }
+}
+.menu {
+  position: absolute;
+  background-color: #fff;
+  padding: 0.5rem 0.25rem;
+  right: 0;
+  overflow-y: clip;
+  z-index: 2;
+  min-width: 150px;
+  border-radius: 7px;
+  transition: 0.3s ease-in-out;
+  transform-origin: top;
+  @include shadow;
+}
+.off {
+  pointer-events: none;
+  transform: scaleY(0);
+}
+.on {
+  transform: scaleY(1);
+}
+.items {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 0.25rem 0.5rem;
+  border: 0;
+  background-color: transparent;
+  cursor: pointer;
+  transition: 0.15s linear;
+  border-radius: 10px;
+  i {
+    width: 35px;
+    height: 35px;
+    display: grid;
+    place-items: center;
+    background-color: $blue-lightest;
+    border-radius: 50%;
+    color: $blue-primary;
+  }
+  p {
+    padding-left: 0.5rem;
+    font-size: 1.1rem;
+    color: $blue-primary;
+    font-weight: 500;
+  }
+  &:hover {
+    background-color: $blue-lightest;
+  }
+  &:active {
+    background-color: $blue-lighter;
+  }
+}

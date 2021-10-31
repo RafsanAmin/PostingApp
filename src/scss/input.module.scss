@@ -1,0 +1,40 @@
+@import './global/global';
+.loginField {
+  margin: 1rem 0;
+  position: relative;
+  input {
+    font-size: 1.2rem;
+    font-family: Jost;
+    border: 0;
+    border: {
+      width: 0;
+      radius: 50px;
+    }
+    width: 100%;
+    background-color: $grey-lightest;
+    color: $grey-dark;
+    transition: 0.25s linear;
+    padding: 0.65rem 1.2rem 0.65rem 1.5rem;
+
+    &:focus {
+      background-color: $blue-lighter;
+      color: $blue-dark;
+      &::placeholder {
+        color: $blue-darker;
+      }
+    }
+    &:hover:not(:focus) {
+      background-color: #cdeeffa1;
+      color: #055b9d8c;
+      &::placeholder {
+        color: $blue-darker;
+      }
+    }
+    &::placeholder {
+      color: $grey-dark;
+      font-family: Jost;
+      font-weight: 400;
+      opacity: 0.5;
+    }
+  }
+}

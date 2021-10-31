@@ -1,0 +1,39 @@
+@import './global/global';
+.title {
+  text-align: center;
+  padding: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1rem;
+  img,
+  i {
+    font-size: 2.5rem;
+    width: 2.5rem;
+    margin: 0 0.5rem;
+  }
+  h1 {
+    color: $blue-dark;
+    position: relative;
+    transition: 0.2s ease-in-out;
+    &::before {
+      content: '';
+      position: absolute;
+      background-color: $blue-primary;
+      height: 2px;
+      width: 50%;
+      bottom: 3px;
+      transition: 0.2s ease-in-out;
+    }
+    &:hover {
+      &::before {
+        content: '';
+        position: absolute;
+        background-color: $blue-primary;
+        height: 2px;
+        width: 100%;
+        bottom: 3px;
+      }
+    }
+  }
+}

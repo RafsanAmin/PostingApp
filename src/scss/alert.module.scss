@@ -1,0 +1,200 @@
+@import './global/global';
+
+.alertWin {
+  position: fixed;
+  z-index: 10;
+  width: 100%;
+  display: grid;
+  place-items: center;
+  top: 50%;
+  left: 0;
+  .alertCont {
+    background-color: #fff;
+    display: grid;
+    place-content: center;
+    padding: 1rem 2rem 1.5rem 2rem;
+    width: 90%;
+    max-width: 400px;
+    min-height: 200px;
+    border-radius: 5px;
+    grid-auto-columns: 100%;
+    transition: 0.2s ease-in-out;
+    @include shadow;
+    .closeButton {
+      display: block;
+      text-align: right;
+      i {
+        height: 40px;
+        width: 40px;
+        border-radius: 50%;
+        cursor: pointer;
+        transition: 0.15s linear;
+        &:hover {
+          background-color: $grey-lightest;
+        }
+        &:active {
+          background-color: $grey-light;
+        }
+        &::before {
+          display: grid;
+          place-items: center;
+          height: 100%;
+        }
+      }
+    }
+    .icon {
+      display: block;
+      margin-top: -15px;
+      i {
+        font-size: 2.1rem;
+      }
+    }
+    .header {
+      h3 {
+        font-size: 1.75rem;
+        font-weight: 600;
+      }
+    }
+    .p {
+      font-size: 1.2rem;
+      width: 100%;
+    }
+    .button {
+      padding: 0.5rem 0 0 0;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      button {
+        padding: 0.3rem 1rem;
+        border: 0;
+        font-size: 0.95rem;
+        border-radius: 15px;
+        cursor: pointer;
+        transition: 0.15s linear;
+        &:hover {
+          opacity: 0.8;
+        }
+        &:active {
+          @include shadow;
+          opacity: 0.5;
+        }
+      }
+    }
+  }
+  .success {
+    .header {
+      h3 {
+        color: $green-primary;
+      }
+    }
+    .closeButton {
+      i {
+        color: $green-primary;
+      }
+    }
+    .icon {
+      i {
+        color: $green-primary;
+      }
+    }
+    .p {
+      color: $green-light;
+    }
+    .button {
+      button {
+        background-color: $green-primary;
+        color: #fff;
+      }
+    }
+  }
+  .error {
+    .header {
+      h3 {
+        color: $red-dark;
+      }
+    }
+    .closeButton {
+      i {
+        color: $red-primary;
+      }
+    }
+    .icon {
+      i {
+        color: $red-primary;
+      }
+    }
+    .p {
+      color: $red-light;
+    }
+    .button {
+      button {
+        background-color: $red-primary;
+        color: #fff;
+      }
+    }
+  }
+  .info {
+    .header {
+      h3 {
+        color: $blue-dark;
+      }
+    }
+    .closeButton {
+      i {
+        color: $blue-primary;
+      }
+    }
+    .icon {
+      i {
+        color: $blue-primary;
+      }
+    }
+    .p {
+      color: $blue-light;
+    }
+    .button {
+      button {
+        background-color: $blue-primary;
+        color: #fff;
+      }
+    }
+  }
+  .warn {
+    .header {
+      h3 {
+        color: $yellow-dark;
+      }
+    }
+    .closeButton {
+      i {
+        color: $yellow-primary;
+      }
+    }
+    .icon {
+      i {
+        color: $yellow-primary;
+      }
+    }
+    .p {
+      color: $yellow-dark;
+    }
+    .button {
+      button {
+        background-color: $yellow-primary;
+        color: #fff;
+      }
+    }
+  }
+}
+
+.off {
+  pointer-events: none;
+  .alertCont {
+    transform: scale(0) translateY(-50%);
+  }
+}
+.on {
+  .alertCont {
+    transform: scale(1) translateY(-50%);
+  }
+}

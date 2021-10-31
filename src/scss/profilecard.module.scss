@@ -1,0 +1,102 @@
+@import './global/global';
+.superCont {
+  width: 100%;
+  display: grid;
+  place-items: center;
+  .innerCont {
+    display: grid;
+    align-items: stretch;
+    justify-items: space-between;
+    grid-template-columns: repeat(3, minmax(100px, 500px));
+    grid-template-rows: 1fr;
+    margin-top: 2rem;
+    height: 100%;
+    section {
+      width: 100%;
+      padding: 0.5rem;
+      .inner {
+        border: 1px solid $blue-primary;
+        background-color: #fff;
+        border-radius: 5px;
+        padding: 1rem;
+        height: max-content;
+        width: 100%;
+        height: 100%;
+        max-height: 400px;
+        @include shadow();
+      }
+    }
+    .profileCont {
+      .inner {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        justify-content: center;
+        position: relative;
+        padding: 1.5rem 1rem 1rem 1rem;
+        .profileImg {
+          grid-row: span 2;
+          img {
+            width: 100%;
+            min-width: 50px;
+            max-width: 200px;
+            aspect-ratio: 1 / 1;
+            object-fit: cover;
+            border-radius: 50%;
+            outline: 3px solid $blue-dark;
+            outline-offset: 3px;
+          }
+        }
+        .usrname {
+          padding-top: 1rem;
+          h1 {
+            color: $blue-dark;
+            font-family: ubuntu;
+            font-weight: 700;
+          }
+        }
+        .menu {
+          position: absolute;
+          bottom: 1rem;
+          right: 1rem;
+        }
+      }
+    }
+    .descCont {
+      .inner {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        justify-content: center;
+      }
+    }
+  }
+}
+@media only screen and (max-width: 980px) {
+  .superCont {
+    .innerCont {
+      grid-template-columns: minmax(100px, 980px);
+      grid-template-rows: auto auto auto;
+      .profileCont {
+        grid-row: 1 / 2;
+        .profileImg {
+          img {
+            width: 100%;
+            min-width: 150px;
+            aspect-ratio: 1 / 1;
+            object-fit: cover;
+            border-radius: 50%;
+            outline: 3px solid $blue-dark;
+            outline-offset: 3px;
+          }
+        }
+      }
+      .descCont {
+        grid-row: 2 / 3;
+      }
+      .bioCont {
+        grid-row: 3 /4;
+      }
+    }
+  }
+}
