@@ -44,6 +44,7 @@ const UserSetUICont = () => {
         });
         setLoading(false);
       });
+    close();
   };
   return (
     <div className={`${Styles.win} ${appState.userEdit ? Styles.on : Styles.off}`}>
@@ -80,14 +81,14 @@ const UserSetUICont = () => {
           <span>Bio</span>
           <br />
           <TextArea
-            limit={500}
-            rows={{ min: 2, max: 7, lineH: 24 }}
+            limit={250}
+            rows={{ min: 5, max: 5, lineH: 24 }}
             value={Ebio}
             setValue={setBio}
           />
         </div>
 
-        <div className={Styles.updateButton}>
+        <div className={`${Styles.updateButton} ${loading ? 'load' : ''}`}>
           <div />
           <button type="button" onClick={setUserData}>
             {loading ? <img src="/loadingW.svg" width="20" alt="" /> : null}

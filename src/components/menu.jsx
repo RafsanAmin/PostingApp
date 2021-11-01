@@ -19,12 +19,22 @@ const Menu = ({ children }) => {
   const [toggle] = useContext(MenuTogglerContext);
   return <div className={`${Styles.menu} ${toggle ? Styles.on : Styles.off}`}>{children}</div>;
 };
-const Item = ({ icon, name, handler }) => (
-  <button className={Styles.items} type="button" onClick={handler}>
-    {icon}
-    <p>{name}</p>
-  </button>
-);
+const Item = ({ icon, name, handler }) => {
+  const [, st] = useContext(MenuTogglerContext);
+  return (
+    <button
+      className={Styles.items}
+      type="button"
+      onClick={() => {
+        handler();
+        st(false);
+      }}
+    >
+      {icon}
+      <p>{name}</p>
+    </button>
+  );
+};
 
 export { MenuCont, Menu, Item };
 // eslint-disable-next-line prettier/prettier

@@ -55,10 +55,10 @@
       border-radius: 25px;
       font-size: 1.05rem;
       &:hover {
-        background-color: $blue-dark;
+        opacity: 0.8;
       }
       &:active {
-        background-color: $blue-darker;
+        opacity: 0.5;
       }
       img {
         margin-right: 0.2rem;
@@ -72,6 +72,13 @@
       100% {
         transform: rotate(360deg);
       }
+    }
+  }
+  .load{
+    button{
+      cursor: not-allowed;
+      pointer-events: none;
+      opacity: 0.5;
     }
   }
   .head {

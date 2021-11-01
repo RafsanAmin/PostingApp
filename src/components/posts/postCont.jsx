@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { memo, useContext, useState } from 'react';
+import { memo, useContext } from 'react';
 import urlPrefix from '../../API/getURL';
 import postAPI from '../../API/PostsAPI';
 import Context from '../../Contexts/AlertContext';
@@ -13,7 +13,6 @@ import ImageView from './imageView';
 
 const PostCont = ({ post }) => {
   const { text, uid, photos, date, _id } = post;
-  const [toggle, setToggle] = useState(false);
   const Alert = useContext(Context);
   const ContextItem = useContext(AppContext);
   const { _id: puid, username } = uid || { _id: 'undefined', username: 'Deleted User' };
@@ -36,7 +35,6 @@ const PostCont = ({ post }) => {
   }
 
   const share = () => {
-    setToggle(false);
     Alert({
       state: true,
       title: 'Share',
@@ -53,7 +51,6 @@ const PostCont = ({ post }) => {
   const deletePostConf = async () => {
     document.body.style.cursor = 'wait';
     try {
-      setToggle(false);
       const msg = await postAPI.deletePost({ pid: _id, photos });
       Alert({
         state: true,
@@ -83,7 +80,6 @@ const PostCont = ({ post }) => {
     });
   };
   const editPost = () => {
-    setToggle(false);
     ss({ type: 'EP_1', post });
   };
   return (
@@ -101,7 +97,7 @@ const PostCont = ({ post }) => {
           </div>
         </Link>
         <div className={Styles.right}>
-          <MenuCont state={[toggle, setToggle]}>
+          <MenuCont>
             <Menu>
               <Item icon={<i className="fas fa-share" />} name="Share" handler={share} />
               {own ? (

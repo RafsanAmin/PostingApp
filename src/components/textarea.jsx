@@ -1,8 +1,11 @@
 /* eslint-disable no-bitwise */
-import { useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
+import AppContext from '../Contexts/AppContext';
 
 const textArea = ({ rows, value, setValue, placeholder, limit }) => {
   const [oflow, setOflow] = useState(false);
+  const [state] = useContext(AppContext) || null;
+  const Ref = useRef();
   const handleTextArea = (e) => {
     const prevRows = e.target.rows;
     setOflow(false);
@@ -18,11 +21,16 @@ const textArea = ({ rows, value, setValue, placeholder, limit }) => {
     }
     setValue(e.target.value);
   };
+  useEffect(() => {
+    Ref.current.focus();
+  }, [value, state]);
   return (
     <textarea
+      ref={Ref}
       style={oflow ? { overflowY: 'scroll' } : { overflowY: 'hidden' }}
       rows={rows.min}
       value={value}
+      onFocus={handleTextArea}
       onChange={handleTextArea}
       placeholder={placeholder}
       maxLength={limit}
