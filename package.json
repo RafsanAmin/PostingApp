@@ -1,6 +1,6 @@
 {
   "name": "opp-server",
-  "version": "0.2.34",
+  "version": "0.2.35",
   "description": "Itz Alpha",
   "main": "index.js",
   "scripts": {

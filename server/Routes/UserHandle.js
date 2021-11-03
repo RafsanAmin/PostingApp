@@ -215,6 +215,22 @@ uh.get('/getUserData/:id', async (req, res, next) => {
     res.status(500).json({ done: false, massage: 'A Server Side Error' });
   }
 });
+uh.get('/getOwnData', async (req, res, next) => {
+  try {
+    const id = await getIdFromJwt(req);
+    UserModelDB.findOne({ _id: id })
+      .select(['-password', '-__v'])
+      .then((resp) => {
+        res.json({ done: true, user: resp });
+      })
+      .catch(() => {
+        res.status(500).json({ done: false, massage: 'An Unexpected Error!' });
+      });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ done: false, massage: 'A Server Side Error' });
+  }
+});
 uh.put('/updateUserDataNoVer', async (req, res, next) => {
   try {
     const { bio, work, bDay } = req.body;

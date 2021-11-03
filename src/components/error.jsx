@@ -12,6 +12,13 @@ const Error = ({ type }) => {
         desc: 'There is an error in server. Report to the developer team to fix.',
       };
     }
+    if (type === '403') {
+      return {
+        code: '403',
+        text: 'Unauthorized',
+        desc: 'You must be logged in or it is a admin page.',
+      };
+    }
   };
   const { code, text, desc } = error();
   return (

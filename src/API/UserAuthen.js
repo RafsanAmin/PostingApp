@@ -173,6 +173,17 @@ class UserAuthenAPIClass {
       });
     });
 
+  getOwnInfo = () =>
+    new Promise((resolve, reject) => {
+      Axios.get(`/uh/getOwnData`, { withCredentials: true }).then((res) => {
+        if (res.data.done) {
+          resolve(res.data.user);
+        } else {
+          reject(res.data.massage);
+        }
+      });
+    });
+
   updateUserDataNoVer = ({ bio, work, bDay }) =>
     new Promise((resolve, reject) => {
       Axios.put(`/uh/updateUserDataNoVer`, { bio, work, bDay }, { withCredentials: true }).then(

@@ -1,5 +1,5 @@
 import React from 'react';
-import style from '../../scss/field.module.scss';
+import style from '../../../scss/field.module.scss';
 
 const Field = ({ field, text, icon, styles }) => (
   <div type="button" className={style.fieldCont} style={styles}>

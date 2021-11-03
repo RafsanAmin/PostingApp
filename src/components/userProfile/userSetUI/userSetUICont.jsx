@@ -1,14 +1,14 @@
 import React, { useContext, useState } from 'react';
-import UserAuthenAPI from '../../API/UserAuthen';
-import AlertContext from '../../Contexts/AlertContext';
-import AppContext from '../../Contexts/AppContext';
-import UserContext from '../../Contexts/UserContext';
-import Styles from '../../scss/userSetUICont.module.scss';
-import Input from '../Input';
-import TextArea from '../textarea';
+import UserAuthenAPI from '../../../API/UserAuthen';
+import AlertContext from '../../../Contexts/AlertContext';
+import AppContext from '../../../Contexts/AppContext';
+import UserContext from '../../../Contexts/UserContext';
+import Styles from '../../../scss/userSetUICont.module.scss';
+import Input from '../../Input';
+import TextArea from '../../textarea';
 
 const UserSetUICont = () => {
-  const { bio, bDay, work } = useContext(UserContext);
+  const { bio, bDay, work } = useContext(UserContext) || { bio: null, bDay: null, work: null };
   const [appState, setAppState] = useContext(AppContext);
   const [workplace, setWorkplace] = useState(work);
   const [birth, setBirth] = useState(bDay);
