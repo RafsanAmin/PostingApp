@@ -17,6 +17,7 @@
     border-radius: 7.5px;
     transition: 0.3s ease-in-out;
     @include shadow;
+
     & > div {
       margin: 1.5rem 1rem 1rem 1.75rem;
       padding: 0.25rem 1rem 0rem 0.25rem;

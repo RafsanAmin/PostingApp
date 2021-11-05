@@ -23,6 +23,7 @@ const textArea = ({ rows, value, setValue, placeholder, limit }) => {
   };
   useEffect(() => {
     Ref.current.focus();
+    Ref.current.blur();
   }, [value, state]);
   return (
     <textarea

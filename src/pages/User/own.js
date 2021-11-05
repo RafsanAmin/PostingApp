@@ -17,6 +17,6 @@ const UserProfileCont = () => {
     };
     main();
   }, []);
-  return <>{error ? <Error type="400" /> : <UserProfile user={user} own />}</>;
+  return <>{error ? <Error type="401" /> : <UserProfile user={user} own />}</>;
 };
 export default UserProfileCont;

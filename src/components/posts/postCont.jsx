@@ -85,7 +85,7 @@ const PostCont = ({ post }) => {
   return (
     <div className={Styles.postCont}>
       <div className={Styles.titleCont}>
-        <Link href={`/User/${puid}`} prefetch={false}>
+        <Link href={userid === puid ? '/User/own' : `/User/${puid}`} prefetch={false}>
           <div style={{ cursor: 'pointer' }} className={Styles.left}>
             <div className={Styles.profPic}>
               <img src={imgPath} alt="" />

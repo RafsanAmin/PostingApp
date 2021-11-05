@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import UserAuthenAPI from '../../../API/UserAuthen';
 import AlertContext from '../../../Contexts/AlertContext';
 import AppContext from '../../../Contexts/AppContext';
@@ -6,9 +6,10 @@ import UserContext from '../../../Contexts/UserContext';
 import Styles from '../../../scss/userSetUICont.module.scss';
 import Input from '../../Input';
 import TextArea from '../../textarea';
+import ProfilePicHandle from './profilePicHandle';
 
-const UserSetUICont = () => {
-  const { bio, bDay, work } = useContext(UserContext) || { bio: null, bDay: null, work: null };
+const UserSetUICont = ({ user }) => {
+  const { bio, bDay, work } = user;
   const [appState, setAppState] = useContext(AppContext);
   const [workplace, setWorkplace] = useState(work);
   const [birth, setBirth] = useState(bDay);
@@ -34,6 +35,7 @@ const UserSetUICont = () => {
           type: 'success',
         });
         setLoading(false);
+        close();
       })
       .catch((err) => {
         Alert({
@@ -44,8 +46,11 @@ const UserSetUICont = () => {
         });
         setLoading(false);
       });
-    close();
   };
+  useEffect(() => {
+    window.scrollTo(1, 1);
+  }, []);
+  console.log(useContext(UserContext), { bio, bDay, work });
   return (
     <div className={`${Styles.win} ${appState.userEdit ? Styles.on : Styles.off}`}>
       <div className={Styles.cont}>
@@ -57,6 +62,7 @@ const UserSetUICont = () => {
         <div className={Styles.head}>
           <h3>User Details</h3>
         </div>
+        <ProfilePicHandle styles={Styles} />
         <div className={Styles.inputCont}>
           <span>Workplace</span>{' '}
           <Input

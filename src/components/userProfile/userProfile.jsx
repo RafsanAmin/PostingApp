@@ -29,6 +29,7 @@ const UserProfile = ({ user, own }) => {
     },
     [AppStateArr]
   );
+  console.log(user);
   return (
     <>
       <Head>
@@ -44,8 +45,8 @@ const UserProfile = ({ user, own }) => {
             <ContContext.Provider value={dom}>
               <AlertContext.Provider value={setAlert}>
                 <Alert props={alertProps} />
-                <UserSetUICont />
                 <PostHandlerUI />
+                {user ? <UserSetUICont user={user} /> : null}
                 <div
                   className={
                     alertProps.state || appState.editPost.state || appState.userEdit ? 'freeze' : ''

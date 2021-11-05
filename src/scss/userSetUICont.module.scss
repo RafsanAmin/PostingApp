@@ -5,139 +5,163 @@
   width: 100%;
   display: grid;
   place-items: center;
-  top: 50%;
+  top: 0;
   left: 0;
+  bottom: 0;
   transition: 0.15s linear;
   .cont {
     max-width: 900px;
     width: 98%;
+    max-height: 1000px;
+    height: 98%;
     background-color: #fff;
     @include shadow();
+    @include scrollbar;
     border-radius: 7.5px;
     padding: 2rem;
-  }
-  .close {
-    display: grid;
-    justify-content: right;
-    button {
-      height: 40px;
-      width: 40px;
-      border-radius: 10px;
-      border: 0;
-      cursor: pointer;
-      transition: 0.15s linear;
-      background-color: #fff;
-      font-size: 1.05rem;
-      i {
-        color: $blue-dark;
-      }
-      &:hover {
-        background-color: $grey-lighter;
-        border-radius: 50%;
-      }
-      &:active {
-        background-color: $grey-light;
+    overflow-y: auto;
+    .close {
+      display: grid;
+      justify-content: right;
+      button {
+        height: 40px;
+        width: 40px;
+        border-radius: 10px;
+        border: 0;
+        cursor: pointer;
+        transition: 0.15s linear;
+        background-color: #fff;
+        font-size: 1.05rem;
+        i {
+          color: $blue-dark;
+        }
+        &:hover {
+          background-color: $grey-lighter;
+          border-radius: 50%;
+        }
+        &:active {
+          background-color: $grey-light;
+        }
       }
     }
-  }
-  .updateButton {
-    padding-top: 1.5rem;
-    display: grid;
-    justify-content: right;
-    button {
-      display: flex;
-      cursor: pointer;
-      background-color: $blue-primary;
-      border: 0;
-      padding: 0.4rem 1.5rem;
-      color: #fff;
-      transition: 0.2s linear;
-      border-radius: 25px;
-      font-size: 1.05rem;
-      &:hover {
-        opacity: 0.8;
+    .updateButton {
+      padding-top: 1.5rem;
+      display: grid;
+      justify-content: right;
+      button {
+        display: flex;
+        cursor: pointer;
+        background-color: $blue-primary;
+        border: 0;
+        padding: 0.4rem 1.5rem;
+        color: #fff;
+        transition: 0.2s linear;
+        border-radius: 25px;
+        font-size: 1.05rem;
+        &:hover {
+          opacity: 0.8;
+        }
+        &:active {
+          opacity: 0.5;
+        }
+        img {
+          margin-right: 0.2rem;
+          animation: spin 1s linear infinite;
+        }
       }
-      &:active {
+      @keyframes spin {
+        0% {
+          transform: rotate(0);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+    }
+    .load {
+      button {
+        cursor: not-allowed;
+        pointer-events: none;
         opacity: 0.5;
       }
-      img {
-        margin-right: 0.2rem;
-        animation: spin 1s linear infinite;
-      }
     }
-    @keyframes spin {
-      0% {
-        transform: rotate(0);
-      }
-      100% {
-        transform: rotate(360deg);
-      }
-    }
-  }
-  .load{
-    button{
-      cursor: not-allowed;
-      pointer-events: none;
-      opacity: 0.5;
-    }
-  }
-  .head {
-    padding-bottom: 1rem;
-    h3 {
-      color: $blue-dark;
-      font-size: 2rem;
-      font-family: ubuntu;
-    }
-  }
-  .inputCont {
-    span {
-      padding-inline: 1rem;
-      color: $grey-darker;
-      font-weight: 500;
-    }
-    textarea {
-      margin-top: 1rem;
-      resize: none;
-      font-size: 1.2rem;
-      font-family: Jost;
-      border: 0;
-      border: {
-        width: 0;
-        radius: 7.5px;
-      }
-      @include scrollbar;
-      width: 100%;
-      background-color: $grey-lightest;
-      color: $grey-dark;
-      transition: 0.25s linear;
-      padding: 0.65rem 1.2rem 0.65rem 1.5rem;
-
-      &:focus {
-        background-color: $blue-lighter;
+    .head {
+      padding-bottom: 1rem;
+      h3 {
         color: $blue-dark;
-        &::placeholder {
-          color: $blue-darker;
-        }
+        font-size: 2rem;
+        font-family: ubuntu;
       }
-      &:hover:not(:focus) {
-        background-color: #cdeeffa1;
-        color: #055b9d8c;
-        &::placeholder {
-          color: $blue-darker;
-        }
+    }
+    .inputCont {
+      span {
+        padding-inline: 1rem;
+        color: $grey-darker;
+        font-weight: 500;
       }
-      &::placeholder {
-        color: $grey-dark;
+      textarea {
+        margin-top: 1rem;
+        resize: none;
+        font-size: 1.2rem;
         font-family: Jost;
-        font-weight: 400;
-        opacity: 0.5;
+        border: 0;
+        border: {
+          width: 0;
+          radius: 7.5px;
+        }
+        @include scrollbar;
+        width: 100%;
+        background-color: $grey-lightest;
+        color: $grey-dark;
+        transition: 0.25s linear;
+        padding: 0.65rem 1.2rem 0.65rem 1.5rem;
+
+        &:focus {
+          background-color: $blue-lighter;
+          color: $blue-dark;
+          &::placeholder {
+            color: $blue-darker;
+          }
+        }
+        &:hover:not(:focus) {
+          background-color: #cdeeffa1;
+          color: #055b9d8c;
+          &::placeholder {
+            color: $blue-darker;
+          }
+        }
+        &::placeholder {
+          color: $grey-dark;
+          font-family: Jost;
+          font-weight: 400;
+          opacity: 0.5;
+        }
+      }
+    }
+    .pfp {
+      width: 100%;
+      @include grid_cent;
+      .img {
+        width: 80%;
+        max-width: 200px;
+        cursor: pointer;
+        img {
+          border-radius: 50%;
+          width: 100%;
+          aspect-ratio: 1 / 1;
+          outline: 2px solid $blue-darker;
+          outline-offset: 2px;
+        }
+        &:hover {
+          opacity: 0.8;
+        }
       }
     }
   }
 }
 .on {
-  transform: scale(1) translateY(-50%);
+  transform: scale(1);
 }
 .off {
-  transform: scale(0) translateY(-50%);
+  transform: scale(0);
 }
