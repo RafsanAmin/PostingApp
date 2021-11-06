@@ -4,7 +4,7 @@ import Error from '../../components/error';
 import UserProfile from '../../components/userProfile/userProfile';
 
 const UserProfileCont = () => {
-  const [user, setUser] = useState();
+  const [user, setUser] = useState({ _id: null, bio: null, bDay: null, work: null });
   const [error, setError] = useState();
   useEffect(() => {
     const main = async () => {

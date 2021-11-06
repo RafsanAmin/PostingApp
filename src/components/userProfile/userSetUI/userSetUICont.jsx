@@ -1,19 +1,22 @@
+import { useRouter } from 'next/router';
 import React, { useContext, useEffect, useState } from 'react';
 import UserAuthenAPI from '../../../API/UserAuthen';
 import AlertContext from '../../../Contexts/AlertContext';
 import AppContext from '../../../Contexts/AppContext';
-import UserContext from '../../../Contexts/UserContext';
 import Styles from '../../../scss/userSetUICont.module.scss';
 import Input from '../../Input';
 import TextArea from '../../textarea';
 import ProfilePicHandle from './profilePicHandle';
 
+// pfp -> profilePic
+
 const UserSetUICont = ({ user }) => {
-  const { bio, bDay, work } = user;
   const [appState, setAppState] = useContext(AppContext);
-  const [workplace, setWorkplace] = useState(work);
-  const [birth, setBirth] = useState(bDay);
-  const [Ebio, setBio] = useState(bio);
+  const Router = useRouter();
+  const pfpState = useState(null);
+  const [workplace, setWorkplace] = useState();
+  const [birth, setBirth] = useState();
+  const [Ebio, setBio] = useState();
   const [loading, setLoading] = useState(false);
   const close = () => {
     setAppState({ type: 'PF_0' });
@@ -24,6 +27,7 @@ const UserSetUICont = ({ user }) => {
       work: workplace,
       bDay: birth,
       bio: Ebio,
+      pfp: pfpState[0],
     };
     setLoading(true);
     UserAuthenAPI.updateUserDataNoVer(updateData)
@@ -36,11 +40,12 @@ const UserSetUICont = ({ user }) => {
         });
         setLoading(false);
         close();
+        Router.reload();
       })
       .catch((err) => {
         Alert({
           state: true,
-          title: 'Successfull!',
+          title: 'Error!',
           desc: err,
           type: 'error',
         });
@@ -48,9 +53,12 @@ const UserSetUICont = ({ user }) => {
       });
   };
   useEffect(() => {
-    window.scrollTo(1, 1);
-  }, []);
-  console.log(useContext(UserContext), { bio, bDay, work });
+    const { bio, bDay, work } = user;
+    pfpState[1](null);
+    setBio(bio);
+    setBirth(bDay);
+    setWorkplace(work);
+  }, [appState.userEdit, user]);
   return (
     <div className={`${Styles.win} ${appState.userEdit ? Styles.on : Styles.off}`}>
       <div className={Styles.cont}>
@@ -62,7 +70,7 @@ const UserSetUICont = ({ user }) => {
         <div className={Styles.head}>
           <h3>User Details</h3>
         </div>
-        <ProfilePicHandle styles={Styles} />
+        <ProfilePicHandle styles={Styles} fileState={pfpState} />
         <div className={Styles.inputCont}>
           <span>Workplace</span>{' '}
           <Input

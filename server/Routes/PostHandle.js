@@ -7,7 +7,7 @@ const secret = process.env['TOKEN'];
 const jwt = require('jsonwebtoken');
 const deleteImages = require('../utils/deleteImage');
 const authen = require('../middleware/authen');
-const handlePostFormReq = require('../utils/handlePostFormReq');
+const handlePostFormReq = require('../utils/handleFormReq');
 pH.use(
   busboy({
     highWaterMark: 2 * 1024 * 1024, // Set 2MiB buffer

@@ -2,7 +2,7 @@ const { wordFilter } = require('../../library/filter');
 const cloudinary = require('cloudinary').v2;
 const { getRandomString } = require('../../library/random');
 const moderations = ['webpurify', 'aws_rek'];
-const handlePostFormReq = (req, s) => {
+const handlePostFormReq = (req, s, pfp) => {
   return new Promise((resolve, reject) => {
     const r = {};
     r.photos = [];
@@ -23,7 +23,7 @@ const handlePostFormReq = (req, s) => {
     });
     req.busboy.on('file', (fieldname, file, filename) => {
       console.log('Hello');
-      const fileName = getRandomString(12);
+      const fileName = pfp || getRandomString(12);
       r.photos.push(fileName);
       const uploadStream = cloudinary.uploader.upload_stream(
         {

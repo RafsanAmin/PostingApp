@@ -46,7 +46,7 @@ const UserProfile = ({ user, own }) => {
               <AlertContext.Provider value={setAlert}>
                 <Alert props={alertProps} />
                 <PostHandlerUI />
-                {user ? <UserSetUICont user={user} /> : null}
+                <UserSetUICont user={user} />
                 <div
                   className={
                     alertProps.state || appState.editPost.state || appState.userEdit ? 'freeze' : ''
@@ -60,7 +60,7 @@ const UserProfile = ({ user, own }) => {
                       <Postlist type="user" user={user._id} />
                     </>
                   ) : (
-                    <Error type="404" />
+                    <>{!own ? <Error type="404" /> : null}</>
                   )}
                 </div>
               </AlertContext.Provider>

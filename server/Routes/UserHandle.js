@@ -15,6 +15,7 @@ const authen = require('../middleware/authen');
 const { getRandomNumber } = require('../../library/random');
 const { wordIncludes } = require('../../library/filter');
 const getIdFromJwt = require('../utils/getIdJWT');
+const handleFormRequest = require('../utils/handleFormReq');
 
 mailerTransport.setApiKey(pass);
 uh.use(cookieParser());
@@ -233,8 +234,8 @@ uh.get('/getOwnData', async (req, res, next) => {
 });
 uh.put('/updateUserDataNoVer', async (req, res, next) => {
   try {
-    const { bio, work, bDay } = req.body;
     const id = await getIdFromJwt(req);
+    const { bio, work, bDay } = await handleFormRequest(req, false, id);
     UserModelDB.findOneAndUpdate({ _id: id }, { bio, work, bDay }, (err) => {
       if (err) {
         res.status(500).json({ err: err, done: false });

@@ -184,17 +184,20 @@ class UserAuthenAPIClass {
       });
     });
 
-  updateUserDataNoVer = ({ bio, work, bDay }) =>
+  updateUserDataNoVer = ({ bio, work, bDay, pfp }) =>
     new Promise((resolve, reject) => {
-      Axios.put(`/uh/updateUserDataNoVer`, { bio, work, bDay }, { withCredentials: true }).then(
-        (res) => {
-          if (res.data && res.data.done) {
-            resolve('Updated Successfully!');
-          } else {
-            reject('There was an error!');
-          }
+      const formData = new FormData();
+      formData.append('bio', bio);
+      formData.append('work', work);
+      formData.append('bDay', bDay);
+      formData.append('pfp', pfp);
+      Axios.put(`/uh/updateUserDataNoVer`, formData, { withCredentials: true }).then((res) => {
+        if (res.data && res.data.done) {
+          resolve('Updated Successfully!');
+        } else {
+          reject('There was an error!');
         }
-      );
+      });
     });
 }
 const UserAuthenAPI = new UserAuthenAPIClass();

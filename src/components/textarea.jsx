@@ -1,10 +1,8 @@
 /* eslint-disable no-bitwise */
-import { useContext, useEffect, useRef, useState } from 'react';
-import AppContext from '../Contexts/AppContext';
+import { useEffect, useRef, useState } from 'react';
 
 const textArea = ({ rows, value, setValue, placeholder, limit }) => {
   const [oflow, setOflow] = useState(false);
-  const [state] = useContext(AppContext) || null;
   const Ref = useRef();
   const handleTextArea = (e) => {
     const prevRows = e.target.rows;
@@ -24,7 +22,7 @@ const textArea = ({ rows, value, setValue, placeholder, limit }) => {
   useEffect(() => {
     Ref.current.focus();
     Ref.current.blur();
-  }, [value, state]);
+  }, []);
   return (
     <textarea
       ref={Ref}
