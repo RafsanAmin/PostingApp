@@ -16,6 +16,7 @@ const UserSetUICont = ({ user }) => {
   const pfpState = useState(null);
   const [workplace, setWorkplace] = useState();
   const [birth, setBirth] = useState();
+  const [id, setId] = useState();
   const [Ebio, setBio] = useState();
   const [loading, setLoading] = useState(false);
   const close = () => {
@@ -24,10 +25,11 @@ const UserSetUICont = ({ user }) => {
   const Alert = useContext(AlertContext);
   const setUserData = () => {
     const updateData = {
-      work: workplace,
-      bDay: birth,
-      bio: Ebio,
+      work: workplace.trim(),
+      bDay: birth.trim(),
+      bio: Ebio.trim(),
       pfp: pfpState[0],
+      id,
     };
     setLoading(true);
     UserAuthenAPI.updateUserDataNoVer(updateData)
@@ -40,7 +42,7 @@ const UserSetUICont = ({ user }) => {
         });
         setLoading(false);
         close();
-        Router.reload();
+        setTimeout(() => Router.reload(), 5000);
       })
       .catch((err) => {
         Alert({
@@ -53,11 +55,12 @@ const UserSetUICont = ({ user }) => {
       });
   };
   useEffect(() => {
-    const { bio, bDay, work } = user;
+    const { bio, bDay, work, _id } = user;
     pfpState[1](null);
     setBio(bio);
     setBirth(bDay);
     setWorkplace(work);
+    setId(_id);
   }, [appState.userEdit, user]);
   return (
     <div className={`${Styles.win} ${appState.userEdit ? Styles.on : Styles.off}`}>

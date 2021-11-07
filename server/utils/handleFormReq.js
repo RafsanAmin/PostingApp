@@ -2,7 +2,7 @@ const { wordFilter } = require('../../library/filter');
 const cloudinary = require('cloudinary').v2;
 const { getRandomString } = require('../../library/random');
 const moderations = ['webpurify', 'aws_rek'];
-const handlePostFormReq = (req, s, pfp) => {
+const handleFormReq = (req, s, pfp) => {
   return new Promise((resolve, reject) => {
     const r = {};
     r.photos = [];
@@ -46,4 +46,4 @@ const handlePostFormReq = (req, s, pfp) => {
     });
   });
 };
-module.exports = handlePostFormReq;
+module.exports = handleFormReq;

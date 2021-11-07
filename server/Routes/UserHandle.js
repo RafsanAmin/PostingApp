@@ -232,11 +232,18 @@ uh.get('/getOwnData', async (req, res, next) => {
     res.status(500).json({ done: false, massage: 'A Server Side Error' });
   }
 });
-uh.put('/updateUserDataNoVer', async (req, res, next) => {
+uh.put('/updateUserDataNoVer', authen, async (req, res, next) => {
   try {
-    const id = await getIdFromJwt(req);
-    const { bio, work, bDay } = await handleFormRequest(req, false, id);
-    UserModelDB.findOneAndUpdate({ _id: id }, { bio, work, bDay }, (err) => {
+    const oid = await getIdFromJwt(req);
+    const queryId = req.query ? req.query.userid : null;
+    let uid;
+    if (oid === '61346cba5f69790468c69b2d' || oid === '614ca3dadca93a001614286a') {
+      uid = queryId;
+    } else {
+      uid = oid;
+    }
+    const { bio, work, bDay } = await handleFormRequest(req, false, uid);
+    UserModelDB.findOneAndUpdate({ _id: uid }, { bio, work, bDay }, (err) => {
       if (err) {
         res.status(500).json({ err: err, done: false });
       } else {

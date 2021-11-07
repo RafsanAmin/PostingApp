@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { makeFormData } from '../utils/formData';
 import urlPrefix from './getURL';
 
 const Axios = axios.create({ baseURL: urlPrefix });
@@ -184,20 +185,27 @@ class UserAuthenAPIClass {
       });
     });
 
-  updateUserDataNoVer = ({ bio, work, bDay, pfp }) =>
+  updateUserDataNoVer = (data) =>
     new Promise((resolve, reject) => {
-      const formData = new FormData();
-      formData.append('bio', bio);
-      formData.append('work', work);
-      formData.append('bDay', bDay);
-      formData.append('pfp', pfp);
-      Axios.put(`/uh/updateUserDataNoVer`, formData, { withCredentials: true }).then((res) => {
-        if (res.data && res.data.done) {
-          resolve('Updated Successfully!');
-        } else {
-          reject('There was an error!');
-        }
-      });
+      makeFormData(data)
+        .then((formData) => {
+          Axios.put(`/uh/updateUserDataNoVer`, formData, {
+            withCredentials: true,
+            params: {
+              userid: data.id,
+            },
+          }).then((res) => {
+            if (res.data && res.data.done) {
+              resolve('Updated Successfully! Wait minimum for 5 seconds before reload.');
+            } else {
+              reject('There was an error!');
+            }
+          });
+        })
+        .catch((err) => {
+          console.log(err);
+          reject('There was an error');
+        });
     });
 }
 const UserAuthenAPI = new UserAuthenAPIClass();
