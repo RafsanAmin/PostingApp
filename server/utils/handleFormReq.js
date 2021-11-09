@@ -34,6 +34,7 @@ const handleFormReq = (req, s, pfp) => {
           unique_filename: false,
           resource_type: 'auto',
           moderation: moderations[Math.floor(Math.random() * 2)],
+          invalidate: true,
         },
         (err, res) => {
           console.log(err, res);

@@ -96,19 +96,18 @@
     }
   }
   .five {
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 200px 200px;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: repeat(6, 66.6666667px);
     .onex {
+      grid-row: 1 / 4;
+    }
+    .twox {
+      grid-row: 4 / 7;
+    }
+    .threex,
+    .fourx,
+    .fivex {
       grid-row: span 2;
-    }
-    .onex img {
-      height: 400px;
-    }
-    .twox img,
-    .threex img,
-    .fourx img,
-    .fivex img {
-      height: 200px;
     }
   }
 }
