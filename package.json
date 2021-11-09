@@ -1,7 +1,7 @@
 {
   "name": "opp-server",
   "version": "0.2.39",
-  "description": "Itz Alpha",
+  "description": "Itz Alpha.",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
