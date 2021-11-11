@@ -52,7 +52,7 @@ const UserProfile = ({ user, own }) => {
                     alertProps.state || appState.editPost.state || appState.userEdit ? 'freeze' : ''
                   }
                 >
-                  {appState.userid ? <TopBar /> : null}
+                  <TopBar />
                   {user ? (
                     <>
                       <ProfileCard />

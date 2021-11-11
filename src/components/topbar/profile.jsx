@@ -61,22 +61,28 @@ function Profile(props) {
     setToggle(false);
   };
   return (
-    <div className={Styles.ProfileContainer}>
-      <div className={Styles.img} onClick={toggleMenu}>
-        <img src={`/uh/getProfilePic/${state.userid}`} alt="profilePic" />
-      </div>
+    <>
+      {state.userid ? (
+        <div className={Styles.ProfileContainer}>
+          <div className={Styles.img} onClick={toggleMenu}>
+            <img src={`/uh/getProfilePic/${state.userid}`} alt="profilePic" />
+          </div>
 
-      <div className={`${Styles.ProfileMenu} ${toggle ? Styles.on : Styles.off}`}>
-        <div className={Styles.MenuItem} onClick={logout}>
-          <i className="fas fa-sign-in-alt" />
-          <p>LogOut</p>
+          <div className={`${Styles.ProfileMenu} ${toggle ? Styles.on : Styles.off}`}>
+            <div className={Styles.MenuItem} onClick={logout}>
+              <i className="fas fa-sign-in-alt" />
+              <p>LogOut</p>
+            </div>
+            <div onClick={about} className={Styles.MenuItem}>
+              <i className="fas fa-info-circle" />
+              <p>About</p>
+            </div>
+          </div>
         </div>
-        <div onClick={about} className={Styles.MenuItem}>
-          <i className="fas fa-info-circle" />
-          <p>About</p>
-        </div>
-      </div>
-    </div>
+      ) : (
+        <div className={Styles.ProfileContainer} />
+      )}
+    </>
   );
 }
 

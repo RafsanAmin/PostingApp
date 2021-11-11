@@ -60,11 +60,11 @@ function Login(props) {
           desc: 'File must have to be a .jpg or .png file',
           type: 'error',
         });
-      } else if (size > 1000000) {
+      } else if (size > 4000000) {
         alertBox({
           state: true,
           title: 'Error!',
-          desc: 'File Must Be Less than 1MB',
+          desc: 'File Must Be Less than 4MB',
           type: 'error',
         });
       } else {
@@ -91,7 +91,7 @@ function Login(props) {
             <img src={imgPath !== '' ? imgPath : '/user.svg'} alt="p" />
             <div className="text">
               <h3>Click Here to Upload Profile Pic</h3>
-              <p>File Size Limit is 1 MB & Only *.jpg and *.png files are allowed</p>
+              <p>File Size Limit is 4 MB & Only *.jpg and *.png files are allowed</p>
             </div>
           </div>
           <div className="signup-field-group">

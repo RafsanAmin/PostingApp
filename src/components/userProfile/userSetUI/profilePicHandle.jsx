@@ -23,11 +23,11 @@ const ProfilePicHandle = ({ styles, fileState }) => {
               desc: 'File must have to be a .jpg or .png file',
               type: 'error',
             });
-          } else if (size > 1000000) {
+          } else if (size > 4000000) {
             alertBox({
               state: true,
               title: 'Error!',
-              desc: 'File Must Be Less than 1MB',
+              desc: 'File Must Be Less than 4MB',
               type: 'error',
             });
           } else {

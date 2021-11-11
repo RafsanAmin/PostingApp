@@ -4,6 +4,7 @@ import Alert from '../../components/alert';
 import Error from '../../components/error';
 import PHI from '../../components/postHandlerUI/postHandlerUI';
 import PostCont from '../../components/posts/postCont';
+import TopBar from '../../components/topbar/topbar';
 import { AlertContext, useAlert } from '../../hooks/useAlert';
 import { AppContext, useAppState } from '../../hooks/useAppState';
 import useUserInfo from '../../hooks/useUserInfo';
@@ -21,17 +22,19 @@ const postPage = ({ post, error }) => {
       <Head>
         <title>Rafpost - PostSpecific</title>
       </Head>
-      <div className={Styles.cont}>
-        <Alert props={alertProps} />
-        <AppContext.Provider value={AppReducer}>
+      <AppContext.Provider value={AppReducer}>
+        <TopBar />
+        <div className={Styles.cont}>
+          <Alert props={alertProps} />
+
           <PHI />
           <div className={alertProps.state || appState.editPost.state ? 'freeze' : ''}>
             <AlertContext.Provider value={setAlert}>
               {error ? <Error type={error.code} /> : <PostCont post={post} />}
             </AlertContext.Provider>
           </div>
-        </AppContext.Provider>
-      </div>
+        </div>
+      </AppContext.Provider>
     </>
   );
 };

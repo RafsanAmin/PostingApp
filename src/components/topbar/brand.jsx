@@ -4,7 +4,7 @@ function brand(props) {
   const { Styles } = props;
   return (
     <div className={Styles}>
-      <i className="fas fa-file-invoice" />
+      <img style={{ paddingRight: '0.5rem' }} src="/posts.svg" alt="" width="40" />
       <h1> RAFPOST</h1>
     </div>
   );
