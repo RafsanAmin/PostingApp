@@ -34,6 +34,24 @@ const UserProfile = ({ user, own }) => {
     <>
       <Head>
         <title>{`RafPost-${user ? user.username : ''}`}</title>
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:url" content="https://rafpost.herokuapp.com" />
+        <meta name="twitter:title" content={`RafPost-${user ? user.username : ''}`} />
+        <meta name="twitter:description" content={user.bio} />
+        <meta name="twitter:creator" content="@RafsanAmin" />
+        <meta
+          property="twitter:image"
+          content={`https://rafpost.herokuapp.com/uh/getProfilePic/${user._id}`}
+        />
+        <meta property="og:type" content={`RafPost-${user ? user.username : ''}`} />
+        <meta property="og:title" content="RafPost" />
+        <meta property="og:description" content={user.bio} />
+        <meta property="og:site_name" content="RafPost" />
+        <meta property="og:url" content="https://rafpost.herokuapp.com" />
+        <meta
+          property="og:image"
+          content={`https://rafpost.herokuapp.com/uh/getProfilePic/${user._id}`}
+        />
       </Head>
       <div
         ref={(e) => {

@@ -9,9 +9,8 @@ const config =
         distDir: 'build',
         pwa: {
           dest: 'public',
-          swSrc: 'sw.js',
-          dynamicStartUrl: true,
-          dynamicStartUrlRedirect: '/App/Post',
+          register: true,
+          skipWaiting: true,
           disable: process.env.NODE_ENV === 'development',
         },
       });

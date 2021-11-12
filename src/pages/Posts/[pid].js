@@ -21,19 +21,31 @@ const postPage = ({ post, error }) => {
     <>
       <Head>
         <title>Rafpost - PostSpecific</title>
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:url" content="https://rafpost.herokuapp.com" />
+        <meta name="twitter:title" content="Rafpost - PostSpecific" />
+        <meta name="twitter:description" content={post.text} />
+        <meta name="twitter:creator" content="@RafsanAmin" />
+        <meta property="twitter:image" content="https://rafpost.herokuapp.com/icon_192.png" />
+        <meta property="og:type" content="Rafpost - PostSpecific" />
+        <meta property="og:title" content="RafPost" />
+        <meta property="og:description" content={post.text} />
+        <meta property="og:site_name" content="RafPost" />
+        <meta property="og:url" content="https://rafpost.herokuapp.com" />
+        <meta property="og:image" content="https://rafpost.herokuapp.com/icon_192.png" />
       </Head>
       <AppContext.Provider value={AppReducer}>
-        <TopBar />
-        <div className={Styles.cont}>
-          <Alert props={alertProps} />
+        <AlertContext.Provider value={setAlert}>
+          <TopBar />
+          <div className={Styles.cont}>
+            <Alert props={alertProps} />
 
-          <PHI />
-          <div className={alertProps.state || appState.editPost.state ? 'freeze' : ''}>
-            <AlertContext.Provider value={setAlert}>
+            <PHI />
+            <div className={alertProps.state || appState.editPost.state ? 'freeze' : ''}>
               {error ? <Error type={error.code} /> : <PostCont post={post} />}
-            </AlertContext.Provider>
+            </div>
           </div>
-        </div>
+        </AlertContext.Provider>
       </AppContext.Provider>
     </>
   );

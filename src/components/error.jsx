@@ -19,6 +19,13 @@ const Error = ({ type }) => {
         desc: 'You must be logged in or it is a admin page.',
       };
     }
+    if (type === 'off') {
+      return {
+        code: 'Offline!',
+        text: 'You are offline.',
+        desc: 'You have to be online to access this page',
+      };
+    }
   };
   const { code, text, desc } = error();
   return (

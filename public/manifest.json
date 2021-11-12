@@ -1,31 +1,42 @@
 {
-  "short_name": "Rafpost",
-  "name": "Rafpost",
-  "description": "A posting app made by HRM Rafsan Amin",
+  "theme_color": "#ffffff",
+  "background_color": "#ffffff",
+  "display": "standalone",
+  "scope": "/",
+  "start_url": "/",
+  "name": "RafPost",
+  "short_name": "RafPost",
+  "description": "An online based public posting platform.",
   "icons": [
-    {
-      "src": "/icon_192.png",
-      "type": "image/png",
-      "sizes": "192x192",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "/icon_512.png",
-      "type": "image/png",
-      "sizes": "512x512",
-      "purpose": "any maskable"
-    },
     {
       "src": "/icon_32.png",
       "type": "image/png",
       "sizes": "32x32",
       "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-256x256.png",
+      "sizes": "256x256",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-384x384.png",
+      "sizes": "384x384",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
     }
   ],
-  "shortcuts": [],
-  "start_url": "/",
-  "background_color": "#FFFFFF",
-  "display": "standalone",
-  "theme_color": "#000000",
   "orientation": "portrait"
 }
