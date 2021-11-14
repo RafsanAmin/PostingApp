@@ -31,6 +31,7 @@ const textArea = ({ rows, value, setValue, placeholder, limit }) => {
       value={value}
       onFocus={handleTextArea}
       onChange={handleTextArea}
+      onMouseEnter={handleTextArea}
       placeholder={placeholder}
       maxLength={limit}
     />

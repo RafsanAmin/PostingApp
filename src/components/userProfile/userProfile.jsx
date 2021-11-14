@@ -33,18 +33,18 @@ const UserProfile = ({ user, own }) => {
   return (
     <>
       <Head>
-        <title>{`RafPost-${user ? user.username : ''}`}</title>
+        <title>{`RafPost-${user.username}`}</title>
         <meta name="twitter:card" content="summary" />
         <meta name="twitter:url" content="https://rafpost.herokuapp.com" />
-        <meta name="twitter:title" content={`RafPost-${user ? user.username : ''}`} />
+        <meta name="twitter:title" content={`RafPost-${user.username}`} />
         <meta name="twitter:description" content={user.bio} />
         <meta name="twitter:creator" content="@RafsanAmin" />
         <meta
           property="twitter:image"
           content={`https://rafpost.herokuapp.com/uh/getProfilePic/${user._id}`}
         />
-        <meta property="og:type" content={`RafPost-${user ? user.username : ''}`} />
-        <meta property="og:title" content="RafPost" />
+        <meta property="og:type" content="og:description" />
+        <meta property="og:title" content={`RafPost-${user.username}`} />
         <meta property="og:description" content={user.bio} />
         <meta property="og:site_name" content="RafPost" />
         <meta property="og:url" content="https://rafpost.herokuapp.com" />
@@ -71,7 +71,7 @@ const UserProfile = ({ user, own }) => {
                   }
                 >
                   <TopBar />
-                  {user ? (
+                  {user._id ? (
                     <>
                       <ProfileCard />
                       <Title icon={<img src="/posts.svg" alt="posts" />} text="Posts" />

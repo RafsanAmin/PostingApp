@@ -43,6 +43,7 @@ const ImgPrevGet = (images) =>
 const ImagePreview = ({ image, Styles, delImg }) => {
   const { images } = image;
   const [imagePreview, setImagePreview] = useState([]);
+  const [toggle, setToggle] = useState(true);
   useEffect(() => {
     const main = async () => {
       const imgPrev = await ImgPrevGet(images);
@@ -54,21 +55,32 @@ const ImagePreview = ({ image, Styles, delImg }) => {
     <>
       {imagePreview.length > 0 ? (
         <div className={Styles.imagesGridCont}>
-          <p>
+          <p onClick={() => setToggle((s) => !s)}>
+            <i
+              className={`fas fa-angle-right ${toggle ? Styles.on : Styles.off} ${Styles.angle}`}
+            />
             <i className="fas fa-images" />
             Added Images
           </p>
-          <div
-            className={(() => {
-              if (imagePreview.length <= 5) {
-                return Styles[toWords(imagePreview.length)];
-              }
-            })()}
-          >
-            {imagePreview.map((arr, index) => (
-              <Image key={Math.random()} arr={arr} index={index} Styles={Styles} delImg={delImg} />
-            ))}
-          </div>
+          {toggle ? (
+            <div
+              className={(() => {
+                if (imagePreview.length <= 5) {
+                  return Styles[toWords(imagePreview.length)];
+                }
+              })()}
+            >
+              {imagePreview.map((arr, index) => (
+                <Image
+                  key={Math.random()}
+                  arr={arr}
+                  index={index}
+                  Styles={Styles}
+                  delImg={delImg}
+                />
+              ))}
+            </div>
+          ) : null}
         </div>
       ) : null}
     </>

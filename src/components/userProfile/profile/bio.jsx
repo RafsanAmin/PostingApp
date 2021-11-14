@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import UserContext from '../../../Contexts/UserContext';
+import Text from '../../text';
 import Field from './field';
 
 const Bio = ({ Styles }) => {
@@ -11,7 +12,7 @@ const Bio = ({ Styles }) => {
           styles={{ height: '100%', justifyItems: 'start', alignItems: 'start' }}
           field="Bio"
           icon={<i className="fas fa-info-circle" />}
-          text={bio}
+          text={<Text text={bio || ''} />}
         />
       </div>
     </section>

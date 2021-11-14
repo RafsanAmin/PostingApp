@@ -188,10 +188,25 @@
         text-align: center;
 
         p {
+          cursor: pointer;
           color: $blue-dark;
+          .angle {
+            color: $blue-dark;
+            margin-right: 1rem;
+            transition: 0.1s ease-in-out;
+          }
+          .off {
+            transform: rotate(0);
+          }
+          .on {
+            transform: rotate(90deg);
+          }
           i {
             color: $blue-primary;
             margin-right: 0.25rem;
+          }
+          &:hover {
+            background-color: #0000000c;
           }
         }
         div {
@@ -251,6 +266,7 @@
             }
           }
         }
+
         @include gridCont;
       }
     }

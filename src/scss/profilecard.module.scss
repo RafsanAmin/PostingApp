@@ -72,9 +72,9 @@
     }
     .bioCont {
       .inner {
-        p {
+        & > p {
           max-height: 28ch;
-          overflow-y: scroll;
+          overflow-y: auto;
           @include scrollbar;
         }
       }

@@ -27,8 +27,8 @@ const postPage = ({ post, error }) => {
         <meta name="twitter:description" content={post.text} />
         <meta name="twitter:creator" content="@RafsanAmin" />
         <meta property="twitter:image" content="https://rafpost.herokuapp.com/icon_192.png" />
-        <meta property="og:type" content="Rafpost - PostSpecific" />
-        <meta property="og:title" content="RafPost" />
+        <meta property="og:type" content="og:description" />
+        <meta property="og:title" content="RafPost-PostSpecific" />
         <meta property="og:description" content={post.text} />
         <meta property="og:site_name" content="RafPost" />
         <meta property="og:url" content="https://rafpost.herokuapp.com" />
