@@ -1,3 +1,4 @@
+/* eslint-disable guard-for-in */
 import { useContext, useEffect, useReducer, useRef, useState } from 'react';
 import PostAPI from '../../API/PostsAPI';
 import AlertContext from '../../Contexts/AlertContext';
@@ -18,6 +19,7 @@ const newNeditPostForm = () => {
   const [state, setState] = useContext(AppContext);
   const Alert = useContext(AlertContext);
   const File = useRef(null);
+  const [isDragging, setIsDragging] = useState();
   const placeholder = 'Write Your Thoughts Here';
   useEffect(() => {
     if (state.editPost.state) {
@@ -85,7 +87,6 @@ const newNeditPostForm = () => {
       });
     }
   };
-
   const changeImg = () => {
     setImages({ type: 'ADD', images: File.current.files, Alert });
   };
@@ -101,13 +102,69 @@ const newNeditPostForm = () => {
     console.log(e.target.name);
     setImages({ type: 'DELETE', index: e.target.name });
   };
+  const fileValidator = (fileList, accessType) =>
+    new Promise((rs, rj) => {
+      const ret = [];
+      if (fileList && !(fileList.length <= 0)) {
+        for (const ind in fileList) {
+          const arr = fileList[ind];
+          if (accessType.includes(arr.type)) {
+            ret.push(arr);
+          } else if (!arr.type) {
+            console.log('invalid file!');
+          } else {
+            rj('Only PNG, JPG and GIF are allowed');
+            break;
+          }
+        }
+        rs(ret);
+      }
+    });
   return (
     <div
+      onDragOver={(e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        setIsDragging(true);
+      }}
+      onDragExit={(e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        setIsDragging(false);
+      }}
+      onDrag={(e) => {
+        e.preventDefault();
+      }}
+      onDrop={async (e) => {
+        try {
+          e.preventDefault();
+          e.stopPropagation();
+          setIsDragging(false);
+          const accessType = ['image/png', 'image/jpeg', 'image/gif'];
+          const { files } = e.dataTransfer;
+          const clearedFiles = await fileValidator(files, accessType);
+          console.log(clearedFiles);
+          setImages({ type: 'ADD', images: clearedFiles, Alert });
+        } catch (err) {
+          Alert({
+            title: 'Stop!',
+            desc: err,
+            type: 'error',
+            state: true,
+          });
+        }
+      }}
       className={`${Styles.npFormWin} ${
         state.addPost || state.editPost.state ? Styles.on : Styles.off
       }`}
     >
       <div className={Styles.npFormCont}>
+        {isDragging ? (
+          <div className={isDragging ? Styles.dragOverlay : ''}>
+            <i className="fas fa-images" />
+            <p>Drag your files Here! Max 5</p>
+          </div>
+        ) : null}
         <div>
           <div className={Styles.postTextCont}>
             <TextArea
