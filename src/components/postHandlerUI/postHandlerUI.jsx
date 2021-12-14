@@ -5,6 +5,8 @@ import AlertContext from '../../Contexts/AlertContext';
 import AppContext from '../../Contexts/AppContext';
 import Styles from '../../scss/phandleui.module.scss';
 import { initialState, Reducer } from '../../state/imageHandlerState';
+import fileValidator from '../../utils/fileValidator';
+import FileDragHandler from '../fileDragHandler/fileDragHandler';
 import TextArea from '../textarea';
 import BottomBar from './bottomBar';
 import ImagePreview from './imagePreview';
@@ -19,7 +21,6 @@ const newNeditPostForm = () => {
   const [state, setState] = useContext(AppContext);
   const Alert = useContext(AlertContext);
   const File = useRef(null);
-  const [isDragging, setIsDragging] = useState(false);
   const placeholder = 'Write Your Thoughts Here';
   useEffect(() => {
     if (state.editPost.state) {
@@ -87,38 +88,19 @@ const newNeditPostForm = () => {
       });
     }
   };
-  const fileValidator = (fileList, accessType) =>
-    new Promise((rs, rj) => {
-      const ret = [];
-      let size = 0;
-      if (fileList && !(fileList.length <= 0)) {
-        for (const ind in fileList) {
-          const arr = fileList[ind];
-          if (accessType.includes(arr.type)) {
-            ret.push(arr);
-            size += arr.size;
-          } else if (!arr.type) {
-            console.log('invalid file!');
-          } else {
-            rj('Only PNG, JPG and GIF are allowed');
-            break;
-          }
-        }
-        if (size > 26214400) {
-          rj('Files must be less than 25MB at total');
-        } else {
-          rs(ret);
-        }
-      }
-    });
+
   const changeImg = async () => {
     try {
       const { files } = File.current;
       const accessType = ['image/png', 'image/jpeg', 'image/gif'];
-
-      const clearedFiles = await fileValidator(files, accessType);
-
-      setImages({ type: 'ADD', images: clearedFiles, Alert });
+      const clearedFiles = await fileValidator(
+        files,
+        accessType,
+        25,
+        5,
+        'Only PNG, JPEG and GIF Files are allowed.'
+      );
+      setImages({ type: 'ADD', images: clearedFiles });
     } catch (err) {
       Alert({
         title: 'Stop!',
@@ -143,53 +125,40 @@ const newNeditPostForm = () => {
 
   return (
     <div
-      onDragOver={(e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        setIsDragging(true);
-      }}
-      onDragLeave={(e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        setIsDragging(false);
-      }}
-      onDrag={(e) => {
-        e.preventDefault();
-      }}
-      onDrop={async (e) => {
-        try {
-          e.preventDefault();
-          e.stopPropagation();
-          setIsDragging(false);
-          const accessType = ['image/png', 'image/jpeg', 'image/gif'];
-          const { files } = e.dataTransfer;
-          const clearedFiles = await fileValidator(files, accessType);
-          console.log(clearedFiles);
-          setImages({ type: 'ADD', images: clearedFiles, Alert });
-        } catch (err) {
-          Alert({
-            title: 'Stop!',
-            desc: err,
-            type: 'error',
-            state: true,
-          });
-        }
-      }}
       className={`${Styles.npFormWin} ${
         state.addPost || state.editPost.state ? Styles.on : Styles.off
       }`}
     >
-      <div className={Styles.npFormCont}>
-        <div className={`${Styles.dragOverlay} ${isDragging ? Styles.doOn : Styles.doOff}`}>
-          {isDragging ? (
-            <div className={Styles.innerDO}>
-              <i className="fas fa-images" />
-              <p>Drag your files Here! Max 5</p>
-            </div>
-          ) : null}
-        </div>
-
-        <div className={`${Styles.inner} ${isDragging ? 'freeze' : ''}`}>
+      <FileDragHandler
+        className={Styles.npFormCont}
+        text={
+          <>
+            Drag your Photos Here! Max 5 Photos. <br /> Only PNG, JPEG and GIF Files are allowed.
+          </>
+        }
+        handler={async (files) => {
+          try {
+            const accessType = ['image/png', 'image/jpeg', 'image/gif'];
+            const clearedFiles = await fileValidator(
+              files,
+              accessType,
+              25,
+              5,
+              'Only PNG, JPEG and GIF Files are allowed.'
+            );
+            console.log(clearedFiles);
+            setImages({ type: 'ADD', images: clearedFiles });
+          } catch (err) {
+            Alert({
+              title: 'Stop!',
+              desc: err,
+              type: 'error',
+              state: true,
+            });
+          }
+        }}
+      >
+        <div className={`${Styles.inner}`}>
           <div className={Styles.postTextCont}>
             <TextArea
               rows={{ lineH: 24, min: images.images.length > 0 ? 2 : 7, max: 10 }}
@@ -213,7 +182,7 @@ const newNeditPostForm = () => {
             props={{ Styles, isLoading, PostHandle, close, File, isEdit: state.editPost.state }}
           />
         </div>
-      </div>
+      </FileDragHandler>
     </div>
   );
 };

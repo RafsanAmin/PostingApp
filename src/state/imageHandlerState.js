@@ -3,15 +3,6 @@ const Reducer = (state, action) => {
     const oleLimit = state.limit;
     const { images } = action;
     const newLimit = oleLimit - Array.from(images).length;
-    if (newLimit < 0) {
-      action.Alert({
-        title: 'Stop!',
-        desc: 'Not more than 5 photos in Single Post',
-        type: 'error',
-        state: true,
-      });
-      return { ...state, limit: oleLimit };
-    }
     if (!state.images) {
       return { images: Array.from(images), limit: newLimit };
     }

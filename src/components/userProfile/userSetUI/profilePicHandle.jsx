@@ -1,6 +1,7 @@
 import React, { useContext, useRef, useState } from 'react';
 import AlertContext from '../../../Contexts/AlertContext';
 import UserContext from '../../../Contexts/UserContext';
+import fileValidator from '../../../utils/fileValidator';
 
 const ProfilePicHandle = ({ styles, fileState }) => {
   const { _id } = useContext(UserContext);
@@ -14,24 +15,23 @@ const ProfilePicHandle = ({ styles, fileState }) => {
         ref={fileRef}
         type="file"
         hidden
-        onChange={(e) => {
-          const { size, type } = e.target.files[0];
-          if (type !== 'image/png' && type !== 'image/jpeg') {
+        onChange={async (e) => {
+          try {
+            const clearedFiles = await fileValidator(
+              e.target.files,
+              ['image/png', 'image/jpeg'],
+              4,
+              1,
+              'File must have to be a .jpg or .png file'
+            );
+            setState(clearedFiles[0]);
+          } catch (err) {
             alertBox({
               state: true,
               title: 'Error!',
-              desc: 'File must have to be a .jpg or .png file',
+              desc: err,
               type: 'error',
             });
-          } else if (size > 4000000) {
-            alertBox({
-              state: true,
-              title: 'Error!',
-              desc: 'File Must Be Less than 4MB',
-              type: 'error',
-            });
-          } else {
-            setState(e.target.files[0]);
           }
         }}
         accept="image/jpeg, image/png"

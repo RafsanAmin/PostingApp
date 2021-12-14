@@ -4,6 +4,8 @@ import UserAuthenAPI from '../../../API/UserAuthen';
 import AlertContext from '../../../Contexts/AlertContext';
 import AppContext from '../../../Contexts/AppContext';
 import Styles from '../../../scss/userSetUICont.module.scss';
+import fileValidator from '../../../utils/fileValidator';
+import FileDragHandler from '../../fileDragHandler/fileDragHandler';
 import Input from '../../Input';
 import TextArea from '../../textarea';
 import ProfilePicHandle from './profilePicHandle';
@@ -64,7 +66,29 @@ const UserSetUICont = ({ user }) => {
   }, [appState.userEdit, user]);
   return (
     <div className={`${Styles.win} ${appState.userEdit ? Styles.on : Styles.off}`}>
-      <div className={Styles.cont}>
+      <FileDragHandler
+        className={Styles.cont}
+        text="Drag Your Profile Image here!"
+        handler={async (files) => {
+          try {
+            const clearedFiles = await fileValidator(
+              files,
+              ['image/png', 'image/jpeg'],
+              4,
+              1,
+              'File must have to be a .jpg or .png file'
+            );
+            pfpState[1](clearedFiles[0]);
+          } catch (err) {
+            Alert({
+              state: true,
+              title: 'Error!',
+              desc: err,
+              type: 'error',
+            });
+          }
+        }}
+      >
         <div className={Styles.close}>
           <button type="button" onClick={close}>
             <i className="fas fa-times" />
@@ -104,7 +128,6 @@ const UserSetUICont = ({ user }) => {
             setValue={setBio}
           />
         </div>
-
         <div className={`${Styles.updateButton} ${loading ? 'load' : ''}`}>
           <div />
           <button type="button" onClick={setUserData}>
@@ -112,7 +135,7 @@ const UserSetUICont = ({ user }) => {
             Update
           </button>
         </div>
-      </div>
+      </FileDragHandler>
     </div>
   );
 };

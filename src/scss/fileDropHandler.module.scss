@@ -1,0 +1,39 @@
+@import './global/global';
+.dragOverlay {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  background-color: #ffffffb2;
+  z-index: 10;
+  transition: 0.3s ease-in-out;
+  transform-origin: center;
+  pointer-events: none;
+  .innerDO {
+    display: inline;
+    border: 2px dashed $blue-darker;
+    padding: 1rem;
+    border-radius: 10px;
+    i {
+      font-size: 5rem;
+      color: $blue-dark;
+    }
+    p {
+      font-size: 1.1rem;
+      padding: 0.01rem;
+      color: $blue-primary;
+      font-weight: 500;
+      word-wrap: break-word;
+    }
+  }
+}
+.doOff {
+  transform: scale(0);
+}
+.doOn {
+  transform: scale(1);
+}
