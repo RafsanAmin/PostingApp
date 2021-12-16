@@ -8,7 +8,7 @@ const deleteImages = (arr) => {
         const length = arr.length;
         let done = 0;
         arr.forEach((img) => {
-          cloudinary.uploader.destroy(`profilepic/${img}`, {}, (err) => {
+          cloudinary.uploader.destroy(`profilepic/${img}`, {invalidate: true}, (err) => {
             if (err) {
               rej(false);
             } else {

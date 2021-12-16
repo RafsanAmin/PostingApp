@@ -157,6 +157,23 @@
           background-color: rgba(0, 0, 0, 0.75);
           padding: 0.25rem;
           border-radius: 7.5px;
+          button {
+            color: $red-primary;
+            background-color: #fff;
+            border: 1px solid $red-primary;
+            padding: 0.15rem 0.45rem;
+            font-weight: 500;
+            transition: 0.3s linear;
+            cursor: pointer;
+            border-radius: 15px;
+            &:hover {
+              background-color: $red-primary;
+              color: #fff;
+            }
+            &:active {
+              background-color: $red-dark;
+            }
+          }
         }
         img {
           border-radius: 50%;

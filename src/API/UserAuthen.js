@@ -187,6 +187,7 @@ class UserAuthenAPIClass {
 
   updateUserDataNoVer = (data) =>
     new Promise((resolve, reject) => {
+      console.log(data);
       makeFormData(data)
         .then((formData) => {
           Axios.put(`/uh/updateUserDataNoVer`, formData, {
