@@ -43,6 +43,7 @@ const handleFormReq = (req, s, pfp) => {
       file.pipe(uploadStream);
     });
     req.busboy.on('finish', () => {
+      console.log('resolved error!');
       resolve(r);
     });
   });

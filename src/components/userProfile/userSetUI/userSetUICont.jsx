@@ -16,21 +16,25 @@ const UserSetUICont = ({ user }) => {
   const [appState, setAppState] = useContext(AppContext);
   const Router = useRouter();
   const pfpState = useState(null);
-  const [workplace, setWorkplace] = useState();
-  const [birth, setBirth] = useState();
-  const [id, setId] = useState();
-  const [Ebio, setBio] = useState();
+  const [workplace, setWorkplace] = useState('');
+  const [birth, setBirth] = useState('');
+  const [id, setId] = useState('');
+  const [Ebio, setBio] = useState('');
   const [loading, setLoading] = useState(false);
+  const deleteImg = useState(false);
   const close = () => {
     setAppState({ type: 'PF_0' });
+    pfpState[1](null);
+    deleteImg[1](false);
   };
   const Alert = useContext(AlertContext);
   const setUserData = () => {
     const updateData = {
-      work: workplace.trim(),
-      bDay: birth.trim(),
-      bio: Ebio.trim(),
+      work: workplace?.trim() || '',
+      bDay: birth?.trim() || '',
+      bio: Ebio?.trim() || '',
       pfp: pfpState[0],
+      delPFP: deleteImg[0],
       id,
     };
     setLoading(true);
@@ -79,6 +83,7 @@ const UserSetUICont = ({ user }) => {
               'File must have to be a .jpg or .png file'
             );
             pfpState[1](clearedFiles[0]);
+            deleteImg[1](false);
           } catch (err) {
             Alert({
               state: true,
@@ -97,7 +102,7 @@ const UserSetUICont = ({ user }) => {
         <div className={Styles.head}>
           <h3>User Details</h3>
         </div>
-        <ProfilePicHandle styles={Styles} fileState={pfpState} />
+        <ProfilePicHandle styles={Styles} fileState={pfpState} deleteState={deleteImg} />
         <div className={Styles.inputCont}>
           <span>Workplace</span>{' '}
           <Input

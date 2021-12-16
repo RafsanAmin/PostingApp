@@ -16,6 +16,7 @@ const { getRandomNumber } = require('../../library/random');
 const { wordIncludes } = require('../../library/filter');
 const getIdFromJwt = require('../utils/getIdJWT');
 const handleFormRequest = require('../utils/handleFormReq');
+const deleteImages = require('../utils/deleteImage');
 
 mailerTransport.setApiKey(pass);
 uh.use(cookieParser());
@@ -158,7 +159,7 @@ uh.post('/verify', async (req, res, next) => {
 uh.get('/getProfilePic/:user', async (req, res) => {
   try {
     const user = req.params.user;
-    const url = `https://res.cloudinary.com/dyjrfa6c2/image/upload/q_20/profilepic/${user}`;
+    const url = `https://res.cloudinary.com/dyjrfa6c2/image/upload/q_25/v${getRandomNumber(15)}/profilepic/${user}`;
     checkExistsAndResponse(url, res);
   } catch (err) {
     console.log(err);
@@ -242,7 +243,11 @@ uh.put('/updateUserDataNoVer', authen, async (req, res, next) => {
     } else {
       uid = oid;
     }
-    const { bio, work, bDay } = await handleFormRequest(req, false, uid);
+    const { bio, work, bDay, delPFP } = await handleFormRequest(req, false, uid);
+    if (delPFP) {
+      await deleteImages([uid]);
+    }
+
     UserModelDB.findOneAndUpdate({ _id: uid }, { bio, work, bDay }, (err) => {
       if (err) {
         res.status(500).json({ err: err, done: false });
