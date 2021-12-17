@@ -9,6 +9,7 @@ import Checkbox from '../../components/checkbox';
 import Input from '../../components/Input';
 import Loading from '../../components/Loading';
 import { useAlert } from '../../hooks/useAlert';
+import useUserInfo from '../../hooks/useUserInfo';
 
 function Login() {
   const [User, setUser] = useState('');
@@ -55,6 +56,13 @@ function Login() {
       document.removeEventListener('keypress', listen);
     };
   }, [setLogin]);
+  useUserInfo((status) => {
+    if (status.done) {
+      Router.replace('/App/Post');
+    } else {
+      Router.replace('/Userauth/Login');
+    }
+  }, []);
   return (
     <>
       <Head>

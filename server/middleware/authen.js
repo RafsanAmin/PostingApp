@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken');
 const secret = process.env['TOKEN'];
-const authen = (req, res, next) => {
+const UserModelDB = require('../Database/UserModel');
+const authen = async (req, res, next) => {
   let jwtToken = req.cookies.jwt;
   if (!jwtToken) {
     res.status(403).json({
@@ -8,10 +9,19 @@ const authen = (req, res, next) => {
       done: false,
     });
   } else {
-    const verified = jwt.verify(jwtToken, secret);
-    if (verified) {
-      next();
-    } else {
+    try {
+      const verified = jwt.verify(jwtToken, secret);
+      const alExist = await UserModelDB.exists({ _id: verified.id });
+      if (verified && alExist) {
+        next();
+      } else {
+        res.status(403).json({
+          massage: 'Not Logged In',
+          done: false,
+        });
+      }
+    } catch (err) {
+      console.log(err);
       res.status(403).json({
         massage: 'Not Logged In',
         done: false,

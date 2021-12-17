@@ -3,7 +3,9 @@
 import Link from 'next/link';
 import React, { useRef, useState } from 'react';
 import UserAuthenAPI from '../../API/UserAuthen';
+import fileValidator from '../../utils/fileValidator';
 import Checkbox from '../checkbox';
+import FileDragHandler from '../fileDragHandler/fileDragHandler';
 import Input from '../Input';
 import Loading from '../Loading';
 
@@ -14,7 +16,7 @@ function Login(props) {
   const [ConfirmPassword, setConfirmPassword] = useState('');
   const [Email, setEmail] = useState('');
   const [remMe, setRemMe] = useState(true);
-  const [imgPath, setImgPath] = useState('');
+  const [img, setImg] = useState('');
   const [loading, setLoading] = useState(false);
   const fileRef = useRef(null);
   const remMeLabel = 'Remember that You have to verify via Email to SignUp. Do You Agree ?';
@@ -26,7 +28,7 @@ function Login(props) {
         user: User,
         pass: Pass,
         eml: Email,
-        profilePic: fileRef.current.files[0],
+        profilePic: img,
         confPass: ConfirmPassword,
       };
       console.log(UserInfo);
@@ -46,36 +48,30 @@ function Login(props) {
   const uploadClick = () => {
     fileRef.current.click();
   };
-  const fileSet = () => {
-    const { length } = fileRef.current.files;
-
-    if (length !== 0) {
-      const { size, type } = fileRef.current.files[0];
-      console.log(fileRef.current.files[0]);
-
-      if (type !== 'image/png' && type !== 'image/jpeg') {
-        alertBox({
-          state: true,
-          title: 'Error!',
-          desc: 'File must have to be a .jpg or .png file',
-          type: 'error',
-        });
-      } else if (size > 4000000) {
-        alertBox({
-          state: true,
-          title: 'Error!',
-          desc: 'File Must Be Less than 4MB',
-          type: 'error',
-        });
-      } else {
-        setImgPath(URL.createObjectURL(fileRef.current.files[0]));
-      }
+  const fileSet = async (files) => {
+    try {
+      const clearedFiles = await fileValidator(
+        files,
+        ['image/png', 'image/jpeg'],
+        4,
+        1,
+        'File must have to be a .jpg or .png file'
+      );
+      console.log(clearedFiles[0]);
+      setImg(clearedFiles[0]);
+    } catch (err) {
+      alertBox({
+        state: true,
+        title: 'Error!',
+        desc: err,
+        type: 'error',
+      });
     }
   };
   return (
     <>
       <Loading classP="signup" contClass="signup-form" loadState={loading}>
-        <div className="supp">
+        <FileDragHandler className="supp" text="Drag Your Profile Picture Here!" handler={fileSet}>
           <div className="signup-head">
             <h1>SignUp</h1>
           </div>
@@ -84,11 +80,11 @@ function Login(props) {
               type="file"
               ref={fileRef}
               name="profile-pic"
-              onChange={fileSet}
+              onChange={(e) => fileSet(e.target.files)}
               hidden
               accept="image/jpeg, image/png"
             />
-            <img src={imgPath !== '' ? imgPath : '/user.svg'} alt="p" />
+            <img src={img ? URL.createObjectURL(img) : '/user.svg'} alt="p" />
             <div className="text">
               <h3>Click Here to Upload Profile Pic</h3>
               <p>File Size Limit is 4 MB & Only *.jpg and *.png files are allowed</p>
@@ -137,11 +133,11 @@ function Login(props) {
             </button>
           </div>
           <div className="signup-foot">
-            <Link href="/Userauth/Login">
+            <Link href="/">
               <button type="button">Have Account? Login</button>
             </Link>
           </div>
-        </div>
+        </FileDragHandler>
       </Loading>
     </>
   );

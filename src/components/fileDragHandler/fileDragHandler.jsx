@@ -24,7 +24,7 @@ const FileDragHandler = ({ className, handler, children, text, cIcon }) => {
         setIsDragging(false);
         handler(e.dataTransfer.files);
       }}
-      className={className}
+      className={`${className} ${Styles.cont}`}
     >
       <div className={`${Styles.dragOverlay} ${isDragging ? Styles.doOn : Styles.doOff}`}>
         {isDragging ? (

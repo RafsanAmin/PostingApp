@@ -5,6 +5,7 @@ const fileValidator = (fileList, accessType, sizeLimit, fileLimit, accessTypeWar
     if (fileList && !(fileList.length <= 0)) {
       for (let i = 0; i < fileList.length; i++) {
         const arr = fileList[i];
+
         if (accessType.includes(arr.type)) {
           ret.push(arr);
           size += arr.size;

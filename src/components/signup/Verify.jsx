@@ -20,7 +20,7 @@ const Verify = (props) => {
       setStatus({ success: true, massage: x.massage });
       alertBox({ state: true, title: 'Signup Successful!', desc: x.massage, type: 'success' });
       setTimeout(() => {
-        Router.push('/Userauth/Login');
+        Router.push('/');
       }, 3000);
       setLoading(false);
     } catch (err) {

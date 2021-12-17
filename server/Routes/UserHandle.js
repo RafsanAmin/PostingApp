@@ -159,7 +159,9 @@ uh.post('/verify', async (req, res, next) => {
 uh.get('/getProfilePic/:user', async (req, res) => {
   try {
     const user = req.params.user;
-    const url = `https://res.cloudinary.com/dyjrfa6c2/image/upload/q_25/v${getRandomNumber(15)}/profilepic/${user}`;
+    const url = `https://res.cloudinary.com/dyjrfa6c2/image/upload/q_25/v${getRandomNumber(
+      15
+    )}/profilepic/${user}`;
     checkExistsAndResponse(url, res);
   } catch (err) {
     console.log(err);
@@ -177,7 +179,8 @@ uh.get('/authen', async (req, res, next) => {
       });
     } else {
       const verified = jwt.verify(jwtToken, secret);
-      if (verified) {
+      const alExist = await UserModelDB.exists({ _id: verified.id });
+      if (verified && alExist) {
         res.status(200).json({
           massage: 'Logged In',
           done: true,
@@ -192,7 +195,10 @@ uh.get('/authen', async (req, res, next) => {
     }
   } catch (err) {
     console.log(err);
-    res.status(500).json({ done: false, massage: 'A Server Side Error' });
+    res.status(200).json({
+      massage: 'Not Logged In',
+      done: false,
+    });
   }
 });
 uh.get('/getUserData/:id', async (req, res, next) => {
@@ -244,7 +250,7 @@ uh.put('/updateUserDataNoVer', authen, async (req, res, next) => {
       uid = oid;
     }
     const { bio, work, bDay, delPFP } = await handleFormRequest(req, false, uid);
-    if (delPFP) {
+    if (delPFP === 'true') {
       await deleteImages([uid]);
     }
 

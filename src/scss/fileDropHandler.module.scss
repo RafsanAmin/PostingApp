@@ -1,4 +1,8 @@
 @import './global/global';
+
+.cont{
+  position: relative;
+}
 .dragOverlay {
   position: absolute;
   height: 100%;

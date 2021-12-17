@@ -39,8 +39,10 @@ const postPage = ({ post, error }) => {
           <TopBar />
           <div className={Styles.cont}>
             <Alert props={alertProps} />
-
-            <PHI />
+            <div className={`${alertProps.state ? 'freeze' : ''}`}>
+              {' '}
+              <PHI />
+            </div>
             <div className={alertProps.state || appState.editPost.state ? 'freeze' : ''}>
               {error ? <Error type={error.code} /> : <PostCont post={post} />}
             </div>

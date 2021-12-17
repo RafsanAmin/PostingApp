@@ -51,7 +51,11 @@ const PostApp = () => {
             {appState.userid && (
               <>
                 <Alert props={alertProp} />
-                <PostHandlerUI />
+                <div className={`s ${alertProp.state ? 'freeze' : ''}`}>
+                  {' '}
+                  <PostHandlerUI />
+                </div>
+
                 <div
                   className={`s ${
                     appState.editPost.state || appState.addPost || alertProp.state ? 'freeze' : ''
