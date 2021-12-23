@@ -12,6 +12,18 @@ function MyApp({ Component, pageProps }) {
       <Head>
         <link rel="icon" href="/icon_32.png" />
         <link rel="manifest" href="/manifest.json" />
+        <link
+          href="https://fonts.googleapis.com/css?family=Jost:100,200,300,regular,500,600,700,800,900,100italic,200italic,300italic,italic,500italic,600italic,700italic,800italic,900italic"
+          rel="stylesheet"
+        />
+        <link
+          href="https://fonts.googleapis.com/css?family=Ubuntu+Mono:regular,italic,700,700italic"
+          rel="stylesheet"
+        />
+        <link
+          href="https://fonts.googleapis.com/css?family=Ubuntu:300,300italic,regular,italic,500,500italic,700,700italic"
+          rel="stylesheet"
+        />
       </Head>
       <Component {...pageProps} />
 
