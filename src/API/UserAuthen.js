@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { makeFormData } from '../utils/formData';
+import makeFormData from '../utils/formData';
 import urlPrefix from './getURL';
 
 const Axios = axios.create({ baseURL: urlPrefix });
@@ -84,6 +84,8 @@ class UserAuthenAPIClass {
           reject({
             data: { massage: 'Password Must Be more Than 8 Characters' },
           });
+        } else if (password.length > 64 || email.length > 64 || username.length > 64) {
+          reject({ data: { massage: 'Give everything less than 64 characters.' } });
         } else if (!mailRegexp.test(email)) {
           reject({ data: { massage: 'Give Valid Email' } });
         } else if (password !== confirmPassword) {
@@ -185,9 +187,25 @@ class UserAuthenAPIClass {
       });
     });
 
+  updateUserData = (data) =>
+    new Promise((resolve, reject) => {
+      const { work, bDay, bio, pfp, delPFP, verfication, username, email, pass, confPass, id } =
+        data;
+      if (verfication) {
+        reject('Still Working!');
+      } else {
+        this.updateUserDataNoVer(data)
+          .then((res) => {
+            resolve(res);
+          })
+          .catch((err) => {
+            reject(err);
+          });
+      }
+    });
+
   updateUserDataNoVer = (data) =>
     new Promise((resolve, reject) => {
-      console.log(data);
       makeFormData(data)
         .then((formData) => {
           Axios.put(`/uh/updateUserDataNoVer`, formData, {

@@ -5,11 +5,11 @@ import AlertContext from '../../../Contexts/AlertContext';
 import AppContext from '../../../Contexts/AppContext';
 import Styles from '../../../scss/userSetUICont.module.scss';
 import fileValidator from '../../../utils/fileValidator';
+import Checkbox from '../../checkbox';
 import FileDragHandler from '../../fileDragHandler/fileDragHandler';
 import Input from '../../Input';
 import TextArea from '../../textarea';
 import ProfilePicHandle from './profilePicHandle';
-
 // pfp -> profilePic
 
 const UserSetUICont = ({ user }) => {
@@ -20,7 +20,12 @@ const UserSetUICont = ({ user }) => {
   const [birth, setBirth] = useState('');
   const [id, setId] = useState('');
   const [Ebio, setBio] = useState('');
+  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
+  const [pass, setPass] = useState('');
+  const [confPass, setConfPass] = useState('');
   const [loading, setLoading] = useState(false);
+  const [verfication, setVerification] = useState(false);
   const deleteImg = useState(false);
   const close = () => {
     setAppState({ type: 'PF_0' });
@@ -35,10 +40,15 @@ const UserSetUICont = ({ user }) => {
       bio: Ebio?.trim() || '',
       pfp: pfpState[0],
       delPFP: deleteImg[0],
+      verfication,
+      username,
+      email,
+      pass,
+      confPass,
       id,
     };
     setLoading(true);
-    UserAuthenAPI.updateUserDataNoVer(updateData)
+    UserAuthenAPI.updateUserData(updateData)
       .then((msg) => {
         Alert({
           state: true,
@@ -103,25 +113,57 @@ const UserSetUICont = ({ user }) => {
           <h3>User Details</h3>
         </div>
         <ProfilePicHandle styles={Styles} fileState={pfpState} deleteState={deleteImg} />
-        <div className={Styles.inputCont}>
-          <span>Workplace</span>{' '}
-          <Input
-            value={workplace}
-            setValue={setWorkplace}
-            type="input"
-            name="Workplace"
-            limit="100"
-          />
-        </div>
-        <div className={Styles.inputCont}>
-          <span>Birthday</span>{' '}
-          <Input
-            style={{ cursor: 'pointer' }}
-            value={birth}
-            setValue={setBirth}
-            plchold="Birthday"
-            type="date"
-          />
+        <div className={Styles.grid}>
+          <div className={Styles.inputCont}>
+            <span>Workplace</span>{' '}
+            <Input
+              value={workplace}
+              setValue={setWorkplace}
+              type="input"
+              name="Workplace"
+              limit="100"
+            />
+          </div>
+
+          <div className={Styles.inputCont}>
+            <span>Birthday</span>{' '}
+            <Input
+              style={{ cursor: 'pointer' }}
+              value={birth}
+              setValue={setBirth}
+              plchold="Birthday"
+              type="date"
+            />
+          </div>
+          <span>YOU NEED VERFICATION FOR THIS SETTINGS.</span>
+          <div className={Styles.inputCont}>
+            <span>Username</span>{' '}
+            <Input
+              value={username}
+              setValue={setUsername}
+              plchold="Username"
+              type="text"
+              limit="64"
+            />
+          </div>
+          <div className={Styles.inputCont}>
+            <span>E-mail</span>{' '}
+            <Input value={email} setValue={setEmail} type="input" name="E-mail" limit="64" />
+          </div>
+          <div className={Styles.inputCont}>
+            <span>Password</span>{' '}
+            <Input value={pass} setValue={setPass} type="password" name="Password" limit="64" />
+          </div>
+          <div className={Styles.inputCont}>
+            <span>Confirm Password</span>{' '}
+            <Input
+              value={confPass}
+              setValue={setConfPass}
+              type="text"
+              name="Re-write your whole password here"
+              limit="64"
+            />
+          </div>
         </div>
         <div className={Styles.inputCont}>
           <span>Bio</span>
@@ -133,6 +175,13 @@ const UserSetUICont = ({ user }) => {
             setValue={setBio}
           />
         </div>
+        <br />
+        <Checkbox
+          setState={setVerification}
+          state={verfication}
+          label="So to update data with verification, check the
+            Checkbox. Otherwise some datas will may not update"
+        />
         <div className={`${Styles.updateButton} ${loading ? 'load' : ''}`}>
           <div />
           <button type="button" onClick={setUserData}>

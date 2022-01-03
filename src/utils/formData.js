@@ -1,8 +1,12 @@
-const makeFormData = (data) => {
-  return new Promise((resolve, reject) => {
+/* eslint-disable guard-for-in */
+/* eslint-disable no-restricted-syntax */
+
+const makeFormData = (data) =>
+  new Promise((resolve, reject) => {
     try {
       const formData = new FormData();
-      for (let property in data) {
+
+      for (const property in data) {
         console.log(property);
         formData.append(property, data[property]);
       }
@@ -11,6 +15,5 @@ const makeFormData = (data) => {
       reject(err);
     }
   });
-};
 
-export { makeFormData };
+export default makeFormData;

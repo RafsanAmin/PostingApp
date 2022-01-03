@@ -65,11 +65,11 @@ const ProfilePicHandle = ({ styles, fileState, deleteState }) => {
             <i className="fas fa-file-image" />
             {`  `}
             Change Image
-            <button type="button" onClick={deleteImage}>
-              <i className="fas fa-times" /> Delete
-            </button>
           </span>
         ) : null}
+        <button className={styles.deleteBtn} type="button" onClick={deleteImage}>
+          <i className="fas fa-times" />
+        </button>
         <img src={imageLogic} alt="profile-pic" />
       </div>
     </div>

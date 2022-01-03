@@ -9,8 +9,20 @@
   left: 0;
   bottom: 0;
   transition: 0.15s linear;
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-rows: repeat(auto-fit, 1fr);
+    gap: 15px;
+    & > span {
+      grid-column: 1 / -1;
+      padding: 0rem 1rem;
+      background-color: $red-primary;
+      color: #fff;
+    }
+  }
   .cont {
-    max-width: 900px;
+    max-width: 1200px;
     width: 98%;
     max-height: 850px;
     height: 98%;
@@ -141,6 +153,25 @@
     .pfp {
       width: 100%;
       @include grid_cent;
+      .deleteBtn {
+        position: absolute;
+        right: 0;
+        color: $red-primary;
+        background-color: #fff;
+        border: 1px solid $red-primary;
+        padding: 0.15rem 0.45rem;
+        font-weight: 500;
+        transition: 0.3s linear;
+        cursor: pointer;
+        border-radius: 15px;
+        &:hover {
+          background-color: $red-primary;
+          color: #fff;
+        }
+        &:active {
+          background-color: $red-dark;
+        }
+      }
       .img {
         width: 80%;
         max-width: 200px;
@@ -157,23 +188,6 @@
           background-color: rgba(0, 0, 0, 0.75);
           padding: 0.25rem;
           border-radius: 7.5px;
-          button {
-            color: $red-primary;
-            background-color: #fff;
-            border: 1px solid $red-primary;
-            padding: 0.15rem 0.45rem;
-            font-weight: 500;
-            transition: 0.3s linear;
-            cursor: pointer;
-            border-radius: 15px;
-            &:hover {
-              background-color: $red-primary;
-              color: #fff;
-            }
-            &:active {
-              background-color: $red-dark;
-            }
-          }
         }
         img {
           border-radius: 50%;
@@ -196,3 +210,11 @@
 .off {
   transform: scale(0);
 }
+// @media only screen and (max-width: 720px) {
+//   .win {
+//     .grid {
+//       grid-template-columns: 1fr;
+//       grid-row: ;
+//     }
+//   }
+// }
