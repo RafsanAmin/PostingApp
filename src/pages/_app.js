@@ -40,9 +40,9 @@ function MyApp({ Component, pageProps }) {
           pointerEvents: 'none-=',
         }}
       >
-        Alpha v{Package.version}
+        Alpha v{Package.version} {Package.description}
         <br />
-        It is not finished yet so it is missing many features and has major issues
+        It is not finished yet so it is missing many features and has major issues.
       </p>
     </>
   );

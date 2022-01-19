@@ -36,7 +36,7 @@ const initalization = (page) => ({
   repost: false,
   fullReload: false,
   stop: false,
-  userid: null,
+  userid: undefined,
   cont: null,
   userEdit: false,
 });

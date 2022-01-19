@@ -30,175 +30,185 @@
     @include shadow();
     @include scrollbar;
     border-radius: 7.5px;
-    padding: 2rem;
-    overflow-y: auto;
-    .close {
-      display: grid;
-      justify-content: right;
-      button {
-        height: 40px;
-        width: 40px;
-        border-radius: 10px;
-        border: 0;
-        cursor: pointer;
-        transition: 0.15s linear;
-        background-color: #fff;
-        font-size: 1.05rem;
-        i {
-          color: $blue-dark;
-        }
-        &:hover {
-          background-color: $grey-lighter;
-          border-radius: 50%;
-        }
-        &:active {
-          background-color: $grey-light;
-        }
-      }
-    }
-    .updateButton {
-      padding-top: 1.5rem;
-      display: grid;
-      justify-content: right;
-      button {
-        display: flex;
-        cursor: pointer;
-        background-color: $blue-primary;
-        border: 0;
-        padding: 0.4rem 1.5rem;
-        color: #fff;
-        transition: 0.2s linear;
-        border-radius: 25px;
-        font-size: 1.05rem;
-        &:hover {
-          opacity: 0.8;
-        }
-        &:active {
-          opacity: 0.5;
-        }
-        img {
-          margin-right: 0.2rem;
-          animation: spin 1s linear infinite;
-        }
-      }
-      @keyframes spin {
-        0% {
-          transform: rotate(0);
-        }
-        100% {
-          transform: rotate(360deg);
-        }
-      }
-    }
-    .load {
-      button {
-        cursor: not-allowed;
-        pointer-events: none;
-        opacity: 0.5;
-      }
-    }
-    .head {
-      padding-bottom: 1rem;
-      h3 {
-        color: $blue-dark;
-        font-size: 2rem;
-        font-family: ubuntu;
-      }
-    }
-    .inputCont {
-      span {
-        padding-inline: 1rem;
-        color: $grey-darker;
-        font-weight: 500;
-      }
-      textarea {
-        margin-top: 1rem;
-        resize: none;
-        font-size: 1.2rem;
-        font-family: Jost;
-        border: 0;
-        border: {
-          width: 0;
-          radius: 7.5px;
-        }
+    overflow: hidden;
+    .roller {
+      width: 200%;
+      transition: 0.5s ease-in-out;
+      .userSetUI {
         @include scrollbar;
-        width: 100%;
-        background-color: $grey-lightest;
-        color: $grey-dark;
-        transition: 0.25s linear;
-        padding: 0.65rem 1.2rem 0.65rem 1.5rem;
+        padding: 2rem;
+        overflow-y: scroll;
+        max-height: 850px;
+        width: 50%;
+        .close {
+          display: grid;
+          justify-content: right;
+          button {
+            height: 40px;
+            width: 40px;
+            border-radius: 10px;
+            border: 0;
+            cursor: pointer;
+            transition: 0.15s linear;
+            background-color: #fff;
+            font-size: 1.05rem;
+            i {
+              color: $blue-dark;
+            }
+            &:hover {
+              background-color: $grey-lighter;
+              border-radius: 50%;
+            }
+            &:active {
+              background-color: $grey-light;
+            }
+          }
+        }
+        .updateButton {
+          padding-top: 1.5rem;
+          display: grid;
+          justify-content: right;
+          button {
+            display: flex;
+            cursor: pointer;
+            background-color: $blue-primary;
+            border: 0;
+            padding: 0.4rem 1.5rem;
+            color: #fff;
+            transition: 0.2s linear;
+            border-radius: 25px;
+            font-size: 1.05rem;
+            &:hover {
+              opacity: 0.8;
+            }
+            &:active {
+              opacity: 0.5;
+            }
+            img {
+              margin-right: 0.2rem;
+              animation: spin 1s linear infinite;
+            }
+          }
+          @keyframes spin {
+            0% {
+              transform: rotate(0);
+            }
+            100% {
+              transform: rotate(360deg);
+            }
+          }
+        }
+        .load {
+          button {
+            cursor: not-allowed;
+            pointer-events: none;
+            opacity: 0.5;
+          }
+        }
+        .head {
+          padding-bottom: 1rem;
+          h3 {
+            color: $blue-dark;
+            font-size: 2rem;
+            font-family: ubuntu;
+          }
+        }
+        .inputCont {
+          span {
+            padding-inline: 1rem;
+            color: $grey-darker;
+            font-weight: 500;
+          }
+          textarea {
+            margin-top: 1rem;
+            resize: none;
+            font-size: 1.2rem;
+            font-family: Jost;
+            border: 0;
+            border: {
+              width: 0;
+              radius: 7.5px;
+            }
+            @include scrollbar;
+            width: 100%;
+            background-color: $grey-lightest;
+            color: $grey-dark;
+            transition: 0.25s linear;
+            padding: 0.65rem 1.2rem 0.65rem 1.5rem;
 
-        &:focus {
-          background-color: $blue-lighter;
-          color: $blue-dark;
-          &::placeholder {
-            color: $blue-darker;
+            &:focus {
+              background-color: $blue-lighter;
+              color: $blue-dark;
+              &::placeholder {
+                color: $blue-darker;
+              }
+            }
+            &:hover:not(:focus) {
+              background-color: #cdeeffa1;
+              color: #055b9d8c;
+              &::placeholder {
+                color: $blue-darker;
+              }
+            }
+            &::placeholder {
+              color: $grey-dark;
+              font-family: Jost;
+              font-weight: 400;
+              opacity: 0.5;
+            }
           }
         }
-        &:hover:not(:focus) {
-          background-color: #cdeeffa1;
-          color: #055b9d8c;
-          &::placeholder {
-            color: $blue-darker;
-          }
-        }
-        &::placeholder {
-          color: $grey-dark;
-          font-family: Jost;
-          font-weight: 400;
-          opacity: 0.5;
-        }
-      }
-    }
-    .pfp {
-      width: 100%;
-      @include grid_cent;
-      .deleteBtn {
-        position: absolute;
-        right: 0;
-        color: $red-primary;
-        background-color: #fff;
-        border: 1px solid $red-primary;
-        padding: 0.15rem 0.45rem;
-        font-weight: 500;
-        transition: 0.3s linear;
-        cursor: pointer;
-        border-radius: 15px;
-        &:hover {
-          background-color: $red-primary;
-          color: #fff;
-        }
-        &:active {
-          background-color: $red-dark;
-        }
-      }
-      .img {
-        width: 80%;
-        max-width: 200px;
-        cursor: pointer;
-        position: relative;
-        span {
-          position: absolute;
-          top: 50%;
-          left: 50%;
-          text-align: center;
-          width: 70%;
-          transform: translate(-50%, -50%);
-          color: #fff;
-          background-color: rgba(0, 0, 0, 0.75);
-          padding: 0.25rem;
-          border-radius: 7.5px;
-        }
-        img {
-          border-radius: 50%;
+        .pfp {
           width: 100%;
-          aspect-ratio: 1 / 1;
-          outline: 2px solid $blue-darker;
-          outline-offset: 2px;
-          object-fit: cover;
-        }
-        &:hover {
-          opacity: 0.8;
+          @include grid_cent;
+          .deleteBtn {
+            position: absolute;
+            right: 0;
+            color: $red-primary;
+            background-color: #fff;
+            border: 1px solid $red-primary;
+            padding: 0.15rem 0.45rem;
+            font-weight: 500;
+            transition: 0.3s linear;
+            cursor: pointer;
+            border-radius: 15px;
+            &:hover {
+              background-color: $red-primary;
+              color: #fff;
+            }
+            &:active {
+              background-color: $red-dark;
+            }
+          }
+          .img {
+            width: 80%;
+            max-width: 200px;
+            cursor: pointer;
+            position: relative;
+            span {
+              position: absolute;
+              top: 50%;
+              left: 50%;
+              text-align: center;
+              width: 70%;
+              transform: translate(-50%, -50%);
+              color: #fff;
+              background-color: rgba(0, 0, 0, 0.75);
+              padding: 0.25rem;
+              border-radius: 7.5px;
+            }
+            img {
+              border-radius: 50%;
+              width: 100%;
+              aspect-ratio: 1 / 1;
+              outline: 2px solid $blue-darker;
+              outline-offset: 2px;
+              object-fit: cover;
+            }
+            &:hover {
+              opacity: 0.8;
+            }
+          }
         }
       }
     }

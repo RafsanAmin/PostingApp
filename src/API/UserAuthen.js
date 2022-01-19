@@ -1,5 +1,7 @@
 import axios from 'axios';
 import makeFormData from '../utils/formData';
+import { mailRegexp } from '../utils/stringRegexp';
+import userDataValidator from '../utils/userDataValidator';
 import urlPrefix from './getURL';
 
 const Axios = axios.create({ baseURL: urlPrefix });
@@ -9,8 +11,6 @@ Axios.interceptors.response.use(
   (err) => err.response
 );
 
-const mailRegexp =
-  /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@(google|outlook|hotmail|gmail)+(?:\.(com|org|io)+)*$/;
 class UserAuthenAPIClass {
   uploadProfilePic = (files, user) =>
     new Promise((resolve, reject) => {
@@ -61,7 +61,7 @@ class UserAuthenAPIClass {
     new Promise((resolve, reject) => {
       Axios.get(`/uh/authen`, { withCredentials: true })
         .then((res) => {
-          if (res.data.done === true || res.data.done === false) {
+          if (res.data.done === true) {
             resolve(res.data);
           } else {
             reject(res.data);
@@ -188,20 +188,58 @@ class UserAuthenAPIClass {
     });
 
   updateUserData = (data) =>
+    new Promise(async (resolve, reject) => {
+      try {
+        const userData = await userDataValidator(data);
+        const data = {
+          id,
+          email,
+        };
+        Axios.post(`/uh/verifyForUpdateData`, data).then(() => {});
+      } catch (err) {
+        reject(err);
+      }
+    });
+
+  verifyForUpdateData = (data) =>
     new Promise((resolve, reject) => {
-      const { work, bDay, bio, pfp, delPFP, verfication, username, email, pass, confPass, id } =
-        data;
-      if (verfication) {
-        reject('Still Working!');
-      } else {
-        this.updateUserDataNoVer(data)
+      userDataValidator(data)
+        .then((userData) => {
+          const { id, email, username } = userData;
+          const sendData = {
+            id,
+            email,
+            username,
+          };
+          resolve(1123);
+          // Axios.post(`/uh/verifyForUpdateData`, sendData).then((res) => {
+          //   if (res.data && res.data.exists) {
+          //     reject('Username already exists!');
+          //   } else if (res.data.done && res.data.code) {
+          //     resolve(res.data.code);
+          //   } else {
+          //     reject('Unexpected Error!');
+          //   }
+          // });
+        })
+        .catch((err) => reject(err));
+    });
+
+  updateUserDataWithVer = (data) =>
+    new Promise((resolve, reject) => {
+      makeFormData(data).then((formData) => {
+        Axios.put(`/uh/updateUserDataWithVer`, formData, { withCredentials: true })
           .then((res) => {
-            resolve(res);
+            if (res.data && res.data.done) {
+              resolve('Updated Successfully! Wait minimum for 5 seconds before reload.');
+            } else {
+              reject('There was an error!');
+            }
           })
           .catch((err) => {
             reject(err);
           });
-      }
+      });
     });
 
   updateUserDataNoVer = (data) =>

@@ -3,11 +3,11 @@ import AlertContext from '../../../Contexts/AlertContext';
 import UserContext from '../../../Contexts/UserContext';
 import fileValidator from '../../../utils/fileValidator';
 
-const ProfilePicHandle = ({ styles, fileState, deleteState }) => {
+const ProfilePicHandle = ({ styles, State }) => {
   const { _id } = useContext(UserContext);
   const [hoverToggler, setHoverToggler] = useState(false);
-  const [state, setState] = fileState;
-  const [delSt, setDelst] = deleteState;
+  const [userData, setState] = State;
+
   const fileRef = useRef();
   const alertBox = useContext(AlertContext);
   const changeImage = async (e) => {
@@ -19,8 +19,7 @@ const ProfilePicHandle = ({ styles, fileState, deleteState }) => {
         1,
         'File must have to be a .jpg or .png file'
       );
-      setState(clearedFiles[0]);
-      setDelst(false);
+      setState({ type: 'SET_IMG', file: clearedFiles[0] });
     } catch (err) {
       alertBox({
         state: true,
@@ -32,14 +31,14 @@ const ProfilePicHandle = ({ styles, fileState, deleteState }) => {
   };
   const deleteImage = async (e) => {
     e.stopPropagation();
-    setState(null);
-    setDelst(true);
+    setState({ type: 'DEL_IMG' });
   };
   const imageLogic = (() => {
-    if (state && !delSt) {
-      return URL.createObjectURL(state);
+    const { pfp, delPFP } = userData;
+    if (pfp && !delPFP) {
+      return URL.createObjectURL(pfp);
     }
-    if (!state && delSt) {
+    if (!pfp && delPFP) {
       return `/uh/getProfilePic/wrong`;
     }
 

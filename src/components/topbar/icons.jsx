@@ -19,7 +19,7 @@ function Icons(props) {
   return (
     <div className={Styles.iconsContainer}>
       <div className={Styles.toggler}>
-        {state.userid ? (
+        {state.userid !== null ? (
           <button type="button" onClick={toggler}>
             {toggle ? <i className="fas fa-times" /> : <i className="fas fa-align-left" />}
           </button>
@@ -35,7 +35,7 @@ function Icons(props) {
         )}
       </div>
       <div className={`${Styles.icons} ${toggle ? Styles.on : Styles.off}`}>
-        {state.userid ? (
+        {state.userid !== null ? (
           <>
             <Link href="/App/Post">
               <div className={`${Styles.button} ${activeSelector('post')}`}>

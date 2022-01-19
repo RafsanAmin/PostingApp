@@ -62,7 +62,7 @@ function Profile(props) {
   };
   return (
     <>
-      {state.userid ? (
+      {state.userid !== null ? (
         <div className={Styles.ProfileContainer}>
           <div className={Styles.img} onClick={toggleMenu}>
             <img src={`/uh/getProfilePic/${state.userid}`} alt="profilePic" />

@@ -18,6 +18,8 @@ p {
 .freeze {
   pointer-events: none;
   opacity: 0.2;
+  max-height: 100vh;
+  overflow: hidden;
 }
 .s {
   transition: 0.2s ease-in-out;

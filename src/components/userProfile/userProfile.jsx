@@ -22,14 +22,13 @@ const UserProfile = ({ user, own }) => {
   const [dom, setDOM] = useState();
   useUserInfo((self) => {
     setAppState({ type: 'USER', id: self.id });
-  });
+  }, []);
   useScrollTrigger(
     (e) => {
       reloadPost(e, AppStateArr);
     },
     [AppStateArr]
   );
-  console.log(user);
   return (
     <>
       <Head>
