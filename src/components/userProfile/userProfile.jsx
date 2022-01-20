@@ -65,7 +65,6 @@ const UserProfile = ({ user, own }) => {
                 <div className={`${alertProps.state ? 'freeze' : ''}`}>
                   <PostHandlerUI />
                   <UserSetUICont user={user} />
-                  <PostHandlerUI />
                 </div>
 
                 <div

@@ -9,6 +9,7 @@ import TopBar from '../../components/topbar/topbar';
 import ContContext from '../../Contexts/ContContext';
 import { AlertContext, useAlert } from '../../hooks/useAlert';
 import { AppContext, reloadPost, useAppState } from '../../hooks/useAppState';
+import useFreeze from '../../hooks/useFreeze';
 import useScrollTrigger from '../../hooks/useScrollTrigger';
 import useUserInfo from '../../hooks/useUserInfo';
 import Styles from '../../scss/postapp.module.scss';
@@ -19,6 +20,11 @@ const PostApp = () => {
   const [appState, setAppState] = AppStateArr;
   const [alertProp, setAlert] = useAlert();
   const [contState, setContState] = useState();
+  useFreeze(appState.editPost.state || appState.addPost || alertProp.state, [
+    appState.editPost,
+    appState,
+    alertProp,
+  ]);
   useUserInfo(async (status) => {
     if (status.done) {
       setAppState({ type: 'USER', id: status.id });
