@@ -4,6 +4,7 @@ import ContContext from '../../Contexts/ContContext';
 import UserContext from '../../Contexts/UserContext';
 import { AlertContext, useAlert } from '../../hooks/useAlert';
 import { AppContext, reloadPost, useAppState } from '../../hooks/useAppState';
+import useFreeze from '../../hooks/useFreeze';
 import useScrollTrigger from '../../hooks/useScrollTrigger';
 import useUserInfo from '../../hooks/useUserInfo';
 import Alert from '../alert';
@@ -20,6 +21,11 @@ const UserProfile = ({ user, own }) => {
   const [appState, setAppState] = AppStateArr;
   const [alertProps, setAlert] = useAlert();
   const [dom, setDOM] = useState();
+  useFreeze(alertProps.state || appState.editPost.state || appState.userEdit, [
+    alertProps.state,
+    appState.editPost.state,
+    appState.userEdit,
+  ]);
   useUserInfo((self) => {
     setAppState({ type: 'USER', id: self.id });
   }, []);

@@ -15,6 +15,9 @@
 p {
   word-wrap: break-word;
 }
+html {
+  font-size: clamp(14px, 2.5vw, 16px);
+}
 .freeze {
   pointer-events: none;
   opacity: 0.2;

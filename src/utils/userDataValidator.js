@@ -5,8 +5,10 @@ export default function userDataValidator(data) {
   return new Promise((resolve, reject) => {
     const { work, bio, username, email, pass, confPass, verification } = data;
     console.log('Hey!', data);
-    if (!email.match(mailRegexp) || email === '') {
+    if (!email?.match(mailRegexp)) {
       reject('Invalid Email Address!');
+    } else if (username === '') {
+      reject('Invalid Username!');
     } else if (
       email?.length > 64 ||
       username?.length > 64 ||
@@ -16,9 +18,7 @@ export default function userDataValidator(data) {
       bio?.length > 250
     ) {
       reject('Bio must be less than 250 and others must be less than 64 characters');
-    } else if (username === '' || email === '') {
-      reject('Username and email must not be empty');
-    } else if (!(verification ^ (pass < 8 || pass === null)) && pass !== null) {
+    } else if (verification && pass !== null && pass?.length < 8) {
       reject('Password too short!');
     } else if (pass !== confPass) {
       reject("Passwors and confirm password aren't same");

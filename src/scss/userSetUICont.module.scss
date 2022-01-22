@@ -16,9 +16,16 @@
     gap: 15px;
     & > span {
       grid-column: 1 / -1;
-      padding: 0rem 1rem;
-      background-color: $red-primary;
-      color: #fff;
+      padding: 1rem;
+      border-radius: 10px;
+      background-color: $blue-lighter;
+      h4 {
+        font-weight: 600;
+        color: $red-light;
+      }
+    }
+    .fullLine {
+      grid-column: 1 / -1;
     }
   }
   .cont {
@@ -34,12 +41,14 @@
     .roller {
       width: 200%;
       transition: 0.5s ease-in-out;
+      height: 100%;
       .userSetUI {
         @include scrollbar;
-        padding: 2rem;
+        padding: clamp(1rem, 2.5vw, 2rem);
         overflow-y: scroll;
         max-height: 850px;
         width: 50%;
+        height: 100%;
         .close {
           display: grid;
           justify-content: right;

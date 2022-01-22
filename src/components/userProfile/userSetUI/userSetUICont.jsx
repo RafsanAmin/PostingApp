@@ -3,7 +3,7 @@ import AppContext from '../../../Contexts/AppContext';
 import Styles from '../../../scss/userSetUICont.module.scss';
 import UserSetUI from './userSetUI';
 
-const userSetUICont = (user) => {
+const userSetUICont = ({ user }) => {
   const [appState] = useContext(AppContext);
   const [userDataNVer, setuserDataNVer] = useState(false);
 
@@ -12,12 +12,14 @@ const userSetUICont = (user) => {
       {' '}
       <div className={`${Styles.win} ${appState.userEdit ? Styles.on : Styles.off}`}>
         <div className={Styles.cont}>
-          <div
-            style={userDataNVer ? { transform: 'translateX(-50%)' } : null}
-            className={Styles.roller}
-          >
-            <UserSetUI user={user} />
-          </div>
+          {appState.userEdit ? (
+            <div
+              style={userDataNVer ? { transform: 'translateX(-50%)' } : null}
+              className={Styles.roller}
+            >
+              <UserSetUI user={user} setVer={setuserDataNVer} />
+            </div>
+          ) : null}
         </div>
         <button style={{ zIndex: '50' }} type="button" onClick={() => setuserDataNVer((s) => !s)}>
           ++

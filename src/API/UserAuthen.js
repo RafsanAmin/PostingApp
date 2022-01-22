@@ -187,42 +187,31 @@ class UserAuthenAPIClass {
       });
     });
 
-  updateUserData = (data) =>
-    new Promise(async (resolve, reject) => {
-      try {
-        const userData = await userDataValidator(data);
-        const data = {
-          id,
-          email,
-        };
-        Axios.post(`/uh/verifyForUpdateData`, data).then(() => {});
-      } catch (err) {
-        reject(err);
-      }
-    });
-
   verifyForUpdateData = (data) =>
     new Promise((resolve, reject) => {
       userDataValidator(data)
-        .then((userData) => {
-          const { id, email, username } = userData;
+        .then(() => {
+          const { id, email, username } = data;
           const sendData = {
             id,
             email,
             username,
           };
-          resolve(1123);
-          // Axios.post(`/uh/verifyForUpdateData`, sendData).then((res) => {
-          //   if (res.data && res.data.exists) {
-          //     reject('Username already exists!');
-          //   } else if (res.data.done && res.data.code) {
-          //     resolve(res.data.code);
-          //   } else {
-          //     reject('Unexpected Error!');
-          //   }
-          // });
+          console.log(sendData);
+          Axios.put(`/uh/verifyForUpdateData`, sendData).then((res) => {
+            if (res.data && res.data.exists) {
+              reject('Username already exists!');
+            } else if (res.data.done && res.data.code) {
+              resolve(res.data.code);
+            } else {
+              reject('Unexpected Error!');
+            }
+          });
         })
-        .catch((err) => reject(err));
+        .catch((err) => {
+          console.log(err);
+          reject(err);
+        });
     });
 
   updateUserDataWithVer = (data) =>
@@ -244,8 +233,10 @@ class UserAuthenAPIClass {
 
   updateUserDataNoVer = (data) =>
     new Promise((resolve, reject) => {
-      makeFormData(data)
+      const { bDay, bio, delPFP, id, pfp, work } = data;
+      makeFormData({ bDay, bio, delPFP, id, pfp, work })
         .then((formData) => {
+          console.log(Array.from(formData));
           Axios.put(`/uh/updateUserDataNoVer`, formData, {
             withCredentials: true,
             params: {

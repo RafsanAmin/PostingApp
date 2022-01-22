@@ -27,7 +27,7 @@ const initialState = {
   verificationCode: '',
   userGivenCode: '',
 };
-const UserSetUI = ({ user }) => {
+const UserSetUI = ({ user, setVer }) => {
   const [appState, setAppState] = useContext(AppContext);
   const Router = useRouter();
 
@@ -71,7 +71,7 @@ const UserSetUI = ({ user }) => {
       pfp,
       delPFP,
       verification,
-      username: username?.trim() || '',
+      username: username?.trim() && username === user.username ? null : username,
       email: email?.trim() || '',
       pass: pass?.trim() || null,
       confPass: confPass?.trim() || null,
@@ -82,6 +82,7 @@ const UserSetUI = ({ user }) => {
       UserAuthenAPI.verifyForUpdateData(updateData)
         .then((code) => {
           dispatchUserDetail({ type: 'SET_VERF', code });
+          setVer({ ...updateData, code });
           setLoading(false);
         })
         .catch((err) => {
@@ -119,6 +120,7 @@ const UserSetUI = ({ user }) => {
   };
   useEffect(() => {
     const { _id } = user;
+    console.log(user);
     dispatchUserDetail({
       type: 'INIT',
       data: {
@@ -184,80 +186,77 @@ const UserSetUI = ({ user }) => {
             type="date"
           />
         </div>
+        <br />
+        <div className={`${Styles.inputCont} ${Styles.fullLine}`}>
+          <span>Bio</span>
+          <br />
+          <TextArea
+            limit={250}
+            rows={{ min: 5, max: 5, lineH: 24 }}
+            value={userDetail.bio}
+            setValue={(d) => setF('bio', d)}
+          />
+        </div>
         <span>
-          YOU NEED verification FOR THIS SETTINGS.
+          <h4>
+            <i className="fas fa-exclamation-triangle    " /> YOU NEED VERIFICATION FOR SOME
+            SETTINGS.
+          </h4>
           <Checkbox
             state={userDetail.verification}
             setState={(d) => setF('verification', d)}
-            label="So to update data with verification, check the
-              Checkbox. Otherwise some datas will may not update. Your verification mail will be sent to new mail address given by you."
+            label="So to update those data with verification, check the
+              Checkbox. Your verification mail will be sent to new mail address given by you."
           />
         </span>
 
-        <div className={Styles.inputCont}>
-          <span>Username</span>{' '}
-          <Input
-            value={userDetail.username}
-            setValue={(d) => setF('username', d)}
-            plchold="Username"
-            type="text"
-            limit="64"
-          />
-        </div>
-        <div className={Styles.inputCont}>
-          <span>E-mail</span>{' '}
-          <Input
-            value={userDetail.email}
-            setValue={(d) => setF('email', d)}
-            type="input"
-            name="E-mail"
-            limit="64"
-          />
-        </div>
-        <div className={Styles.inputCont}>
-          <span>New Password</span>{' '}
-          <Input
-            value={userDetail.pass}
-            setValue={(d) => setF('pass', d)}
-            type="password"
-            name="Keep Blank if you don't want to change"
-            limit="64"
-          />
-        </div>
-        <div className={Styles.inputCont}>
-          <span>Confirm New Password</span>{' '}
-          <Input
-            value={userDetail.confPass}
-            setValue={(d) => setF('confPass', d)}
-            type="password"
-            name="Re-write your whole password here"
-            limit="64"
-          />
-        </div>
+        {userDetail.verification ? (
+          <>
+            {' '}
+            <div className={Styles.inputCont}>
+              <span>Username</span>{' '}
+              <Input
+                value={userDetail.username}
+                setValue={(d) => setF('username', d)}
+                plchold="Username"
+                type="text"
+                limit="64"
+              />
+            </div>
+            <div className={Styles.inputCont}>
+              <span>E-mail</span>{' '}
+              <Input
+                value={userDetail.email}
+                setValue={(d) => setF('email', d)}
+                type="input"
+                name="E-mail"
+                limit="64"
+              />
+            </div>
+            <div className={Styles.inputCont}>
+              <span>New Password</span>{' '}
+              <Input
+                value={userDetail.pass}
+                setValue={(d) => setF('pass', d)}
+                type="password"
+                name="Keep Blank if you don't want to change"
+                limit="64"
+              />
+            </div>
+            <div className={Styles.inputCont}>
+              <span>Confirm New Password</span>{' '}
+              <Input
+                value={userDetail.confPass}
+                setValue={(d) => setF('confPass', d)}
+                type="password"
+                name="Re-write your whole password here"
+                limit="64"
+              />
+            </div>{' '}
+          </>
+        ) : null}
       </div>
-      <div className={Styles.inputCont}>
-        <span>Bio</span>
-        <br />
-        <TextArea
-          limit={250}
-          rows={{ min: 5, max: 5, lineH: 24 }}
-          value={userDetail.bio}
-          setValue={(d) => setF('bio', d)}
-        />
-      </div>
-      {userDetail.verificationCode ? (
-        <>
-          <br />
-          <div className={`${Styles.verification} ${Styles.inputCont}`}>
-            <span>Verification Code</span>
-            <br />
-            <span>
-              A mail has been sent to<b> {`${userDetail.email}`}</b>{' '}
-            </span>
-            <Input value={userDetail.userGivenCode} setValue={(s) => setF('userGivenCode', s)} />
-          </div>
-        </>
-      ) : null}
+
       <br />
       <div className={`${Styles.updateButton} ${loading ? 'load' : ''}`}>
         <div />

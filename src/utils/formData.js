@@ -7,8 +7,11 @@ const makeFormData = (data) =>
       const formData = new FormData();
 
       for (const property in data) {
-        console.log(property);
-        formData.append(property, data[property]);
+        if (data[property] === null) {
+          console.log('skip');
+        } else {
+          formData.append(property, data[property]);
+        }
       }
       resolve(formData);
     } catch (err) {
