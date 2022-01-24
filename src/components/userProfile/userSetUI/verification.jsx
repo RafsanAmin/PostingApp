@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import React, { useContext, useState } from 'react';
 import UserAuthenAPI from '../../../API/UserAuthen';
 import AlertContext from '../../../Contexts/AlertContext';
@@ -7,6 +8,7 @@ import Input from '../../Input';
 
 const Verification = ({ userDataUp }) => {
   const [, setAppState] = useContext(AppContext);
+  const Router = useRouter();
   const [userData, setUserData] = userDataUp;
   const [verCode, setVerCode] = useState('');
   const Alert = useContext(AlertContext);
@@ -25,6 +27,9 @@ const Verification = ({ userDataUp }) => {
           setLoading(false);
           setAppState({ type: 'PF_0' });
           setUserData(null);
+          setTimeout(() => {
+            Router.reload();
+          }, 5000);
         })
         .catch((err) => {
           Alert({
