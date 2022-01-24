@@ -214,21 +214,39 @@ class UserAuthenAPIClass {
         });
     });
 
-  updateUserDataWithVer = (data) =>
+  updateUserDataWithVer = ({ bDay, bio, delPFP, email, id, pass, pfp, username, work }) =>
     new Promise((resolve, reject) => {
-      makeFormData(data).then((formData) => {
-        Axios.put(`/uh/updateUserDataWithVer`, formData, { withCredentials: true })
-          .then((res) => {
-            if (res.data && res.data.done) {
-              resolve('Updated Successfully! Wait minimum for 5 seconds before reload.');
-            } else {
-              reject('There was an error!');
-            }
-          })
-          .catch((err) => {
-            reject(err);
-          });
+      console.log({
+        bDay,
+        bio,
+        delPFP,
+        email,
+        id,
+        pass,
+        pfp,
+        username,
+        work,
       });
+      makeFormData({ bDay, bio, delPFP, email, id, password: pass, pfp, username, work }).then(
+        (formData) => {
+          Axios.put(`/uh/updateUserData`, formData, {
+            withCredentials: true,
+            params: {
+              userid: id,
+            },
+          })
+            .then((res) => {
+              if (res.data && res.data.done) {
+                resolve('Updated Successfully! Wait minimum for 5 seconds before reload.');
+              } else {
+                reject('There was an error!');
+              }
+            })
+            .catch((err) => {
+              reject(err);
+            });
+        }
+      );
     });
 
   updateUserDataNoVer = (data) =>
@@ -237,7 +255,7 @@ class UserAuthenAPIClass {
       makeFormData({ bDay, bio, delPFP, id, pfp, work })
         .then((formData) => {
           console.log(Array.from(formData));
-          Axios.put(`/uh/updateUserDataNoVer`, formData, {
+          Axios.put(`/uh/updateUserData`, formData, {
             withCredentials: true,
             params: {
               userid: data.id,

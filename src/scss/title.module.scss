@@ -16,6 +16,7 @@
     color: $blue-dark;
     position: relative;
     transition: 0.2s ease-in-out;
+    font-family: Ubuntu;
     &::before {
       content: '';
       position: absolute;

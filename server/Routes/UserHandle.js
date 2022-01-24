@@ -239,22 +239,26 @@ uh.get('/getOwnData', async (req, res, next) => {
     res.status(500).json({ done: false, massage: 'A Server Side Error' });
   }
 });
-uh.put('/updateUserDataNoVer', authen, async (req, res, next) => {
+uh.put('/updateUserData', authen, async (req, res, next) => {
   try {
     const oid = await getIdFromJwt(req);
     const queryId = req.query ? req.query.userid : null;
     let uid;
+    let pass;
     if (oid === '61346cba5f69790468c69b2d' || oid === '614ca3dadca93a001614286a') {
       uid = queryId;
     } else {
       uid = oid;
     }
-    const { bio, work, bDay, delPFP } = await handleFormRequest(req, false, uid);
-    if (delPFP === 'true') {
+    const updateData = await handleFormRequest(req, false, uid);
+    if (updateData.delPFP === 'true') {
       await deleteImages([uid]);
     }
+    if (updateData.password) {
+      pass = await bcrypt.hash(updateData.password, 10);
+    }
 
-    UserModelDB.findOneAndUpdate({ _id: uid }, { bio, work, bDay }, (err) => {
+    UserModelDB.findOneAndUpdate({ _id: uid }, { ...updateData, password: pass || null }, (err) => {
       if (err) {
         res.status(500).json({ err: err, done: false });
       } else {
@@ -267,28 +271,34 @@ uh.put('/updateUserDataNoVer', authen, async (req, res, next) => {
   }
 });
 uh.put('/verifyForUpdateData', authen, async (req, res) => {
-  const { id, email, username } = req.body;
-  console.log(req.body);
-  const uexists = await UserModelDB.exists({ username });
-  const number = getRandomNumber(6);
-  if (uexists || wordIncludes(username || '')) {
-    res.json({ done: false, exists: true });
-  } else {
-    const sendMail = {
-      from: 'rafpost002@gmail.com',
-      to: email,
-      subject: 'Verfication Mail from Changing Data in RafPost',
-      html: `<p>Your Verfication code is <br> <b style="font-size: 1.5rem">${number}</b>  <br> in RafPost Account. Give it to you Verification Input and Create your Account</p>`,
-    };
-    mailerTransport
-      .send(sendMail)
-      .then((resp) => {
-        res.json({ done: true, exists: false, code: number });
-      })
-      .catch((err) => {
-        console.log(err);
-        res.json({ done: false, exists: false });
-      });
+  try {
+    const { id, email, username } = req.body;
+    console.log(req.body);
+    const uexists = await UserModelDB.exists({ username });
+    const number = getRandomNumber(6);
+    if (uexists || wordIncludes(username || '')) {
+      res.json({ done: false, exists: true });
+    } else {
+      const sendMail = {
+        from: 'rafpost002@gmail.com',
+        to: email,
+        subject: 'Verfication Mail from Changing Data in RafPost',
+        html: `<p>Your Verfication code is <br> <b style="font-size: 1.5rem">${number}</b>  <br> in RafPost Account. Give it to you Verification Input and Update your data.</p>`,
+      };
+      mailerTransport
+        .send(sendMail)
+        .then((resp) => {
+          res.json({ done: true, exists: false, code: number });
+        })
+        .catch((err) => {
+          console.log(err);
+          res.json({ done: false, exists: false });
+        });
+    }
+  } catch (err) {
+    console.log(err);
+    res.json({ done: false, exists: false, massage: 'Unexpected error!' });
   }
 });
+
 module.exports = uh;

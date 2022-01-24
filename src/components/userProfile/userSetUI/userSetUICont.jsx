@@ -2,10 +2,11 @@ import React, { useContext, useState } from 'react';
 import AppContext from '../../../Contexts/AppContext';
 import Styles from '../../../scss/userSetUICont.module.scss';
 import UserSetUI from './userSetUI';
+import Verification from './verification';
 
 const userSetUICont = ({ user }) => {
   const [appState] = useContext(AppContext);
-  const [userDataNVer, setuserDataNVer] = useState(false);
+  const [userDataNVer, setuserDataNVer] = useState(null);
 
   return (
     <>
@@ -18,6 +19,7 @@ const userSetUICont = ({ user }) => {
               className={Styles.roller}
             >
               <UserSetUI user={user} setVer={setuserDataNVer} />
+              <Verification userDataUp={[userDataNVer, setuserDataNVer]} />
             </div>
           ) : null}
         </div>

@@ -4,7 +4,6 @@ import Styles from '../scss/input.module.scss';
 function Input({ value, setValue, type, name, plchold, style, limit }, ref) {
   const placeholder = plchold || name;
   const handleInput = (e) => {
-    console.log('wtf', value, e.target.value);
     setValue(e.target.value);
   };
   return (

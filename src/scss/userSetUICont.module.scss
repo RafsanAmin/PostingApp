@@ -9,6 +9,31 @@
   left: 0;
   bottom: 0;
   transition: 0.15s linear;
+  .close {
+    display: grid;
+    justify-content: right;
+    width: 100%;
+    button {
+      height: 40px;
+      width: 40px;
+      border-radius: 10px;
+      border: 0;
+      cursor: pointer;
+      transition: 0.15s linear;
+      background-color: #fff;
+      font-size: 1.05rem;
+      i {
+        color: $blue-dark;
+      }
+      &:hover {
+        background-color: $grey-lighter;
+        border-radius: 50%;
+      }
+      &:active {
+        background-color: $grey-light;
+      }
+    }
+  }
   .grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -28,6 +53,87 @@
       grid-column: 1 / -1;
     }
   }
+  .verCont {
+    max-width: 1200px;
+    width: 50%;
+    max-height: 850px;
+    height: 98%;
+    background-color: #fff;
+    @include shadow();
+    @include scrollbar;
+    border-radius: 7.5px;
+    overflow: hidden;
+    display: grid;
+    grid-template-rows: 40px 1fr;
+    place-items: center;
+    height: 100%;
+    padding: 2rem;
+    .inner {
+      max-width: 500px;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      .title {
+        text-align: left;
+        display: block;
+        width: 100%;
+        h3 {
+          font-size: 2rem;
+          color: $blue-dark;
+          font-family: Ubuntu;
+        }
+      }
+    }
+  }
+  .updateButton {
+    padding-top: 1.5rem;
+    display: grid;
+    justify-content: right;
+    width: 100%;
+    button {
+      display: flex;
+      cursor: pointer;
+      background-color: $blue-primary;
+      border: 0;
+      padding: 0.4rem 1.5rem;
+      color: #fff;
+      transition: 0.2s linear;
+      border-radius: 25px;
+      font-size: 1.05rem;
+      &:hover {
+        opacity: 0.8;
+      }
+      &:active {
+        opacity: 0.5;
+      }
+      &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+      img {
+        margin-right: 0.2rem;
+        animation: spin 1s linear infinite;
+      }
+    }
+    @keyframes spin {
+      0% {
+        transform: rotate(0);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+  }
+  .load {
+    button {
+      cursor: not-allowed;
+      pointer-events: none;
+      opacity: 0.5;
+    }
+  }
   .cont {
     max-width: 1200px;
     width: 98%;
@@ -42,6 +148,7 @@
       width: 200%;
       transition: 0.5s ease-in-out;
       height: 100%;
+      display: flex;
       .userSetUI {
         @include scrollbar;
         padding: clamp(1rem, 2.5vw, 2rem);
@@ -49,64 +156,7 @@
         max-height: 850px;
         width: 50%;
         height: 100%;
-        .close {
-          display: grid;
-          justify-content: right;
-          button {
-            height: 40px;
-            width: 40px;
-            border-radius: 10px;
-            border: 0;
-            cursor: pointer;
-            transition: 0.15s linear;
-            background-color: #fff;
-            font-size: 1.05rem;
-            i {
-              color: $blue-dark;
-            }
-            &:hover {
-              background-color: $grey-lighter;
-              border-radius: 50%;
-            }
-            &:active {
-              background-color: $grey-light;
-            }
-          }
-        }
-        .updateButton {
-          padding-top: 1.5rem;
-          display: grid;
-          justify-content: right;
-          button {
-            display: flex;
-            cursor: pointer;
-            background-color: $blue-primary;
-            border: 0;
-            padding: 0.4rem 1.5rem;
-            color: #fff;
-            transition: 0.2s linear;
-            border-radius: 25px;
-            font-size: 1.05rem;
-            &:hover {
-              opacity: 0.8;
-            }
-            &:active {
-              opacity: 0.5;
-            }
-            img {
-              margin-right: 0.2rem;
-              animation: spin 1s linear infinite;
-            }
-          }
-          @keyframes spin {
-            0% {
-              transform: rotate(0);
-            }
-            100% {
-              transform: rotate(360deg);
-            }
-          }
-        }
+
         .load {
           button {
             cursor: not-allowed;
