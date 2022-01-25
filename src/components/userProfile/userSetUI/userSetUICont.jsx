@@ -23,9 +23,6 @@ const userSetUICont = ({ user }) => {
             </div>
           ) : null}
         </div>
-        <button style={{ zIndex: '50' }} type="button" onClick={() => setuserDataNVer((s) => !s)}>
-          ++
-        </button>
       </div>
     </>
   );

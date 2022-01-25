@@ -35,8 +35,8 @@ const Verification = ({ userDataUp }) => {
           Alert({
             state: true,
             title: 'Error',
-            type: err.toString(),
-            desc: "Code aren't Same",
+            type: 'error',
+            desc: err.toString(),
           });
           setLoading(false);
         });

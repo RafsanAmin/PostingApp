@@ -250,15 +250,15 @@ uh.put('/updateUserData', authen, async (req, res, next) => {
     } else {
       uid = oid;
     }
-    const updateData = await handleFormRequest(req, false, uid);
-    if (updateData.delPFP === 'true') {
+    const fetchedData = await handleFormRequest(req, false, uid);
+    if (fetchedData.delPFP === 'true') {
       await deleteImages([uid]);
     }
-    if (updateData.password) {
-      pass = await bcrypt.hash(updateData.password, 10);
+    if (fetchedData.password) {
+      pass = await bcrypt.hash(fetchedData.password, 10);
     }
-
-    UserModelDB.findOneAndUpdate({ _id: uid }, { ...updateData, password: pass || null }, (err) => {
+    const updateData = pass ? { ...fetchedData, password: pass } : fetchedData;
+    UserModelDB.findOneAndUpdate({ _id: uid }, updateData, (err) => {
       if (err) {
         res.status(500).json({ err: err, done: false });
       } else {
