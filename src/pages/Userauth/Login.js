@@ -94,6 +94,9 @@ function Login() {
                 <Link href="/Userauth/Signup">
                   <button type="button">Create Account</button>
                 </Link>
+                <Link href="/Userauth/Passwordchange">
+                  <button type="button">Forgot Password?</button>
+                </Link>
               </div>
             </div>
           </Loading>

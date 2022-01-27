@@ -9,6 +9,10 @@ const useFreeze = (logic, d) => {
     } else {
       document.querySelector('body').style.overflow = 'auto';
     }
+
+    return () => {
+      document.querySelector('body').style.overflow = 'auto';
+    };
   }, deps);
 };
 
