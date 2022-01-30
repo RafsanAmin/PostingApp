@@ -1,8 +1,16 @@
 @import './global/global';
-.loginField {
+.field {
   margin: 1rem 0;
   position: relative;
+  display: flex;
+  flex-direction: column;
+  span {
+    margin-left: 1rem;
+    font-weight: 600;
+    color: $grey-dark;
+  }
   input {
+    margin: 0.5rem 0;
     font-size: 1.2rem;
     font-family: Jost;
     border: 0;
@@ -11,7 +19,6 @@
       radius: 50px;
     }
     width: 100%;
-    min-width: 250px;
     background-color: $grey-lightest;
     color: $grey-dark;
     transition: 0.25s linear;

@@ -186,6 +186,13 @@ const UserSetUI = ({ user, setVer }) => {
             type="date"
           />
         </div>
+        {/* <br />
+        <Checkbox
+          state={userDetail.verification}
+          setState={(d) => setF('verification', d)}
+          label="So to update those data with verification, check the
+              Checkbox. Your verification mail will be sent to new mail address given by you."
+        /> */}
         <br />
         <div className={`${Styles.inputCont} ${Styles.fullLine}`}>
           <span>Bio</span>

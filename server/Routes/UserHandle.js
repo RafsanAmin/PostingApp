@@ -17,6 +17,7 @@ const { wordIncludes } = require('../../library/filter');
 const getIdFromJwt = require('../utils/getIdJWT');
 const handleFormRequest = require('../utils/handleFormReq');
 const deleteImages = require('../utils/deleteImage');
+const verifyModel = require('../Database/VerifyModel.js');
 
 mailerTransport.setApiKey(pass);
 uh.use(cookieParser());
@@ -270,7 +271,7 @@ uh.put('/updateUserData', authen, async (req, res, next) => {
     res.status(500).json({ done: false, massage: 'A Server Side Error' });
   }
 });
-uh.put('/verifyForUpdateData', authen, async (req, res) => {
+uh.post('/verifyForUpdateData', authen, async (req, res) => {
   try {
     const { id, email, username } = req.body;
     console.log(req.body);
@@ -300,5 +301,66 @@ uh.put('/verifyForUpdateData', authen, async (req, res) => {
     res.json({ done: false, exists: false, massage: 'Unexpected error!' });
   }
 });
-
+uh.post('/verifyForUpdateDataNoAuthen', (req, res) => {
+  const { username } = req.body;
+  UserModelDB.findOne({ username }, (err, data) => {
+    if (err || !data) {
+      res.json({ done: false, massage: "User doesn't eists" });
+    } else {
+      const { email, _id } = data;
+      const number = getRandomNumber(6);
+      verifyModel.create({ code: number.toString() }, (erro, datar) => {
+        if (erro) {
+          console.error(erro);
+          res.json({ done: false, massage: 'Unexpected Error!' });
+        } else {
+          const vid = datar._id;
+          const sendMail = {
+            from: 'rafpost002@gmail.com',
+            to: email,
+            subject: 'Verfication Mail from Changing Data in RafPost',
+            html: `<p>Your Verfication code is <br> <b style="font-size: 1.5rem">${number}</b>  <br> in RafPost Account. Give it to you Verification Input and Change your Password.</p>`,
+          };
+          mailerTransport
+            .send(sendMail)
+            .then((resp) => {
+              res.json({ done: true, exists: false, vid, user: { email, id: _id } });
+            })
+            .catch((error) => {
+              console.log(error);
+              res.json({ done: false, exists: false });
+            });
+        }
+      });
+    }
+  });
+});
+uh.put('/changePass', (req, res) => {
+  const { id, pass, code, vid } = req.body;
+  verifyModel.findOne({ _id: vid }, async (err, data) => {
+    if (err || !data) {
+      res.json({ done: false, massage: 'Unexpected Error!' });
+    } else {
+      const mainCode = data.code;
+      if (mainCode === code) {
+        const hashedPass = await bcrypt.hash(pass, 10);
+        UserModelDB.findOneAndUpdate({ _id: id }, { password: hashedPass }, (err) => {
+          if (err) {
+            res.json({ done: false, massage: 'Unexpected Error!' });
+          } else {
+            verifyModel.findOneAndDelete({ _id: vid }, (err) => {
+              if (err) {
+                res.json({ done: false, massage: 'Unexpected Error!' });
+              } else {
+                res.json({ done: true });
+              }
+            });
+          }
+        });
+      } else {
+        res.json({ done: false, massage: "Code Aren't Same" });
+      }
+    }
+  });
+});
 module.exports = uh;

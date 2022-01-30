@@ -187,7 +187,7 @@ class UserAuthenAPIClass {
       });
     });
 
-  verifyForUpdateData = (data) =>
+  verifyForUpdateData = (data, noCookieAuthen) =>
     new Promise((resolve, reject) => {
       userDataValidator(data)
         .then(() => {
@@ -197,12 +197,20 @@ class UserAuthenAPIClass {
             email,
             username,
           };
-          console.log(sendData);
-          Axios.put(`/uh/verifyForUpdateData`, sendData).then((res) => {
+
+          Axios.post(
+            noCookieAuthen ? `/uh/verifyForUpdateDataNoAuthen` : `/uh/verifyForUpdateData`,
+            sendData
+          ).then((res) => {
+            console.log(res);
             if (res.data && res.data.exists) {
               reject('Username already exists!');
             } else if (res.data.done && res.data.code) {
               resolve(res.data.code);
+            } else if (!res.data.done && res.data.massage) {
+              reject(res.data.massage);
+            } else if (res.data.done && res.data.vid) {
+              resolve({ vid: res.data.vid, user: res.data.user });
             } else {
               reject('Unexpected Error!');
             }
@@ -272,6 +280,17 @@ class UserAuthenAPIClass {
           console.log(err);
           reject('There was an error');
         });
+    });
+
+  changePass = (data) =>
+    new Promise((resolve, reject) => {
+      Axios.put('/uh/changePass', data).then((res) => {
+        if (res.data && res.data.done) {
+          resolve('Password Successfully Changed!');
+        } else {
+          reject(res.data.massage || 'Unexpected Error!');
+        }
+      });
     });
 }
 const UserAuthenAPI = new UserAuthenAPIClass();
