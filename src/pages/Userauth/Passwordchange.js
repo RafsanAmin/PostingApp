@@ -31,7 +31,7 @@ const Passwordchange = () => {
       }
     },
     {
-      state: 1,
+      state: 0,
       newPassword: null,
       vid: '',
       user: {},
