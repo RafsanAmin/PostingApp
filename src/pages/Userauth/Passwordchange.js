@@ -1,8 +1,8 @@
 import React, { useReducer } from 'react';
 import Alert from '../../components/alert';
 import Loading from '../../components/Loading';
-import PassChangeForm from '../../components/passwordChange/passChangeForm';
-import ValidationConfirm from '../../components/passwordChange/validationConfirm';
+import PassChangeForm from '../../components/passchange/passChangeForm';
+import ValidationConfirm from '../../components/passchange/validationConfirm';
 import { AlertContext, useAlert } from '../../hooks/useAlert';
 import Styles from '../../scss/passwordchange.module.scss';
 
