@@ -1,9 +1,12 @@
 import { useCallback, useEffect } from 'react';
 
-const useResizeTrigger = (t, d) => {
+const useResizeTrigger = (t, d, onInit) => {
   const deps = d || [];
   const trigger = useCallback(t, deps);
   useEffect(() => {
+    if (onInit) {
+      trigger();
+    }
     window.addEventListener('resize', trigger);
     window.addEventListener('orientationchange', trigger);
     return () => {

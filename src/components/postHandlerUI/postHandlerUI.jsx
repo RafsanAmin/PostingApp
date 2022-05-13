@@ -3,6 +3,7 @@ import { useContext, useEffect, useReducer, useRef, useState } from 'react';
 import PostAPI from '../../API/PostsAPI';
 import AlertContext from '../../Contexts/AlertContext';
 import AppContext from '../../Contexts/AppContext';
+import useResizeTrigger from '../../hooks/useResizeTrigger';
 import Styles from '../../scss/phandleui.module.scss';
 import { initialState, Reducer } from '../../state/imageHandlerState';
 import fileValidator from '../../utils/fileValidator';
@@ -19,6 +20,7 @@ const newNeditPostForm = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [oldPost, setOldPost] = useState({ user: '', oldPhotos: [] });
   const [state, setState] = useContext(AppContext);
+  const [small, setSmall] = useState(false);
   const Alert = useContext(AlertContext);
   const File = useRef(null);
   const placeholder = 'Write Your Thoughts Here';
@@ -30,6 +32,7 @@ const newNeditPostForm = () => {
       setOldPost({ id: _id, oldPhotos: photos });
     }
   }, [Alert, state.editPost]);
+
   const PostHandle = async () => {
     try {
       setIsLoading(true);
@@ -122,7 +125,17 @@ const newNeditPostForm = () => {
     console.log(e.target.name);
     setImages({ type: 'DELETE', index: e.target.name });
   };
-
+  useResizeTrigger(
+    () => {
+      if (window.innerWidth <= 500) {
+        setSmall(true);
+      } else {
+        setSmall(false);
+      }
+    },
+    [],
+    true
+  );
   return (
     <div
       className={`${Styles.npFormWin} ${
@@ -161,7 +174,25 @@ const newNeditPostForm = () => {
         <div className={`${Styles.inner}`}>
           <div className={Styles.postTextCont}>
             <TextArea
-              rows={{ lineH: 24, min: images.images.length > 0 ? 2 : 7, max: 10 }}
+              rows={{
+                lineH: 24,
+                min:
+                  // eslint-disable-next-line no-nested-ternary
+                  images.images.length > 0
+                    ? small
+                      ? (window.innerHeight - 490) / 24
+                      : 2
+                    : small
+                    ? (window.innerHeight - 90) / 24
+                    : 7,
+                max:
+                  // eslint-disable-next-line no-nested-ternary
+                  small
+                    ? images.images.length > 0
+                      ? (window.innerHeight - 490) / 24
+                      : (window.innerHeight - 90) / 24
+                    : 10,
+              }}
               value={postText}
               setValue={setPostText}
               placeholder={placeholder}
