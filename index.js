@@ -52,6 +52,10 @@ nextApp
       secure: true,
     });
     //routes
+    app.get('/log', (req, res) => {
+      console.log(req.query.msg);
+      res.status(200).json({ done: true });
+    });
     app.get('*', (req, res) => handle(req, res));
     app.use((err, next, req, res) => {
       if (!err.massage) {

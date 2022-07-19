@@ -292,6 +292,14 @@ class UserAuthenAPIClass {
         }
       });
     });
+
+  log = (data) => {
+    Axios.get('/log', {
+      params: {
+        msg: data,
+      },
+    });
+  };
 }
 const UserAuthenAPI = new UserAuthenAPIClass();
 export default UserAuthenAPI;

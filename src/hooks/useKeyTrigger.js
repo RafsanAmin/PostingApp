@@ -1,16 +1,23 @@
 const { useEffect, useCallback } = require('react');
 
-const useKeyTrigger = (fun, deps, key) => {
+const useKeyTrigger = (fun, deps, key, cond) => {
   const d = deps || [];
   const f = useCallback(fun, d);
   useEffect(() => {
-    document.addEventListener('keyup', (e) => {
-      console.log('dsds');
-      console.log(e.key);
+    const fn = (e) => {
       if (e.key === key) {
         f(e);
       }
-    });
+    };
+    const removeListener = () => {
+      document.removeEventListener('keyup', fn);
+    };
+    if (cond) {
+      document.addEventListener('keyup', fn);
+    } else {
+      removeListener();
+    }
+    return removeListener();
   }, d);
 };
 

@@ -12,7 +12,8 @@ const useAlert = () => {
       }
     },
     [alert.state],
-    'Escape'
+    'Escape',
+    alert.state
   );
   return [{ ...alert, setState: setAlert }, setAlert];
 };

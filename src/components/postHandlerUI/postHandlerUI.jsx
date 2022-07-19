@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 /* eslint-disable guard-for-in */
 import { useContext, useEffect, useReducer, useRef, useState } from 'react';
 import PostAPI from '../../API/PostsAPI';
@@ -21,6 +22,8 @@ const newNeditPostForm = () => {
   const [oldPost, setOldPost] = useState({ user: '', oldPhotos: [] });
   const [state, setState] = useContext(AppContext);
   const [small, setSmall] = useState(false);
+  const toggleState = useState(false);
+  const [toggle, setToggle] = toggleState;
   const Alert = useContext(AlertContext);
   const File = useRef(null);
   const placeholder = 'Write Your Thoughts Here';
@@ -94,6 +97,7 @@ const newNeditPostForm = () => {
 
   const changeImg = async () => {
     try {
+      setToggle(true);
       const { files } = File.current;
       const accessType = ['image/png', 'image/jpeg', 'image/gif'];
       const clearedFiles = await fileValidator(
@@ -125,10 +129,11 @@ const newNeditPostForm = () => {
     console.log(e.target.name);
     setImages({ type: 'DELETE', index: e.target.name });
   };
+
   useResizeTrigger(
     () => {
       if (window.innerWidth <= 500) {
-        setSmall(true);
+        setSmall(window.innerHeight);
       } else {
         setSmall(false);
       }
@@ -177,29 +182,30 @@ const newNeditPostForm = () => {
               rows={{
                 lineH: 24,
                 min:
-                  // eslint-disable-next-line no-nested-ternary
-                  images.images.length > 0
+                  toggle && images.images.length > 0
                     ? small
-                      ? (window.innerHeight - 490) / 24
+                      ? (window.innerHeight - 520) / 24
                       : 2
                     : small
-                    ? (window.innerHeight - 90) / 24
+                    ? (window.innerHeight - (images.images.length > 0 ? 170 : 112)) / 24
                     : 7,
                 max:
-                  // eslint-disable-next-line no-nested-ternary
-                  small
-                    ? images.images.length > 0
-                      ? (window.innerHeight - 490) / 24
-                      : (window.innerHeight - 90) / 24
+                  toggle && images.images.length > 0
+                    ? small
+                      ? (window.innerHeight - 463) / 24
+                      : 3
+                    : small
+                    ? (window.innerHeight - (images.images.length > 0 ? 170 : 112)) / 24
                     : 10,
               }}
               value={postText}
               setValue={setPostText}
               placeholder={placeholder}
               limit={6000}
+              update={toggle}
             />
           </div>
-          <ImagePreview Styles={Styles} image={images} delImg={delImg} />
+          <ImagePreview Styles={Styles} image={images} delImg={delImg} toggleState={toggleState} />
           <input
             ref={File}
             type="file"

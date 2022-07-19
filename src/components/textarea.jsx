@@ -1,7 +1,8 @@
 /* eslint-disable no-bitwise */
 import { useEffect, useRef, useState } from 'react';
+import UserAuthenAPI from '../API/UserAuthen';
 
-const textArea = ({ rows, value, setValue, placeholder, limit }) => {
+const textArea = ({ rows, value, setValue, placeholder, limit, update }) => {
   const [oflow, setOflow] = useState(false);
   const Ref = useRef();
   const handleTextArea = (e) => {
@@ -20,9 +21,14 @@ const textArea = ({ rows, value, setValue, placeholder, limit }) => {
     setValue(e.target.value);
   };
   useEffect(() => {
+    UserAuthenAPI.log(rows);
+  });
+  useEffect(() => {
+    UserAuthenAPI.log(rows);
+    console.log('g');
     Ref.current.focus();
     Ref.current.blur();
-  }, []);
+  }, [update]);
   return (
     <textarea
       ref={Ref}

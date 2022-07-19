@@ -1,9 +1,16 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
+import { useEffect } from 'react';
 import Styles from '../scss/alert.module.scss';
 
 const Alert = ({ props }) => {
   const { state, title, desc, type, button, cIcon, setState } = props;
   let iconType;
+  useEffect(() => {
+    console.log('sas');
+    if (state) {
+      window.blur();
+    }
+  }, state);
   if (cIcon) {
     iconType = cIcon;
   } else if (type === 'success') {

@@ -40,10 +40,10 @@ const ImgPrevGet = (images) =>
     }
   });
 
-const ImagePreview = ({ image, Styles, delImg }) => {
+const ImagePreview = ({ image, Styles, delImg, toggleState }) => {
   const { images } = image;
   const [imagePreview, setImagePreview] = useState([]);
-  const [toggle, setToggle] = useState(true);
+  const [toggle, setToggle] = toggleState;
   useEffect(() => {
     const main = async () => {
       const imgPrev = await ImgPrevGet(images);
