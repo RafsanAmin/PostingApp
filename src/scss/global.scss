@@ -22,7 +22,18 @@ html {
   pointer-events: none;
   opacity: 0.2;
   overflow: hidden;
+  user-select: none;
+  filter: blur(2.5px);
 }
-.s {
-  transition: 0.2s ease-in-out;
+
+.duotone {
+  .light {
+    color: $grey-light;
+  }
+  .dark {
+    color: $grey-dark;
+  }
+  .masked {
+    text-shadow: -2px -2px 0px #fff, -2px 2px 0px #fff, 2px -2px 0px #fff, 2px 2px 0px #fff;
+  }
 }

@@ -10,7 +10,7 @@ const Alert = ({ props }) => {
     if (state) {
       window.blur();
     }
-  }, state);
+  }, [state]);
   if (cIcon) {
     iconType = cIcon;
   } else if (type === 'success') {

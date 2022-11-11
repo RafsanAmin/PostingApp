@@ -24,6 +24,7 @@
       font-size: 1.05rem;
       i {
         color: $blue-dark;
+        font-size: 1.2rem;
       }
       &:hover {
         background-color: $grey-lighter;
@@ -226,11 +227,12 @@
             color: $red-primary;
             background-color: #fff;
             border: 1px solid $red-primary;
-            padding: 0.15rem 0.45rem;
+            width: 33px;
+            aspect-ratio: 1 / 1;
             font-weight: 500;
             transition: 0.3s linear;
             cursor: pointer;
-            border-radius: 15px;
+            border-radius: 50%;
             &:hover {
               background-color: $red-primary;
               color: #fff;

@@ -108,6 +108,10 @@
     .fourx,
     .fivex {
       grid-row: span 2;
+
+      img {
+        max-height: calc(402px / 3);
+      }
     }
   }
 }

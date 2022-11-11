@@ -22,9 +22,6 @@ const textArea = ({ rows, value, setValue, placeholder, limit, update }) => {
   };
   useEffect(() => {
     UserAuthenAPI.log(rows);
-  });
-  useEffect(() => {
-    UserAuthenAPI.log(rows);
     console.log('g');
     Ref.current.focus();
     Ref.current.blur();

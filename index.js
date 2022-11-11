@@ -15,6 +15,7 @@ const nextApp = next({ dev });
 const handle = nextApp.getRequestHandler();
 const port = process.env.PORT || 80;
 const cloudinary = require('cloudinary').v2;
+const { SocketInstance, cH } = require('./server/Routes/ChatHandle');
 
 app.use(cors({ origin: 'http://localhost:3000', credentials: true }));
 app.use(cookieParser());
@@ -31,6 +32,7 @@ nextApp
   .then(() => {
     app.use('/uh', UserHandle);
     app.use('/pH', postHandle);
+    app.use('/cH', cH);
     //database
     mongoose
       .connect(DB_KEY, {
@@ -63,9 +65,11 @@ nextApp
         res.status(500).json({ done: false, massage: 'A Server Side Error' });
       }
     });
-    app.listen(port, () => {
-      console.log(`Listening to the port ${port}`);
-    });
+    SocketInstance.makeSocketServer(
+      app.listen(port, () => {
+        console.log(`Listening to the port ${port}`);
+      })
+    );
   })
   .catch((ex) => {
     console.error(ex.stack);

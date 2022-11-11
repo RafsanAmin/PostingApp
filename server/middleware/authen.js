@@ -11,8 +11,10 @@ const authen = async (req, res, next) => {
   } else {
     try {
       const verified = jwt.verify(jwtToken, secret);
-      const alExist = await UserModelDB.exists({ _id: verified.id });
+      const alExist = await UserModelDB.findOne({ _id: verified.id });
+      console.log(alExist);
       if (verified && alExist) {
+        req.userID = verified.alExist;
         next();
       } else {
         res.status(403).json({

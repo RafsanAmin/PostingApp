@@ -1,5 +1,8 @@
 import Head from 'next/head';
+import { useEffect } from 'react';
+import io from 'socket.io-client';
 import Alert from '../../components/alert';
+import Cont from '../../components/chatapp/cont';
 import TopBar from '../../components/topbar/topbar';
 import { AlertContext, useAlert } from '../../hooks/useAlert';
 import { AppContext, useAppState } from '../../hooks/useAppState';
@@ -23,6 +26,13 @@ const ChatApp = () => {
   useUserInfo(({ id }) => {
     setAppState({ type: 'USER', id });
   }, []);
+  useEffect(() => {
+    const socket = io('/');
+    socket.emit('join-room', 'Test');
+    socket.on('resp', (msg) => {
+      console.log(msg);
+    });
+  }, []);
   return (
     <>
       <Head>
@@ -32,8 +42,8 @@ const ChatApp = () => {
         <Alert props={alertProp} />
         <AppContext.Provider value={[appState]}>
           <AlertContext.Provider value={setAlert}>
-            <h1 style={tempstyle.head}>Feature isnt Available</h1>
             <TopBar />
+            <Cont />
           </AlertContext.Provider>
         </AppContext.Provider>
       </div>
