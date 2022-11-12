@@ -7,7 +7,6 @@
     "start": "node index.js",
     "dev": "nodemon index.js",
     "build": "next build",
-    "install": "npm install -production",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "nodemonConfig": {
