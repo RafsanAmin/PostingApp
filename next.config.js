@@ -6,7 +6,7 @@ const config =
     : withPWA({
         reactStrictMode: true,
         pageExtensions: ['js'],
-        distDir: 'build',
+        distDir: '.build',
         pwa: {
           dest: 'public',
           register: true,
