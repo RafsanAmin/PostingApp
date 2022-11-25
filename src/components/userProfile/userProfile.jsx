@@ -46,7 +46,7 @@ const UserProfile = ({ user, own }) => {
         <meta name="twitter:creator" content="@RafsanAmin" />
         <meta
           property="twitter:image"
-          content={`https://rafpost.herokuapp.com/uh/getProfilePic/${user._id}`}
+          content={`https://rafpost.herokuapp.comhttps://res.cloudinary.com/dyjrfa6c2/image/upload/q_25/d_user.png/profilepic/${user._id}`}
         />
         <meta property="og:type" content="og:description" />
         <meta property="og:title" content={`RafPost-${user.username}`} />
@@ -55,7 +55,7 @@ const UserProfile = ({ user, own }) => {
         <meta property="og:url" content="https://rafpost.herokuapp.com" />
         <meta
           property="og:image"
-          content={`https://rafpost.herokuapp.com/uh/getProfilePic/${user._id}`}
+          content={`https://rafpost.herokuapp.comhttps://res.cloudinary.com/dyjrfa6c2/image/upload/q_25/d_user.png/profilepic/${user._id}`}
         />
       </Head>
       <div

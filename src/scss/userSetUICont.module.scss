@@ -84,7 +84,7 @@
         h3 {
           font-size: 2rem;
           color: $blue-dark;
-          font-family: Ubuntu;
+          font-family: Lexend;
         }
       }
     }
@@ -170,7 +170,7 @@
           h3 {
             color: $blue-dark;
             font-size: 2rem;
-            font-family: ubuntu;
+            font-family: Lexend;
           }
         }
         .inputCont {
@@ -183,7 +183,7 @@
             margin-top: 1rem;
             resize: none;
             font-size: 1.2rem;
-            font-family: Jost;
+
             border: 0;
             border: {
               width: 0;
@@ -212,7 +212,7 @@
             }
             &::placeholder {
               color: $grey-dark;
-              font-family: Jost;
+
               font-weight: 400;
               opacity: 0.5;
             }

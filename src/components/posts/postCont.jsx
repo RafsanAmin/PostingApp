@@ -16,7 +16,7 @@ const PostCont = ({ post }) => {
   const Alert = useContext(Context);
   const ContextItem = useContext(AppContext);
   const { _id: puid, username } = uid || { _id: 'undefined', username: 'Deleted User' };
-  const imgPath = `/uh/getProfilePic/${puid}`;
+  const imgPath = `https://res.cloudinary.com/dyjrfa6c2/image/upload/q_25/d_user.png/profilepic/${puid}`;
   const [appState, ss] = ContextItem || [
     { userid: null },
     () => {

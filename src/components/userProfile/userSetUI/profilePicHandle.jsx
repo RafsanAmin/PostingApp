@@ -39,10 +39,10 @@ const ProfilePicHandle = ({ styles, State }) => {
       return URL.createObjectURL(pfp);
     }
     if (!pfp && delPFP) {
-      return `/uh/getProfilePic/wrong`;
+      return `https://res.cloudinary.com/dyjrfa6c2/image/upload/q_25/d_user.png/profilepic/wrong`;
     }
 
-    return `/uh/getProfilePic/${_id}`;
+    return `https://res.cloudinary.com/dyjrfa6c2/image/upload/q_25/d_user.png/profilepic/${_id}`;
   })();
   return (
     <div className={styles.pfp}>

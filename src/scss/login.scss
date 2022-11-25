@@ -94,10 +94,10 @@
     }
     @include grid_cent;
     h1 {
-      font-family: Ubuntu, Arial;
+      font-family: Lexend, Arial;
       color: $blue-dark;
       font-size: 2.5rem;
-      font-weight: 900;
+      font-weight: 800;
       margin: 0 0 2.5rem 0;
       display: inline-block;
     }
@@ -110,7 +110,7 @@
       button {
         flex: 1;
         font-size: 1.2rem;
-        font-family: Jost;
+
         background: linear-gradient(27deg, $blue-light 0%, $blue-primary 100%);
         color: #fff;
         padding: 0.5rem 1.85rem;
@@ -132,7 +132,6 @@
       margin: 1rem 1rem;
       justify-content: space-between;
       button {
-        font-family: jost;
         font-size: 1.15rem;
         background: none;
         transition: 0.15s linear;

@@ -36,7 +36,10 @@ const Profile = ({ Styles }) => {
     <section className={Styles.profileCont}>
       <div className={Styles.inner}>
         <div className={Styles.profileImg}>
-          <img src={`/uh/getProfilePic/${user._id}`} alt="profile-pic" />
+          <img
+            src={`https://res.cloudinary.com/dyjrfa6c2/image/upload/q_25/d_user.png/profilepic/${user._id}`}
+            alt="profile-pic"
+          />
         </div>
         <div className={Styles.usrname}>
           <h1>{user.username}</h1>

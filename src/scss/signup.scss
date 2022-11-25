@@ -113,7 +113,7 @@
 
     @include grid_cent;
     h1 {
-      font-family: Ubuntu, Arial;
+      font-family: Lexend, Arial;
       color: $blue-dark;
       font-size: 2.5rem;
       font-weight: 900;
@@ -154,7 +154,6 @@
       button {
         flex: 1;
         font-size: 1.2rem;
-        font-family: Jost;
         background: linear-gradient(27deg, $blue-light 0%, $blue-primary 100%);
         color: #fff;
         padding: 0.5rem 1.85rem;
@@ -180,7 +179,6 @@
       padding: 1rem 1rem;
       justify-content: space-between;
       button {
-        font-family: jost;
         font-size: 1.15rem;
         background: none;
         transition: 0.15s linear;
@@ -212,7 +210,6 @@
       width: 100%;
       padding: 0 0 1rem 0;
       button {
-        font-family: jost;
         font-size: 1.25rem;
         font-weight: 500;
         background: none;
@@ -249,7 +246,7 @@
       max-width: 500px;
       input {
         font-size: 1.2rem;
-        font-family: Jost;
+
         border: 0;
         border: {
           width: 0;
@@ -277,7 +274,7 @@
         }
         &::placeholder {
           color: $grey-dark;
-          font-family: Jost;
+
           font-weight: 400;
           opacity: 0.5;
         }
@@ -304,7 +301,7 @@
       button {
         flex: 1;
         font-size: 1.2rem;
-        font-family: Jost;
+
         background: linear-gradient(27deg, $blue-light 0%, $blue-primary 100%);
         color: #fff;
         padding: 0.5rem 1.85rem;

@@ -12,7 +12,7 @@
   input {
     margin: 0.5rem 0;
     font-size: 1.2rem;
-    font-family: Jost;
+
     border: 0;
     border: {
       width: 0;
@@ -40,7 +40,7 @@
     }
     &::placeholder {
       color: $grey-dark;
-      font-family: Jost;
+
       font-weight: 400;
       opacity: 0.5;
     }

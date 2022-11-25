@@ -16,7 +16,7 @@ const tempstyle = {
     left: '50%',
     transform: 'translateX(-50%)',
     fontWeight: '600',
-    fontFamily: 'ubuntu, arial',
+    fontFamily: 'Lexend, arial',
     textAlign: 'Center',
   },
 };

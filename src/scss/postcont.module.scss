@@ -39,7 +39,7 @@
         margin-block: auto;
         h3 {
           font-size: 1.4rem;
-          font-weight: 600;
+          font-weight: 550;
           line-height: 1.2rem;
           color: $blue-dark;
           word-wrap: break-word;
@@ -140,7 +140,11 @@
     max-height: 300px;
     overflow-y: auto;
     margin: 0.5rem 0;
+
     @include scrollbar(7px);
+  }
+  .text p {
+    font-weight: 400;
   }
   .big {
     font-size: 1rem;
