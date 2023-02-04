@@ -1,12 +1,24 @@
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import MenuTogglerContext from '../Contexts/MenuTogglerContext';
 import Styles from '../scss/menu.module.scss';
 
 const MenuCont = ({ children, state }) => {
   const [toggle, setToggle] = state || useState(false);
+  useEffect(() => {
+    window.addEventListener('click', () => {
+      setToggle(false);
+    });
+  }, []);
   return (
     <div className={Styles.toggler}>
-      <button className={Styles.button} type="button" onClick={() => setToggle((s) => !s)}>
+      <button
+        className={Styles.button}
+        type="button"
+        onClick={(e) => {
+          e.stopPropagation();
+          setToggle((s) => !s);
+        }}
+      >
         {!toggle ? <i className="fas fa-ellipsis-v" /> : <i className="fas fa-times    " />}
       </button>
       <MenuTogglerContext.Provider value={[toggle, setToggle]}>

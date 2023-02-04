@@ -41,7 +41,7 @@ const PostCont = ({ post }) => {
       desc: (
         <>
           Click The Button to Copy and Share The Link
-          <Clipboard copyText={`${urlPrefix}/Posts/${_id}`} />
+          <Clipboard style={{ marginTop: '0.8rem' }} copyText={`${urlPrefix}/Posts/${_id}`} />
         </>
       ),
       type: 'info',

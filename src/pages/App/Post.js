@@ -47,13 +47,12 @@ const PostApp = () => {
       <div ref={(e) => setContState(e)} className={Styles.postAppWindow}>
         <AppContext.Provider value={AppStateArr}>
           <AlertContext.Provider value={setAlert}>
-            <div
-              className={`s ${
+            <TopBar
+              c={`s ${
                 appState.editPost.state || appState.addPost || alertProp.state ? 'freeze' : ''
               }`}
-            >
-              <TopBar />
-            </div>
+            />
+
             {appState.userid && (
               <>
                 <Alert props={alertProp} />
@@ -68,6 +67,7 @@ const PostApp = () => {
                   }`}
                 >
                   <Header />
+
                   <ContContext.Provider value={contState}>
                     <Posts />
                   </ContContext.Provider>

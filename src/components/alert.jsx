@@ -26,15 +26,17 @@ const Alert = ({ props }) => {
     <div style={{ position: 'absolute' }}>
       <div className={`${Styles.alertWin} ${state ? Styles.on : Styles.off}`}>
         <div className={`${Styles.alertCont} ${Styles[type]}`}>
-          <div
-            className={Styles.closeButton}
-            onClick={() =>
-              setState(() => ({ state: false, title: '', desc: '', type: '', cIcon: false }))
-            }
-          >
-            <i className="fas fa-times" />
+          <div className={Styles.icon}>
+            {iconType}{' '}
+            <div
+              className={Styles.closeButton}
+              onClick={() =>
+                setState(() => ({ state: false, title: '', desc: '', type: '', cIcon: false }))
+              }
+            >
+              <i className="fas fa-times" />
+            </div>
           </div>
-          <div className={Styles.icon}>{iconType}</div>
           <div className={Styles.header}>
             <h3>{title || ''}</h3>
           </div>

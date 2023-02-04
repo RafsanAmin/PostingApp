@@ -2,27 +2,25 @@
 import { useContext } from 'react';
 import AppContext from '../../Contexts/AppContext';
 
-const addPost = (props) => {
+const Reload = (props) => {
   const { Styles } = props;
   const [, setState] = useContext(AppContext);
   const addPostTrigger = () => {
-    setState({ type: 'AP_1' });
+    setState({ type: 'FULL_RELOAD' });
   };
   return (
     <>
-      <button className={Styles.addPostCont} type="button" onClick={addPostTrigger}>
+      <button className={Styles.reloadCont} type="button" onClick={addPostTrigger}>
         <div className={Styles.image}>
-          <img className={Styles.img} src="/posts.svg" alt="" />
-          <i className={`fas fa-plus-circle ${Styles.i}`} />
+          <i className={`fa-solid fa-rotate-right ${Styles.img}`} alt="ds" />
         </div>
         <div className={Styles.text}>
           <p>
-            Create
-            <br /> Post
+            Reload <br /> Posts
           </p>
         </div>
       </button>
     </>
   );
 };
-export default addPost;
+export default Reload;

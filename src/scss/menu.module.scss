@@ -2,8 +2,8 @@
 .toggler {
   position: relative;
   .button {
-    height: 40px;
-    width: 40px;
+    height: 45px;
+    width: 45px;
     background-color: #fff;
     border: none;
     color: $grey-dark;
@@ -24,12 +24,12 @@
 .menu {
   position: absolute;
   background-color: #fff;
-  padding: 0.5rem 0.25rem;
+  padding: 0.5rem 0.5rem;
   right: 0;
   overflow-y: clip;
   z-index: 2;
   min-width: 150px;
-  border-radius: 7px;
+  border-radius: 10px;
   transition: 0.3s ease-in-out;
   transform-origin: top;
   @include shadow;
@@ -43,10 +43,11 @@
 }
 .items {
   width: 100%;
+  min-width: 210px;
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  padding: 0.25rem 0.5rem;
+  padding: 0.5rem 0.5rem;
   border: 0;
   background-color: transparent;
   cursor: pointer;

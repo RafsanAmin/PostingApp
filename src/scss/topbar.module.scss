@@ -2,10 +2,15 @@
 .topbar {
   padding: 0.5rem 1rem;
   display: flex;
+  align-self: flex-start;
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  position: relative;
+  height: 70px;
+  background-color: #fff;
+  position: sticky;
+  top: 0;
+  z-index: 50;
   @include shadow;
   .brandContainer {
     display: flex;
@@ -109,7 +114,7 @@
       left: 10%;
       background-color: #fff;
       padding: 1rem 1rem;
-      border-radius: 5px;
+      border-radius: 10px;
       transition: all 0.3s ease-in-out;
       transform-origin: top;
       @include shadow;
@@ -120,7 +125,7 @@
         display: flex;
         align-items: center;
         justify-content: flex-start;
-        border-radius: 5px;
+        border-radius: 10px;
         padding: 0.25rem;
         transition: 0.15s linear;
         i {
@@ -139,7 +144,7 @@
           font-weight: 500;
         }
         &:hover {
-          background-color: lighten($color: $blue-lightest, $amount: 2);
+          background-color: $blue-lightest;
         }
         &:active {
           background-color: $blue-lightest;
@@ -156,18 +161,19 @@
 }
 @media only screen and (max-width: 700px) {
   .topbar {
-    position: relative;
-    overflow-x: clip;
-    overflow-y: visible;
-
     .brandContainer {
       order: 2;
       h1 {
         display: none;
       }
     }
+    .ProfileContainer {
+      justify-content: right;
+      height: 100%;
+    }
     .iconsContainer {
       order: 1;
+      justify-content: left;
       .toggler {
         display: block;
         button {
@@ -199,8 +205,8 @@
         position: absolute;
         top: 100%;
         left: 0;
-        padding: 1.5rem 2rem;
-        width: 65%;
+        padding: 1rem;
+        width: 75%;
         max-width: 250px;
         transition: 0.3s ease-in-out;
         box-shadow: 5px 6px 10px 1px rgba(0, 0, 0, 0.192);
@@ -220,7 +226,7 @@
           justify-content: flex-start;
           font-size: 1rem;
           position: relative;
-          padding: 0.15rem 0.75rem 0.15rem 0.75rem;
+          padding: 0.5rem 0.75rem;
           margin: 0.15rem 0rem 0.15rem 0;
           p {
             display: inline-block;

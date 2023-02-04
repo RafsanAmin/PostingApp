@@ -2,7 +2,7 @@
 import { useRef } from 'react';
 import Styles from '../scss/clipboard.module.scss';
 
-const clipboard = ({ copyText }) => {
+const clipboard = ({ copyText, style }) => {
   const href = useRef();
   const copy = () => {
     href.current.select();
@@ -10,7 +10,7 @@ const clipboard = ({ copyText }) => {
     alert('Copied!');
   };
   return (
-    <div className={Styles.cont}>
+    <div style={style} className={Styles.cont}>
       <input ref={href} type="text" readOnly className={Styles.copy} value={copyText} />
       <div className={Styles.btn}>
         <button type="button" onClick={copy}>

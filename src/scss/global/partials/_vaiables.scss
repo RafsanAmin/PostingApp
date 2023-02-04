@@ -1,19 +1,21 @@
 $primary: hsl(205, 86%, 49%);
-$blue-darker: #003060;
-$blue-darkest: #0c2a47;
+$blue-darker: #003c79;
+$blue-darkest: #003060;
 $blue-dark: #055c9d;
 // $blue-primary: hsl(204, 88%, 44%);
 $blue-primary: #199af0;
-$blue-light: #4fb7eb;
-$blue-lighter: #cdeeff;
-$blue-lightest: #f3f8fa;
+$blue-light: #53b1fd;
+$blue-lighter: #cde7ff;
+$blue-lightest: #eff7ff;
+$blue-ll: #f5fbff;
 //
-$grey-darker: #4b4949;
-$grey-dark: #6d6d6d;
-$grey: #747474;
-$grey-light: #b1b1b1;
-$grey-lighter: #e0dddd;
-$grey-lightest: #f1f1f1;
+$grey-darker: hsl(210, 12%, 26%);
+$grey-dark: hsl(209, 12%, 39%);
+$grey: hsl(209, 12%, 54%);
+$grey-light: hsl(209, 12%, 67%);
+$grey-lighter: hsl(209, 12%, 80%);
+$grey-lightest: hsl(209, 12%, 93%);
+$grey-ll: hsl(216, 100%, 99.5%);
 //
 $green-primary: #198754;
 $green-lighter: #d1e7dd;
@@ -26,6 +28,7 @@ $danger: #dc3545;
 $red-primary: #e23547;
 $red-light: #e35d6a;
 $red-lighter: #fddde0;
+$red-lightest: #fae5e7;
 $red-dark: #d33040;
 //
 $yellow-primary: #ffc107;

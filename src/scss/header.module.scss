@@ -5,48 +5,102 @@
   place-items: center;
   padding-top: 2rem;
   & > div {
-    width: 100%;
-    max-width: 400px;
-    display: grid;
-    text-align: center;
+    width: 95%;
+    max-width: 700px;
+    display: flex;
+    gap: 1rem;
+    // text-align: center;
     justify-content: center;
     align-items: center;
-    justify-items: center;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr;
-    .addPostCont {
+    // justify-items: center;
+    // grid-template-columns: 1fr 1fr;
+    // grid-template-rows: 1fr;
+    .addPostCont,
+    .reloadCont {
       width: 100%;
-      max-width: 190px;
-      height: 100%;
-      margin: 0 0rem 0 0;
+      display: flex;
+      align-items: center;
+      justify-content: start;
+      gap: 0.8rem;
       background-color: #fff;
-      border: 1.5px solid $grey-light;
-      border-radius: 5px;
-      padding: 1rem 2rem;
+      border: none;
+      border-bottom: 4px solid $grey-lighter;
+      border-radius: 10px;
+      padding: 0.5rem 1rem;
+      position: relative;
       cursor: pointer;
-      transition: all 0.2s linear;
+      @include shadow;
+      transition: 0.05s linear;
       .text {
         font-size: 1.1rem;
-        padding: 0 0 0.5rem 0;
+        padding: 0 0 0.2rem 0;
         display: flex;
         align-items: center;
         justify-content: center;
-        i {
-          font-size: 1.5rem;
-          padding-right: 0.25rem;
-          color: $blue-primary;
-        }
+        text-align: left;
         p {
           color: $blue-darker;
-          font-weight: 600;
+          font-weight: 550;
         }
       }
       .image {
-        width: 5rem;
+        position: relative;
+        .img {
+          width: 2.5rem;
+          font-size: 2.5rem;
+          z-index: 1;
+          color: $blue-primary;
+        }
+        .i {
+          position: absolute;
+          right: -5px;
+          bottom: -5px;
+          color: $blue-primary;
+          font-size: 1.2rem;
+          z-index: 1;
+        }
+        &::after {
+          content: '';
+          position: absolute;
+          bottom: 0;
+          right: 0;
+          background-color: #fff;
+          width: 0.6rem;
+          height: 0.7rem;
+          z-index: 0;
+        }
       }
       &:hover {
-        border-color: $blue-primary;
-        @include shadow;
+        background-color: $grey-ll;
+        border-bottom-color: $blue-light;
+      }
+      &:active {
+        background-color: $blue-light;
+        transform: translateY(5px) translateZ(10px);
+        border-bottom: none;
+        .text {
+          p {
+            color: #ffffffea;
+          }
+        }
+        .image {
+          img {
+            filter: brightness(0) invert(1);
+            opacity: 0.5;
+          }
+          i {
+            color: #fff;
+          }
+          &::after {
+            background-color: $blue-primary;
+          }
+        }
+      }
+    }
+
+    .reloadCont {
+      .image::after {
+        display: none;
       }
     }
   }
@@ -72,23 +126,6 @@
       color: $blue-dark;
       font-size: 1.1rem;
       font-weight: 600;
-    }
-  }
-}
-@media only screen and (max-width: 410px) {
-  .headerCont {
-    & > div {
-      grid-template-columns: 1fr;
-      grid-template-rows: 1fr 1fr;
-      .addPostCont {
-        max-width: 90%;
-        grid-row: 2 / 3;
-        margin-top: 0.5rem;
-      }
-      .clockContP {
-        width: 90%;
-        grid-row: 1 / 2;
-      }
     }
   }
 }

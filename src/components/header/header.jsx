@@ -1,12 +1,13 @@
 import Styles from '../../scss/header.module.scss';
-import Clock from './addPost';
-import AddPost from './clock';
+import AddPost from './addPost';
+import Reload from './reload';
 
 const Header = () => (
   <div className={Styles.headerCont}>
     <div>
-      <Clock Styles={Styles} />
       <AddPost Styles={Styles} />
+      <Reload Styles={Styles} />
+      {/* <AddPost Styles={Styles} /> */}
     </div>
   </div>
 );

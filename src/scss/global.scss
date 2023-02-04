@@ -16,15 +16,19 @@
 p {
   word-wrap: break-word;
 }
-html {
-  font-size: clamp(14px, 2.5vw, 16px);
+body {
+  background-color: lighten($color: $grey-lightest, $amount: 1.5) ();
 }
+html {
+  font-size: clamp(15.5px, 2.5vw, 16px);
+}
+
 .freeze {
   pointer-events: none;
   opacity: 0.2;
   overflow: hidden;
   user-select: none;
-  filter: blur(2.5px);
+  filter: blur(3px);
 }
 
 .duotone {
@@ -36,5 +40,10 @@ html {
   }
   .masked {
     text-shadow: -2px -2px 0px #fff, -2px 2px 0px #fff, 2px -2px 0px #fff, 2px 2px 0px #fff;
+  }
+}
+@media only screen and (max-width: 340px) {
+  html {
+    font-size: clamp(14px, 2vw, 16px);
   }
 }

@@ -65,7 +65,10 @@ function Profile(props) {
       {state.userid !== null ? (
         <div className={Styles.ProfileContainer}>
           <div className={Styles.img} onClick={toggleMenu}>
-            <img src={`https://res.cloudinary.com/dyjrfa6c2/image/upload/q_25/d_user.png/profilepic/${state.userid}`} alt="profilePic" />
+            <img
+              src={`https://res.cloudinary.com/dyjrfa6c2/image/upload/q_25/d_user.png/profilepic/${state.userid}`}
+              alt="profilePic"
+            />
           </div>
 
           <div className={`${Styles.ProfileMenu} ${toggle ? Styles.on : Styles.off}`}>

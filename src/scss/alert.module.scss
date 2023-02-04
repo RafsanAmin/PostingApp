@@ -12,41 +12,44 @@
     background-color: #fff;
     display: grid;
     place-content: center;
-    padding: 1rem 2rem 1.5rem 2rem;
+    padding: 2rem;
     width: 90%;
     max-width: 400px;
-    min-height: 200px;
-    border-radius: 5px;
+    border-radius: 10px;
     grid-auto-columns: 100%;
     transition: 0.2s ease-in-out;
     @include shadow;
-    .closeButton {
-      display: block;
-      text-align: right;
-      i {
-        height: 40px;
-        width: 40px;
-        border-radius: 50%;
-        cursor: pointer;
-        transition: 0.15s linear;
-        &:hover {
-          background-color: $grey-lightest;
-        }
-        &:active {
-          background-color: $grey-light;
-        }
-        &::before {
-          display: grid;
-          place-items: center;
-          height: 100%;
-        }
-      }
-    }
+    gap: 0.4rem;
     .icon {
-      display: block;
-      margin-top: -15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
       i {
         font-size: 2.1rem;
+        padding-block: 0.15rem;
+      }
+      .closeButton {
+        display: block;
+        text-align: right;
+        i {
+          height: 45px;
+          width: 45px;
+          font-size: 1.25rem;
+          border-radius: 50%;
+          cursor: pointer;
+          transition: 0.15s linear;
+          &:hover {
+            background-color: $grey-lightest;
+          }
+          &:active {
+            background-color: $grey-light;
+          }
+          &::before {
+            display: grid;
+            place-items: center;
+            height: 100%;
+          }
+        }
       }
     }
     .header {
@@ -58,7 +61,6 @@
     .p {
       font-size: 1.05rem;
       width: 100%;
-      margin-block: 1rem;
       font-weight: 300;
     }
     .button {

@@ -31,7 +31,7 @@ function postsC() {
           }
         `}
       </style>
-      <button
+      {/* <button
         className="reload"
         type="button"
         onClick={() => {
@@ -40,7 +40,7 @@ function postsC() {
       >
         <i className="fas fa-spinner" />
         Reload
-      </button>
+      </button> */}
       <PostList type="latest" />
     </div>
   );

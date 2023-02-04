@@ -3,7 +3,7 @@
   justify-items: center;
   align-items: center;
 }
-@mixin shadow($color: rgba(0, 0, 0, 0.192), $a: 0px, $b: 0px, $c: 15px, $d: 3px) {
+@mixin shadow($color: rgba(0, 0, 0, 0.048), $a: 0px, $b: 0px, $c: 7px, $d: 1px) {
   box-shadow: $a $b $c $d $color;
 }
 @mixin input {

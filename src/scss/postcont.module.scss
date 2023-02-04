@@ -1,13 +1,13 @@
 @import './global/global';
 .postCont {
   width: 95%;
-  border: 1px solid $blue-primary;
-  max-width: 600px;
+  max-width: 700px;
   height: auto;
   padding: 1rem;
   margin: 0.5rem auto;
   border-radius: 10px;
-  @include shadow(rgba(0, 0, 0, 0.192), 5px, 0px, 10px, 1px);
+  background-color: #fff;
+  @include shadow(rgba(5, 43, 100, 0.07), 0px, 0px, 3px, 0.8px);
   .titleCont {
     display: flex;
     justify-content: space-between;
@@ -16,10 +16,11 @@
       display: flex;
       padding: 0.25rem;
       padding-right: 1rem;
-      border-radius: 5px;
+      border-radius: 10px;
+      border: 1px solid transparent;
       transition: 0.2s linear;
       &:hover {
-        background-color: $blue-lightest;
+        background-color: $grey-lightest;
       }
       .profPic {
         height: 50px;
@@ -132,8 +133,8 @@
     }
   }
   .text {
-    padding: 0.5rem 0.5rem 0.25rem 0.5rem;
-    font-size: 1.25rem;
+    padding: 0.25rem;
+    font-size: 1.15rem;
     word-wrap: break-word;
     word-break: break-all;
     white-space: pre-wrap;
