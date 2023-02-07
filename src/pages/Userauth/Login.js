@@ -91,12 +91,16 @@ function Login() {
                 </button>
               </div>
               <div className="login-foot">
-                <Link href="/Userauth/Signup">
-                  <button type="button">Create Account</button>
-                </Link>
-                <Link href="/Userauth/Passwordchange">
-                  <button type="button">Forgot Password?</button>
-                </Link>
+                <div>
+                  <Link href="/Userauth/Signup">
+                    <button type="button">Create Account</button>
+                  </Link>
+                </div>
+                <div>
+                  <Link href="/Userauth/Passwordchange">
+                    <button type="button">Forgot Password?</button>
+                  </Link>
+                </div>
               </div>
             </div>
           </Loading>

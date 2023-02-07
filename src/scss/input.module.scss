@@ -21,7 +21,7 @@
     width: 100%;
     background-color: $grey-lightest;
     color: $grey-dark;
-    transition: 0.25s linear;
+    transition: 0.15s linear;
     padding: 0.65rem 1.2rem 0.65rem 1.5rem;
 
     &:focus {
@@ -32,7 +32,7 @@
       }
     }
     &:hover:not(:focus) {
-      background-color: #cdeeffa1;
+      background-color: $blue-lightest;
       color: #055b9d8c;
       &::placeholder {
         color: $blue-darker;

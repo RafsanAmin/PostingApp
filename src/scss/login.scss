@@ -90,7 +90,7 @@
     }
     .supp {
       max-width: 500px;
-      width: 85%;
+      width: 90%;
     }
     @include grid_cent;
     h1 {
@@ -98,12 +98,12 @@
       color: $blue-dark;
       font-size: 2.5rem;
       font-weight: 800;
-      margin: 0 0 2.5rem 0;
+      margin: 0 0 1rem 0;
       display: inline-block;
     }
     .buttons {
       width: 100%;
-      padding: 1rem 0 0 0;
+      margin: 1rem 0;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -118,7 +118,7 @@
         margin: 0rem 0.25rem;
         border-radius: 25px;
         cursor: pointer;
-        transition: 0.25s linear;
+        transition: 0.15s linear;
         &:hover {
           box-shadow: 1px 1px 20px 1px #199af09c;
         }
@@ -129,7 +129,7 @@
     }
     .login-foot {
       display: flex;
-      margin: 1rem 1rem;
+      margin: 1rem 0.5rem;
       justify-content: space-between;
       button {
         font-size: 1.15rem;
@@ -142,10 +142,11 @@
           color: transparent;
         }
         cursor: pointer;
-        color: $blue-light;
+        color: $blue-primary;
         &:hover {
           color: $blue-dark;
           border-color: $blue-dark;
+          border-style: solid;
         }
       }
     }
@@ -165,6 +166,16 @@
       .login-brand-cont {
         border: {
           radius: 0;
+        }
+      }
+      .login-foot {
+        display: flex;
+        flex-direction: column;
+        margin-top: 1.5rem;
+        gap: 1rem;
+        button {
+          text-align: left;
+          display: inline-block;
         }
       }
     }
@@ -195,4 +206,4 @@
       overflow-y: scroll;
     }
   }
-} ;
+}
