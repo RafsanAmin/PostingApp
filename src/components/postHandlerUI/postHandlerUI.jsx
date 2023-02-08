@@ -4,6 +4,7 @@ import { useContext, useEffect, useReducer, useRef, useState } from 'react';
 import PostAPI from '../../API/PostsAPI';
 import AlertContext from '../../Contexts/AlertContext';
 import AppContext from '../../Contexts/AppContext';
+import editContext from '../../Contexts/EditContext';
 import useResizeTrigger from '../../hooks/useResizeTrigger';
 import Styles from '../../scss/phandleui.module.scss';
 import { initialState, Reducer } from '../../state/imageHandlerState';
@@ -20,7 +21,8 @@ const newNeditPostForm = () => {
   const [images, setImages] = useReducer(Reducer, initialState);
   const [isLoading, setIsLoading] = useState(false);
   const [oldPost, setOldPost] = useState({ user: '', oldPhotos: [] });
-  const [state, setState] = useContext(AppContext);
+  const [state, setState] = useContext(editContext);
+  const [, setAppState] = useContext(AppContext);
   const [small, setSmall] = useState(false);
   const toggleState = useState(false);
   const [toggle, setToggle] = toggleState;
@@ -58,9 +60,9 @@ const newNeditPostForm = () => {
         setIsLoading(false);
         setImages({ type: 'CLEAR' });
         setPostText('');
-        setState({ type: 'PF_0', addPost: false });
+        setState({ type: 'PF_0' });
         setTimeout(() => {
-          setState({ type: 'FULL_RELOAD', addPost: false });
+          setAppState({ type: 'FULL_RELOAD', addPost: false });
         }, 3000);
       } else {
         await PostAPI.addPost({
@@ -79,9 +81,9 @@ const newNeditPostForm = () => {
           type: 'success',
           state: true,
         });
-        setState({ type: 'PF_0', addPost: false });
+        setState({ type: 'PF_0' });
         setTimeout(() => {
-          setState({ type: 'FULL_RELOAD', addPost: false });
+          setAppState({ type: 'FULL_RELOAD', addPost: false });
         }, 3000);
       }
     } catch (err) {

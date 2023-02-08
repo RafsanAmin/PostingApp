@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import urlPrefix from '../../../API/getURL';
 import AlertContext from '../../../Contexts/AlertContext';
 import AppContext from '../../../Contexts/AppContext';
+import editContext from '../../../Contexts/EditContext';
 import UserContext from '../../../Contexts/UserContext';
 import Clipboard from '../../clipboard';
 import { Item, Menu, MenuCont } from '../../menu';
@@ -9,7 +10,8 @@ import { Item, Menu, MenuCont } from '../../menu';
 const Profile = ({ Styles }) => {
   const user = useContext(UserContext);
   const Alert = useContext(AlertContext);
-  const [appstate, setAppState] = useContext(AppContext);
+  const [appstate] = useContext(AppContext);
+  const [, setEditPost] = useContext(editContext);
   const { userid } = appstate;
   const own =
     userid === user._id ||
@@ -30,7 +32,7 @@ const Profile = ({ Styles }) => {
     });
   };
   const editHandler = () => {
-    setAppState({ type: 'UE_1' });
+    setEditPost({ type: 'UE_1' });
   };
   return (
     <section className={Styles.profileCont}>

@@ -31,15 +31,15 @@
   min-width: 150px;
   border-radius: 10px;
   transition: 0.3s ease-in-out;
-  transform-origin: top;
+  transform-origin: top right;
   @include shadow;
 }
 .off {
   pointer-events: none;
-  transform: scaleY(0);
+  transform: scale(0);
 }
 .on {
-  transform: scaleY(1);
+  transform: scale(1);
 }
 .items {
   width: 100%;

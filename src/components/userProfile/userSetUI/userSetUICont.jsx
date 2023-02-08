@@ -1,11 +1,11 @@
 import React, { useContext, useState } from 'react';
-import AppContext from '../../../Contexts/AppContext';
+import editContext from '../../../Contexts/EditContext';
 import Styles from '../../../scss/userSetUICont.module.scss';
 import UserSetUI from './userSetUI';
 import Verification from './verification';
 
 const userSetUICont = ({ user }) => {
-  const [appState] = useContext(AppContext);
+  const [appState] = useContext(editContext);
   const [userDataNVer, setuserDataNVer] = useState(null);
 
   return (

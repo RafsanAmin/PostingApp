@@ -12,6 +12,7 @@ import postAPI from '../../API/PostsAPI';
 import AlertContext from '../../Contexts/AlertContext';
 import Context from '../../Contexts/AppContext';
 import ContContext from '../../Contexts/ContContext';
+import editContext from '../../Contexts/EditContext';
 import useForceUpdate from '../../hooks/useForceUpdate';
 import useResizeTrigger from '../../hooks/useResizeTrigger';
 import PostCont from './postCont';
@@ -38,6 +39,8 @@ const reducer = (state, action) => {
 const PostList = ({ type, user }) => {
   const [post, setPosts] = useReducer(reducer, initialize);
   const [state, setState] = useContext(Context);
+  const [, setEditPost] = useContext(editContext);
+
   const [loading, setLoading] = useState(false);
   const Alert = useContext(AlertContext);
   const cont = useContext(ContContext);
@@ -46,10 +49,11 @@ const PostList = ({ type, user }) => {
     defaultHeight: 400,
     fixedWidth: true,
   });
+  console.log('Rendering PostList');
   const render = ({ index, key, style, parent }) => (
     <CellMeasurer cache={heightCache} key={key} parent={parent} columnIndex={0} rowIndex={index}>
       <div style={style}>
-        <PostCont post={post.posts[index]} />
+        <PostCont post={post.posts[index]} setEditPost={setEditPost} />
       </div>
     </CellMeasurer>
   );

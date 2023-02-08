@@ -11,10 +11,11 @@ import Text from '../text';
 import DeleteBtn from './dbtn';
 import ImageView from './imageView';
 
-const PostCont = ({ post }) => {
+const PostCont = ({ post, setEditPost }) => {
   const { text, uid, photos, date, _id } = post;
   const Alert = useContext(Context);
   const ContextItem = useContext(AppContext);
+
   const { _id: puid, username } = uid || { _id: 'undefined', username: 'Deleted User' };
   const imgPath = `https://res.cloudinary.com/dyjrfa6c2/image/upload/q_25/d_user.png/profilepic/${puid}`;
   const [appState, ss] = ContextItem || [
@@ -23,6 +24,7 @@ const PostCont = ({ post }) => {
       window.location.reload();
     },
   ];
+  console.log('POstContr');
   const { userid } = appState;
   const own =
     userid === puid ||
@@ -80,7 +82,7 @@ const PostCont = ({ post }) => {
     });
   };
   const editPost = () => {
-    ss({ type: 'EP_1', post });
+    setEditPost({ type: 'EP_1', post });
   };
   return (
     <div className={Styles.postCont}>
@@ -121,4 +123,5 @@ const PostCont = ({ post }) => {
     </div>
   );
 };
+
 export default memo(PostCont);

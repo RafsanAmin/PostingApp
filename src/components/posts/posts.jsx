@@ -1,11 +1,9 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { memo, useContext } from 'react';
-import Context from '../../Contexts/AppContext';
+import { memo } from 'react';
 import PostList from './postlist';
 
 function postsC() {
-  const [, setState] = useContext(Context);
-
+  console.log('posts');
   return (
     <div>
       <style jsx>

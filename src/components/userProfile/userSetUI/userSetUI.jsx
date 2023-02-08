@@ -2,11 +2,9 @@ import { useRouter } from 'next/router';
 import React, { useContext, useEffect, useReducer, useState } from 'react';
 import UserAuthenAPI from '../../../API/UserAuthen';
 import AlertContext from '../../../Contexts/AlertContext';
-import AppContext from '../../../Contexts/AppContext';
+import editContext from '../../../Contexts/EditContext';
 import Styles from '../../../scss/userSetUICont.module.scss';
-import fileValidator from '../../../utils/fileValidator';
 import Checkbox from '../../checkbox';
-import FileDragHandler from '../../fileDragHandler/fileDragHandler';
 import Input from '../../Input';
 import TextArea from '../../textarea';
 import ProfilePicHandle from './profilePicHandle';
@@ -28,7 +26,7 @@ const initialState = {
   userGivenCode: '',
 };
 const UserSetUI = ({ user, setVer }) => {
-  const [appState, setAppState] = useContext(AppContext);
+  const [appState, setAppState] = useContext(editContext);
   const Router = useRouter();
 
   const [userDetail, dispatchUserDetail] = useReducer((state, action) => {
@@ -130,29 +128,7 @@ const UserSetUI = ({ user, setVer }) => {
     });
   }, [appState.userEdit, user]);
   return (
-    <FileDragHandler
-      className={Styles.userSetUI}
-      text="Drag Your Profile Image here!"
-      handler={async (files) => {
-        try {
-          const clearedFiles = await fileValidator(
-            files,
-            ['image/png', 'image/jpeg'],
-            4,
-            1,
-            'File must have to be a .jpg or .png file'
-          );
-          dispatchUserDetail({ type: 'SET_IMG', file: clearedFiles[0] });
-        } catch (err) {
-          Alert({
-            state: true,
-            title: 'Error!',
-            desc: err,
-            type: 'error',
-          });
-        }
-      }}
-    >
+    <div className={Styles.userSetUI}>
       <div className={Styles.close}>
         <button type="button" onClick={close}>
           <i className="fas fa-times" />
@@ -272,7 +248,7 @@ const UserSetUI = ({ user, setVer }) => {
           {userDetail.verification ? 'Verify' : 'Update without verification'}
         </button>
       </div>
-    </FileDragHandler>
+    </div>
   );
 };
 

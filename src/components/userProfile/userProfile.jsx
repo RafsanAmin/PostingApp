@@ -4,6 +4,7 @@ import ContContext from '../../Contexts/ContContext';
 import UserContext from '../../Contexts/UserContext';
 import { AlertContext, useAlert } from '../../hooks/useAlert';
 import { AppContext, reloadPost, useAppState } from '../../hooks/useAppState';
+import { editContext as EditContext, useEditState } from '../../hooks/useEditState';
 import useFreeze from '../../hooks/useFreeze';
 import useScrollTrigger from '../../hooks/useScrollTrigger';
 import useUserInfo from '../../hooks/useUserInfo';
@@ -18,13 +19,16 @@ import UserSetUICont from './userSetUI/userSetUICont';
 
 const UserProfile = ({ user, own }) => {
   const AppStateArr = useAppState(own ? 'myProfile' : '');
-  const [appState, setAppState] = AppStateArr;
+  const [, setAppState] = AppStateArr;
+  const EditStateArr = useEditState();
+  const [editState] = EditStateArr;
+
   const [alertProps, setAlert] = useAlert();
   const [dom, setDOM] = useState();
-  useFreeze(alertProps.state || appState.editPost.state || appState.userEdit, [
+  useFreeze(alertProps.state || editState.editPost.state || editState.userEdit, [
     alertProps.state,
-    appState.editPost.state,
-    appState.userEdit,
+    editState.editPost.state,
+    editState.userEdit,
   ]);
   useUserInfo((self) => {
     setAppState({ type: 'USER', id: self.id });
@@ -67,28 +71,31 @@ const UserProfile = ({ user, own }) => {
           <AppContext.Provider value={AppStateArr}>
             <ContContext.Provider value={dom}>
               <AlertContext.Provider value={setAlert}>
-                <Alert props={alertProps} />
-                <div className={`${alertProps.state ? 'freeze' : ''}`}>
-                  <PostHandlerUI />
-                  <UserSetUICont user={user} />
-                </div>
-
-                <div
-                  className={
-                    alertProps.state || appState.editPost.state || appState.userEdit ? 'freeze' : ''
-                  }
-                >
-                  <TopBar />
-                  {user._id ? (
-                    <>
-                      <ProfileCard />
-                      <Title icon={<img src="/posts.svg" alt="posts" />} text="Posts" />
-                      <Postlist type="user" user={user._id} />
-                    </>
-                  ) : (
-                    <>{!own ? <Error type="404" /> : null}</>
-                  )}
-                </div>
+                <EditContext.Provider value={EditStateArr}>
+                  <Alert props={alertProps} />
+                  <div className={`${alertProps.state ? 'freeze' : ''}`}>
+                    <PostHandlerUI />
+                    <UserSetUICont user={user} />
+                  </div>
+                  <div
+                    className={
+                      alertProps.state || editState.editPost.state || editState.userEdit
+                        ? 'freeze'
+                        : ''
+                    }
+                  >
+                    <TopBar />
+                    {user._id ? (
+                      <>
+                        <ProfileCard />
+                        <Title icon={<img src="/posts.svg" alt="posts" />} text="Posts" />
+                        <Postlist type="user" user={user._id} />
+                      </>
+                    ) : (
+                      <>{!own ? <Error type="404" /> : null}</>
+                    )}
+                  </div>{' '}
+                </EditContext.Provider>
               </AlertContext.Provider>
             </ContContext.Provider>
           </AppContext.Provider>

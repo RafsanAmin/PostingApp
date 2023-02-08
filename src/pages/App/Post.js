@@ -9,20 +9,27 @@ import TopBar from '../../components/topbar/topbar';
 import ContContext from '../../Contexts/ContContext';
 import { AlertContext, useAlert } from '../../hooks/useAlert';
 import { AppContext, reloadPost, useAppState } from '../../hooks/useAppState';
-import useFreeze from '../../hooks/useFreeze';
+import { editContext as EditContext, useEditState } from '../../hooks/useEditState';
 import useScrollTrigger from '../../hooks/useScrollTrigger';
 import useUserInfo from '../../hooks/useUserInfo';
 import Styles from '../../scss/postapp.module.scss';
+
+import useFreeze from '../../hooks/useFreeze';
+
 // AP_S = new post form state
 const PostApp = () => {
   const { push } = useRouter();
   const AppStateArr = useAppState('post');
+  const EditStateArr = useEditState();
+
   const [appState, setAppState] = AppStateArr;
+  const [editState] = EditStateArr;
   const [alertProp, setAlert] = useAlert();
   const [contState, setContState] = useState();
-  useFreeze(appState.editPost.state || appState.addPost || alertProp.state, [
-    appState.editPost,
-    appState,
+  console.log(EditStateArr);
+  useFreeze(editState.editPost.state || editState.addPost || alertProp.state, [
+    editState.editPost,
+    editState,
     alertProp,
   ]);
   useUserInfo(async (status) => {
@@ -47,33 +54,37 @@ const PostApp = () => {
       <div ref={(e) => setContState(e)} className={Styles.postAppWindow}>
         <AppContext.Provider value={AppStateArr}>
           <AlertContext.Provider value={setAlert}>
-            <TopBar
-              c={`s ${
-                appState.editPost.state || appState.addPost || alertProp.state ? 'freeze' : ''
-              }`}
-            />
+            <EditContext.Provider value={EditStateArr}>
+              <TopBar
+                c={`s ${
+                  editState.editPost.state || editState.addPost || alertProp.state ? 'freeze' : ''
+                }`}
+              />
 
-            {appState.userid && (
-              <>
-                <Alert props={alertProp} />
-                <div className={`s ${alertProp.state ? 'freeze' : ''}`}>
-                  {' '}
-                  <PostHandlerUI />
-                </div>
+              {appState.userid && (
+                <>
+                  <Alert props={alertProp} />
+                  <div className={`s ${alertProp.state ? 'freeze' : ''}`}>
+                    {' '}
+                    <PostHandlerUI />
+                  </div>
 
-                <div
-                  className={`s ${
-                    appState.editPost.state || appState.addPost || alertProp.state ? 'freeze' : ''
-                  }`}
-                >
-                  <Header />
+                  <div
+                    className={`s ${
+                      editState.editPost.state || editState.addPost || alertProp.state
+                        ? 'freeze'
+                        : ''
+                    }`}
+                  >
+                    <Header />
 
-                  <ContContext.Provider value={contState}>
-                    <Posts />
-                  </ContContext.Provider>
-                </div>
-              </>
-            )}
+                    <ContContext.Provider value={contState}>
+                      <Posts />
+                    </ContContext.Provider>
+                  </div>
+                </>
+              )}
+            </EditContext.Provider>
           </AlertContext.Provider>
         </AppContext.Provider>
       </div>

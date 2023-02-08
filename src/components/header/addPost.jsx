@@ -1,10 +1,10 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import { useContext } from 'react';
-import AppContext from '../../Contexts/AppContext';
+import editContext from '../../Contexts/EditContext';
 
 const addPost = (props) => {
   const { Styles } = props;
-  const [, setState] = useContext(AppContext);
+  const [, setState] = useContext(editContext);
   const addPostTrigger = () => {
     setState({ type: 'AP_1' });
   };
