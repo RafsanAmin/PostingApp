@@ -10,7 +10,6 @@ const fileValidator = (fileList, accessType, sizeLimit, fileLimit, accessTypeWar
           ret.push(arr);
           size += arr.size;
         } else if (!arr.type) {
-          console.log('invalid file!');
         } else {
           rj(accessTypeWarning);
           break;

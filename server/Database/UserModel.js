@@ -4,7 +4,7 @@ const userSchema = new Schema({
   username: String,
   email: String,
   password: { type: String, min: 8 },
-  groups: [{ type: Schema.Types.ObjectId, ref: 'ChatGroup' }],
+  groups: [{ type: Schema.Types.ObjectId, ref: 'Group' }],
   likedPosts: [],
   bio: String,
   bDay: String,

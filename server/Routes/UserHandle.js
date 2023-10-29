@@ -228,6 +228,7 @@ uh.get('/getOwnData', async (req, res, next) => {
   try {
     const id = await getIdFromJwt(req);
     UserModelDB.findOne({ _id: id })
+      .populate('groups', ['name', '_id'])
       .select(['-password', '-__v'])
       .then((resp) => {
         res.json({ done: true, user: resp });
@@ -282,8 +283,8 @@ uh.post('/verifyForUpdateData', authen, async (req, res) => {
     } else {
       const sendMail = {
         from: 'rafpost002@gmail.com',
-        to: email,
-        subject: 'Verfication Mail from Changing Data in RafPost',
+        to: email, //change it
+        subject: 'RafPost Verification', //change it
         html: `<p>Your Verfication code is <br> <b style="font-size: 1.5rem">${number}</b>  <br> in RafPost Account. Give it to you Verification Input and Update your data.</p>`,
       };
       mailerTransport

@@ -1,5 +1,6 @@
 import Head from 'next/head';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import UserAuthenAPI from '../../API/UserAuthen';
 import ContContext from '../../Contexts/ContContext';
 import UserContext from '../../Contexts/UserContext';
 import { AlertContext, useAlert } from '../../hooks/useAlert';
@@ -8,31 +9,39 @@ import { editContext as EditContext, useEditState } from '../../hooks/useEditSta
 import useFreeze from '../../hooks/useFreeze';
 import useScrollTrigger from '../../hooks/useScrollTrigger';
 import useUserInfo from '../../hooks/useUserInfo';
+import AddGroup from '../Grouplists/addGroup';
 import Alert from '../alert';
 import Error from '../error';
 import PostHandlerUI from '../postHandlerUI/postHandlerUI';
-import Postlist from '../posts/postlist';
-import Title from '../title';
 import TopBar from '../topbar/topbar';
-import ProfileCard from './profile/profileCard';
-import UserSetUICont from './userSetUI/userSetUICont';
+import Dashboard from './dashboard/main';
+import Profile from './profile/profile';
 
-const UserProfile = ({ user, own }) => {
+const UserProfile = ({ user, setUser, own }) => {
   const AppStateArr = useAppState(own ? 'myProfile' : '');
-  const [, setAppState] = AppStateArr;
+  const [a, setAppState] = AppStateArr;
   const EditStateArr = useEditState();
   const [editState] = EditStateArr;
 
   const [alertProps, setAlert] = useAlert();
   const [dom, setDOM] = useState();
-  useFreeze(alertProps.state || editState.editPost.state || editState.userEdit, [
-    alertProps.state,
-    editState.editPost.state,
-    editState.userEdit,
-  ]);
+  useFreeze(
+    alertProps.state || editState.editPost.state || editState.addGroup || editState.addPost,
+    [alertProps.state, editState.editPost.state, editState.addGroup, editState.addPost]
+  );
   useUserInfo((self) => {
     setAppState({ type: 'USER', id: self.id });
   }, []);
+  useEffect(() => {
+    if (own) {
+      const main = async () => {
+        const userInfo = await UserAuthenAPI.getOwnInfo();
+        setUser(userInfo);
+      };
+      main();
+      setAppState({ type: 'RELOAD_0' });
+    }
+  }, [a.fullReload]);
   useScrollTrigger(
     (e) => {
       reloadPost(e, AppStateArr);
@@ -75,22 +84,26 @@ const UserProfile = ({ user, own }) => {
                   <Alert props={alertProps} />
                   <div className={`${alertProps.state ? 'freeze' : ''}`}>
                     <PostHandlerUI />
-                    <UserSetUICont user={user} />
                   </div>
+                  <AddGroup />
                   <div
                     className={
-                      alertProps.state || editState.editPost.state || editState.userEdit
+                      alertProps.state ||
+                      editState.editPost.state ||
+                      editState.addGroup ||
+                      editState.addPost
                         ? 'freeze'
                         : ''
                     }
                   >
-                    <TopBar />
+                    <TopBar dashboard={own} />
                     {user._id ? (
-                      <>
-                        <ProfileCard />
-                        <Title icon={<img src="/posts.svg" alt="posts" />} text="Posts" />
-                        <Postlist type="user" user={user._id} />
-                      </>
+                      <div style={{ display: 'grid', placeItems: 'center' }}>
+                        <Profile />
+                        <Dashboard user={user} own={own} />
+                        {/* <Title icon={<img src="/posts.svg" alt="posts" />} text="Posts" /> */}
+                        {/* <Postlist type="user" user={user._id} /> */}
+                      </div>
                     ) : (
                       <>{!own ? <Error type="404" /> : null}</>
                     )}

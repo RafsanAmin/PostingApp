@@ -1,19 +1,15 @@
 const { Schema, model, SchemaType } = require('mongoose');
 
-const ChatGroupSchema = new Schema({
+const GroupSchema = new Schema({
   name: String,
   desc: String,
   pfp: String,
-  status: { type: String, enum: ['ease', 'locked'] },
-  requests: [
-    {
-      uid: { type: Schema.Types.ObjectId, ref: 'User' },
-    },
-  ],
+  created: String, // add requests
   members: [
     {
       uid: { type: Schema.Types.ObjectId, ref: 'User' },
-      power: { type: String, enum: ['Member', 'Admin', 'Creator'] },
+      isAdmin: Boolean,
+      isCreator: Boolean,
     },
   ],
   chats: [
@@ -27,6 +23,6 @@ const ChatGroupSchema = new Schema({
   ],
 });
 
-const ChatGroupModel = model('ChatGroup', ChatGroupSchema);
+const GroupModel = model('Group', GroupSchema);
 
-module.exports = ChatGroupModel;
+module.exports = GroupModel;

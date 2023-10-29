@@ -4,7 +4,7 @@ import { mailRegexp } from './stringRegexp';
 export default function userDataValidator(data) {
   return new Promise((resolve, reject) => {
     const { work, bio, username, email, pass, confPass, verification } = data;
-    console.log('Hey!', data, !email?.match(mailRegexp) && email !== null);
+
     if (!email?.match(mailRegexp) && email !== null) {
       reject('Invalid Email Address!');
     } else if (username === '') {

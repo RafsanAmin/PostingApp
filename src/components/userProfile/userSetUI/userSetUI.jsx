@@ -4,8 +4,8 @@ import UserAuthenAPI from '../../../API/UserAuthen';
 import AlertContext from '../../../Contexts/AlertContext';
 import editContext from '../../../Contexts/EditContext';
 import Styles from '../../../scss/userSetUICont.module.scss';
-import Checkbox from '../../checkbox';
 import Input from '../../Input';
+import Checkbox from '../../checkbox';
 import TextArea from '../../textarea';
 import ProfilePicHandle from './profilePicHandle';
 // pfp -> profilePic
@@ -26,7 +26,7 @@ const initialState = {
   userGivenCode: '',
 };
 const UserSetUI = ({ user, setVer }) => {
-  const [appState, setAppState] = useContext(editContext);
+  const [appState] = useContext(editContext);
   const Router = useRouter();
 
   const [userDetail, dispatchUserDetail] = useReducer((state, action) => {
@@ -53,11 +53,6 @@ const UserSetUI = ({ user, setVer }) => {
     dispatchUserDetail({ type: 'SET_FIELD', field: f, text: t });
   };
   const [loading, setLoading] = useState(false);
-
-  const close = () => {
-    setAppState({ type: 'PF_0' });
-    dispatchUserDetail({ type: 'CLOSE' });
-  };
   const Alert = useContext(AlertContext);
   const setUserData = () => {
     const { work, bDay, bio, pfp, delPFP, verification, username, email, pass, confPass, id } =
@@ -102,7 +97,6 @@ const UserSetUI = ({ user, setVer }) => {
             type: 'success',
           });
           setLoading(false);
-          close();
           setTimeout(() => Router.reload(), 5000);
         })
         .catch((err) => {
@@ -118,7 +112,7 @@ const UserSetUI = ({ user, setVer }) => {
   };
   useEffect(() => {
     const { _id } = user;
-    console.log(user);
+
     dispatchUserDetail({
       type: 'INIT',
       data: {
@@ -129,14 +123,6 @@ const UserSetUI = ({ user, setVer }) => {
   }, [appState.userEdit, user]);
   return (
     <div className={Styles.userSetUI}>
-      <div className={Styles.close}>
-        <button type="button" onClick={close}>
-          <i className="fas fa-times" />
-        </button>
-      </div>
-      <div className={Styles.head}>
-        <h3>User Details</h3>
-      </div>
       <ProfilePicHandle styles={Styles} State={[userDetail, dispatchUserDetail]} />
       <div className={Styles.grid}>
         <div className={Styles.inputCont}>
@@ -169,7 +155,6 @@ const UserSetUI = ({ user, setVer }) => {
           label="So to update those data with verification, check the
               Checkbox. Your verification mail will be sent to new mail address given by you."
         /> */}
-        <br />
         <div className={`${Styles.inputCont} ${Styles.fullLine}`}>
           <span>Bio</span>
           <br />

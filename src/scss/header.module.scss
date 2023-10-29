@@ -5,7 +5,7 @@
   place-items: center;
   padding-top: 2rem;
   & > div {
-    width: 95%;
+    width: 100%;
     max-width: 700px;
     display: flex;
     gap: 1rem;
@@ -20,7 +20,7 @@
       width: 100%;
       display: flex;
       align-items: center;
-      justify-content: start;
+      justify-content: flex-start;
       gap: 0.8rem;
       background-color: #fff;
       border: none;
@@ -69,6 +69,10 @@
           height: 0.7rem;
           z-index: 0;
         }
+      }
+      .maskfix::after {
+        width: 0;
+        height: 0;
       }
       &:hover {
         background-color: $grey-ll;

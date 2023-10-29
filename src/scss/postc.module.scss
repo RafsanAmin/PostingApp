@@ -1,6 +1,6 @@
 @import './global/global';
 .postCont {
-  width: 95%;
+  width: 100%;
   max-width: 700px;
   height: auto;
   padding: 1rem;
@@ -85,7 +85,7 @@
           border-radius: 7px;
           transition: 0.3s ease-in-out;
           transform-origin: top;
-          @include shadow;
+          box-shadow: 0px 0px 15px 1px rgba(0, 0, 0, 0.15);
           .item {
             button {
               width: 100%;
@@ -103,7 +103,7 @@
                 height: 35px;
                 display: grid;
                 place-items: center;
-                background-color: $blue-lightest;
+                background-color: $blue-lighter;
                 border-radius: 50%;
                 color: $blue-primary;
               }

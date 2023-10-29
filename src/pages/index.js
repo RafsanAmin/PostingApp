@@ -7,7 +7,7 @@ export default function Home() {
   const Router = useRouter();
   useUserInfo((status) => {
     if (status.done) {
-      Router.replace('/App/Post');
+      Router.replace('/dashboard');
     } else {
       Router.replace('/Userauth/Login');
     }

@@ -20,8 +20,8 @@
     background-color: #fff;
     box-shadow: 1px 1px 20px 1px hsla(0, 0%, 0%, 0.342);
     grid-template-columns: 1fr;
-    height: 80%;
-    width: 80%;
+    height: 100%;
+    width: 100%;
     border-radius: 12px;
     overflow: hidden;
     padding: 3rem 0rem;
@@ -56,20 +56,21 @@
     // border-radius: 12px;
     .signup-fieldFile {
       width: 98.5%;
-      max-width: 450px;
+
       display: flex;
       align-items: center;
       place-content: center;
+      margin-bottom: 0.5rem;
       border: {
         width: 2px;
         style: dashed;
-        color: $grey-dark;
+        color: $grey;
         radius: 5px;
       }
       cursor: pointer;
       padding: 0.35rem 0.2rem;
       h3 {
-        color: $grey-darker;
+        color: $grey-dark;
         font-weight: 600;
       }
       p {
@@ -98,7 +99,7 @@
       color: $blue-primary;
     }
     p {
-      color: $danger;
+      // color: $danger;
       font-weight: 500;
       font-size: 1.1rem;
       transition: 0.3s linear;

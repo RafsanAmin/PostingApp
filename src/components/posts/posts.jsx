@@ -2,8 +2,7 @@
 import { memo } from 'react';
 import PostList from './postlist';
 
-function postsC() {
-  console.log('posts');
+function postsC({ grpID }) {
   return (
     <div>
       <style jsx>
@@ -39,7 +38,7 @@ function postsC() {
         <i className="fas fa-spinner" />
         Reload
       </button> */}
-      <PostList type="latest" />
+      <PostList type="latest" grpID={grpID} />
     </div>
   );
 }

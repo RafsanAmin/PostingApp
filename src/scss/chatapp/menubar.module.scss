@@ -1,22 +1,30 @@
 @import '../global/global';
 
 .menubar {
-  display: grid;
-  place-items: center;
+  display: flex;
+  justify-content: space-between;
   padding: 1rem;
-  grid-template-rows: 1fr;
-  grid-template-columns: repeat(auto-fill, minmax(3.5rem, 1fr));
-
+  height: 100%;
+  .right {
+    width: 100%;
+    display: flex;
+    max-width: 150px;
+    gap: 1rem;
+  }
   .menuItem {
     font-size: 0.8rem;
     display: grid;
     place-items: center;
     cursor: pointer;
     width: 100%;
-    height: 100%;
-    border-radius: 12px;
+    background-color: transparent;
+    outline: none;
+    border: none;
     &:hover {
       background-color: $grey-lightest;
+    }
+    &:active {
+      background-color: $grey-lighter;
     }
   }
 }

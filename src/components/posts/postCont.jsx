@@ -1,10 +1,10 @@
 import Link from 'next/link';
 import { memo, useContext } from 'react';
-import urlPrefix from '../../API/getURL';
 import postAPI from '../../API/PostsAPI';
+import urlPrefix from '../../API/getURL';
 import Context from '../../Contexts/AlertContext';
 import AppContext from '../../Contexts/AppContext';
-import Styles from '../../scss/postcont.module.scss';
+import Styles from '../../scss/postc.module.scss';
 import Clipboard from '../clipboard';
 import { Item, Menu, MenuCont } from '../menu';
 import Text from '../text';
@@ -24,7 +24,7 @@ const PostCont = ({ post, setEditPost }) => {
       window.location.reload();
     },
   ];
-  console.log('POstContr');
+
   const { userid } = appState;
   const own =
     userid === puid ||

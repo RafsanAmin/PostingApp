@@ -11,11 +11,18 @@
   position: sticky;
   top: 0;
   z-index: 2;
-  @include shadow;
+
+  & > h1 {
+    font-size: 1.75rem;
+    font-weight: bold;
+
+    color: $blue-darker;
+  }
   .brandContainer {
     display: flex;
     align-items: center;
     flex: 1;
+    order: 2;
     justify-content: center;
     h1 {
       font-size: 1.75rem;
@@ -47,12 +54,13 @@
         display: flex;
         font-size: 1.75rem;
         cursor: pointer;
-        padding: 0rem 2rem;
-        margin: 0 1rem;
-        border-radius: 6px;
+        padding: 0rem 1rem;
+
+        border-radius: 10px;
         transition: 0.3s linear;
+        filter: grayscale(1);
         &:hover {
-          background-color: $blue-lightest;
+          background-color: $blue-lighter;
         }
         &:active {
           background-color: $blue-lighter;
@@ -61,15 +69,18 @@
           display: none;
         }
         i {
-          color: $blue-primary;
-          padding: 0.25rem 0 0.4rem 0;
+          color: $blue-light;
+          padding: 0.7rem 0;
         }
       }
 
       .active {
+        filter: grayscale(0);
+        background-color: $blue-lightest;
+
         i,
         img {
-          border-bottom: 3px solid $blue-dark;
+          border-bottom: 3px solid $blue-light;
         }
       }
     }
@@ -163,6 +174,7 @@
   .topbar {
     .brandContainer {
       order: 2;
+      justify-content: start;
       h1 {
         display: none;
       }
@@ -174,102 +186,106 @@
     .iconsContainer {
       order: 1;
       justify-content: left;
-      .toggler {
-        display: block;
-        button {
-          font-size: 1.75rem;
-          background-color: #fff;
-          border: none;
-          appearance: none;
-          cursor: pointer;
-          padding: 0rem 1rem;
-          margin: 0;
-          border-radius: 6px;
-          transition: 0.3s linear;
-          &:hover {
-            background-color: $blue-lightest;
-          }
-          &:active {
-            background-color: $blue-lighter;
-          }
-          i {
-            width: 100%;
-            color: $blue-primary;
-            padding: 0.25rem 0 0.4rem 0;
-          }
-        }
-      }
       .icons {
-        display: flex;
-        flex-direction: column;
-        position: absolute;
-        top: 100%;
-        left: 0;
-        padding: 1rem;
-        width: 75%;
-        max-width: 250px;
-        transition: 0.3s ease-in-out;
-        box-shadow: 5px 6px 10px 1px rgba(0, 0, 0, 0.192);
-        background-color: #fff;
-        border: {
-          bottom-right-radius: 5px;
-        }
-        z-index: 3;
-        .button {
-          width: 100%;
-          border: 0;
-          margin: 0;
-          border-right: 3px solid transparent;
-          background-color: $blue-lightest;
-          display: flex;
-          align-items: center;
-          justify-content: flex-start;
-          font-size: 1rem;
-          position: relative;
-          padding: 0.5rem 0.75rem;
-          margin: 0.15rem 0rem 0.15rem 0;
-          p {
-            display: inline-block;
-            font-size: 1.2rem;
-            color: $blue-darker;
-            font-weight: 500;
-          }
-          i {
-            width: 45px;
-            font-size: 1.75rem;
-            color: $blue-primary;
-            padding: 0.25rem 0.75rem 0.25rem 0;
-          }
-          img {
-            margin: 0.15rem 17px 0.15rem 0;
-          }
-          &:hover {
-            background-color: $blue-lighter;
-          }
-        }
-        .active {
-          i,
-          img {
-            border: 0;
-          }
-          &::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            right: 0;
-            width: 3px;
-            height: 60%;
-            background-color: $blue-primary;
-          }
-        }
+        justify-content: left;
       }
-      .on {
-        transform: translateX(0);
-      }
-      .off {
-        transform: translateX(-100%);
-      }
+    }
+    //   .toggler {
+    //     display: block;
+    //     button {
+    //       font-size: 1.75rem;
+    //       background-color: #fff;
+    //       border: none;
+    //       appearance: none;
+    //       cursor: pointer;
+    //       padding: 0rem 1rem;
+    //       margin: 0;
+    //       border-radius: 6px;
+    //       transition: 0.3s linear;
+    //       &:hover {
+    //         background-color: $blue-lightest;
+    //       }
+    //       &:active {
+    //         background-color: $blue-lighter;
+    //       }
+    //       i {
+    //         width: 100%;
+    //         color: $blue-primary;
+    //         padding: 0.25rem 0 0.4rem 0;
+    //       }
+    //     }
+    //   }
+    // .icons {
+    //   display: flex;
+    //   flex-direction: column;
+    //   position: absolute;
+    //   top: 100%;
+    //   left: 0;
+    //   padding: 1rem;
+    //   width: 75%;
+    //   max-width: 250px;
+    //   transition: 0.3s ease-in-out;
+    //   box-shadow: 5px 6px 10px 1px rgba(0, 0, 0, 0.192);
+    //   background-color: #fff;
+    //   border: {
+    //     bottom-right-radius: 5px;
+    //   }
+    //   z-index: 3;
+    //   .button {
+    //     width: 100%;
+    //     border: 0;
+    //     margin: 0;
+    //     border-right: 3px solid transparent;
+    //     background-color: $blue-lightest;
+
+    //     display: flex;
+    //     align-items: center;
+    //     justify-content: flex-start;
+    //     font-size: 1rem;
+    //     position: relative;
+    //     padding: 0.5rem 0.75rem;
+    //     margin: 0.15rem 0rem 0.15rem 0;
+    //     p {
+    //       display: inline-block;
+    //       font-size: 1.2rem;
+    //       color: $blue-darker;
+    //       font-weight: 500;
+    //     }
+    //     i {
+    //       width: 45px;
+    //       font-size: 1.75rem;
+    //       color: $blue-primary;
+    //       padding: 0.25rem 0.75rem 0.25rem 0;
+    //     }
+    //     img {
+    //       margin: 0.15rem 17px 0.15rem 0;
+    //     }
+    //     &:hover {
+    //       background-color: $blue-lighter;
+    //     }
+    //   }
+    //   .active {
+    //     i,
+    //     img {
+    //       border: 0;
+    //     }
+    //     &::before {
+    //       content: '';
+    //       position: absolute;
+    //       top: 50%;
+    //       transform: translateY(-50%);
+    //       right: 0;
+    //       width: 3px;
+    //       height: 60%;
+    //       background-color: $blue-primary;
+    //     }
+    //   }
+    // }
+    // }
+  }
+  .override {
+    h1 {
+      display: block !important;
     }
   }
 }

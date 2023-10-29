@@ -31,7 +31,6 @@ class PostApp extends Document {
             <meta property="og:url" content="https://rafpost.herokuapp.com" />
             <meta property="og:image" content="https://rafpost.herokuapp.com/icon_192.png" />
             <link rel="apple-touch-icon" href="/icon-256x256.png" />
-            <meta name="viewport" content="width=device-width" />
           </Head>
           <body>
             <Main />

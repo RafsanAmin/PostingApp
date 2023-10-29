@@ -6,6 +6,11 @@ const postSchema = new mongoose.Schema({
   photos: [],
   likes: Number,
   date: String,
+  grpID: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Group',
+  },
+  personal: Boolean,
 });
 
 postSchema.statics.findPost = function (before, limit, cond) {

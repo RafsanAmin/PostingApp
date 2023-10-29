@@ -29,9 +29,7 @@ const ChatApp = () => {
   useEffect(() => {
     const socket = io('/');
     socket.emit('join-room', 'Test');
-    socket.on('resp', (msg) => {
-      console.log(msg);
-    });
+    socket.on('resp', (msg) => {});
   }, []);
   return (
     <>
@@ -42,8 +40,10 @@ const ChatApp = () => {
         <Alert props={alertProp} />
         <AppContext.Provider value={[appState]}>
           <AlertContext.Provider value={setAlert}>
-            <TopBar />
-            <Cont />
+            <div className={alertProp.state ? 'freeze' : ''}>
+              <TopBar />
+              <Cont />
+            </div>
           </AlertContext.Provider>
         </AppContext.Provider>
       </div>

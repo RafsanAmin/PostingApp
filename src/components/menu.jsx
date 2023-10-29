@@ -37,8 +37,8 @@ const Item = ({ icon, name, handler }) => {
     <button
       className={Styles.items}
       type="button"
-      onClick={() => {
-        handler();
+      onClick={(e) => {
+        handler(e);
         st(false);
       }}
     >
@@ -48,6 +48,6 @@ const Item = ({ icon, name, handler }) => {
   );
 };
 
-export { MenuCont, Menu, Item };
+export { Item, Menu, MenuCont };
 // eslint-disable-next-line prettier/prettier
 

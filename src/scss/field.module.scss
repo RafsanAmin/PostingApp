@@ -4,7 +4,7 @@
   display: grid;
   grid-template-columns: auto 1fr;
   grid-template-rows: 20px auto;
-  background-color: $blue-lightest;
+  // background-color: $blue-ll;
   margin: 0.1rem;
   justify-content: center;
   align-items: center;
@@ -14,7 +14,7 @@
     i {
       font-size: 1rem;
       color: $blue-primary;
-      background-color: $blue-lighter;
+      background-color: $blue-lightest;
       margin: auto;
       padding: 1rem;
       border-radius: 50%;

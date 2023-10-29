@@ -1,7 +1,7 @@
 const { Server } = require('socket.io');
 const { Router, json } = require('express');
-const ChatModel = require('../Database/ChatGroupModel');
-const UserModel = require('../Database/UserModel')
+const ChatModel = require('../Database/GroupModel');
+const UserModel = require('../Database/UserModel');
 const authen = require('../middleware/authen');
 const cH = Router();
 const cookieParser = require('cookie-parser');
@@ -21,7 +21,7 @@ cH.post('/createGroup', authen, async (req, res) => {
     ],
   });
   console.log(doc);
-  await UserModel.findOneAndUpdate({_id}, {$push: {groups: doc._id}})
+  await UserModel.findOneAndUpdate({ _id }, { $push: { groups: doc._id } });
   res.json({
     done: true,
   });

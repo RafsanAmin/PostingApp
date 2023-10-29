@@ -52,8 +52,9 @@ pH.post('/addPost', authen, async (req, res) => {
 });
 pH.get('/getPostsByDate', async (req, res) => {
   try {
-    const { limit, before } = req.query;
-    let find = await postModel.findPost(before, limit);
+    const { limit, before, grpID } = req.query;
+    console.log(grpID);
+    let find = await postModel.findPost(before, limit, { grpID });
     if (find.length <= 0) {
       res.json({ hasMore: false, posts: [] });
     } else {
@@ -68,7 +69,7 @@ pH.get('/getPostsMine', async (req, res) => {
   try {
     const { id } = jwt.verify(req.cookies.jwt, secret);
     const { limit, before } = req.query;
-    let find = await postModel.findPost(before, limit, { uid: id });
+    let find = await postModel.findPost(before, limit, { uid: id, personal: true });
     if (find.length <= 0) {
       res.json({ hasMore: false, posts: [] });
     } else {
@@ -82,7 +83,7 @@ pH.get('/getPostsMine', async (req, res) => {
 pH.get('/getPostsByUser', async (req, res) => {
   try {
     const { limit, before, uid } = req.query;
-    let find = await postModel.findPost(before, limit, { uid });
+    let find = await postModel.findPost(before, limit, { uid, personal: true });
     if (find.length <= 0) {
       res.json({ hasMore: false, posts: [] });
     } else {

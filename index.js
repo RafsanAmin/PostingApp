@@ -5,9 +5,10 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 require('dotenv').config({ path: `${__dirname}/.env` });
 const postHandle = require('./server/Routes/PostHandle');
+const UserHandle = require('./server/Routes/UserHandle');
+const GroupHandle = require('./server/Routes/GroupHandle');
 const app = express();
 const cookieParser = require('cookie-parser');
-const UserHandle = require('./server/Routes/UserHandle');
 // init and middlewares
 const dev = process.env.NODE_ENV !== 'production';
 const { DB_KEY } = process.env;
@@ -33,6 +34,7 @@ nextApp
     app.use('/uh', UserHandle);
     app.use('/pH', postHandle);
     app.use('/cH', cH);
+    app.use('/gh', GroupHandle);
     //database
     mongoose
       .connect(DB_KEY, {

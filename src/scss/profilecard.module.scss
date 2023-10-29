@@ -2,22 +2,24 @@
 .superCont {
   width: 100%;
   display: grid;
+  max-width: 700px;
   place-items: center;
   .innerCont {
     display: grid;
     align-items: stretch;
     justify-items: space-between;
-    grid-template-columns: repeat(3, minmax(100px, 500px));
-    grid-template-rows: 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-columns: 1fr;
     margin-top: 2rem;
     height: 100%;
+    width: 100%;
     section {
       width: 100%;
-      padding: 0.5rem;
+      padding-block: 0.5rem;
       .inner {
         border: none;
         background-color: #fff;
-        border-radius: 5px;
+        border-radius: 15px;
         padding: 1rem;
         height: max-content;
         width: 100%;
@@ -26,42 +28,7 @@
         @include shadow();
       }
     }
-    .profileCont {
-      .inner {
-        display: flex;
-        flex-direction: column;
-        text-align: center;
-        justify-content: center;
-        position: relative;
-        padding: 1.5rem 1rem 1rem 1rem;
-        .profileImg {
-          grid-row: span 2;
-          img {
-            width: 100%;
-            min-width: 50px;
-            max-width: 200px;
-            aspect-ratio: 1 / 1;
-            object-fit: cover;
-            border-radius: 50%;
-            outline: 3px solid $blue-dark;
-            outline-offset: 3px;
-          }
-        }
-        .usrname {
-          padding-top: 1rem;
-          h1 {
-            color: $blue-dark;
-            font-weight: 700;
-            font-size: 2rem;
-          }
-        }
-        .menu {
-          position: absolute;
-          bottom: 1rem;
-          right: 1rem;
-        }
-      }
-    }
+
     .descCont {
       .inner {
         display: flex;
@@ -81,31 +48,98 @@
     }
   }
 }
+.profileCont {
+  background-color: #fff;
+  width: 100%;
+  .inner {
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    position: relative;
+    padding: 1.5rem 1rem 1rem 1rem;
+    .profileImg {
+      grid-row: span 2;
+      img {
+        width: 100%;
+        min-width: 50px;
+        max-width: 100px;
+        aspect-ratio: 1 / 1;
+        object-fit: cover;
+        border-radius: 50%;
+        outline: 3px solid $blue-dark;
+        outline-offset: 3px;
+      }
+    }
+    .usrname {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-left: 1rem;
+
+      h1 {
+        vertical-align: center;
+        color: $blue-dark;
+        font-weight: 700;
+        font-size: 2rem;
+      }
+    }
+    .menu {
+      margin-right: -20px;
+      display: grid;
+      place-items: center;
+    }
+  }
+}
+
 @media only screen and (max-width: 980px) {
   .superCont {
     .innerCont {
-      grid-template-columns: minmax(100px, 980px);
-      grid-template-rows: auto auto auto;
-      .profileCont {
-        grid-row: 1 / 2;
-        .profileImg {
-          img {
-            width: 100%;
-            min-width: 150px;
-            aspect-ratio: 1 / 1;
-            object-fit: cover;
-            border-radius: 50%;
-            outline: 3px solid $blue-dark;
-            outline-offset: 3px;
-          }
+      section {
+        .inner {
+          padding: 0.5rem;
         }
       }
-      .descCont {
-        grid-row: 2 / 3;
+    }
+  }
+  .profileCont {
+    .inner {
+      .profileImg {
+        img {
+          width: 45px;
+        }
       }
-      .bioCont {
-        grid-row: 3 /4;
+      .usrname {
+        h1 {
+          font-size: 1.1rem;
+        }
       }
     }
   }
 }
+//   .superCont {
+//     .innerCont {
+//       grid-template-columns: minmax(100px, 980px);
+//       grid-template-rows: auto auto auto;
+//       .profileCont {
+//         grid-row: 1 / 2;
+//         .profileImg {
+//           img {
+//             width: 100%;
+//             min-width: 150px;
+//             aspect-ratio: 1 / 1;
+//             object-fit: cover;
+//             border-radius: 50%;
+//             outline: 3px solid $blue-dark;
+//             outline-offset: 3px;
+//           }
+//         }
+//       }
+//       .descCont {
+//         grid-row: 2 / 3;
+//       }
+//       .bioCont {
+//         grid-row: 3 /4;
+//       }
+//     }
+//   }
+// }

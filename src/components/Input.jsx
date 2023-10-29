@@ -13,7 +13,7 @@ function Input({ value, setValue, type, name, plchold, style, limit, t }, ref) {
         style={style}
         ref={ref}
         type={type}
-        value={!ref ? value : ''}
+        value={!ref ? value : null}
         onChange={!ref ? handleInput : () => {}}
         placeholder={placeholder}
         maxLength={limit}

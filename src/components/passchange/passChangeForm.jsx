@@ -76,7 +76,6 @@ const PassChangeForm = ({ pstate }) => {
         />
         <p className={Styles.warn}>
           <i className="fas fa-exclamation-triangle    " />
-          <br />
           We will send an email to your email addres given to your account to verify its you.
         </p>
         <div className={Styles.button}>

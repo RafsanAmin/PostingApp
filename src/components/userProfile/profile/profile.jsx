@@ -1,22 +1,18 @@
 import React, { useContext } from 'react';
 import urlPrefix from '../../../API/getURL';
 import AlertContext from '../../../Contexts/AlertContext';
-import AppContext from '../../../Contexts/AppContext';
-import editContext from '../../../Contexts/EditContext';
 import UserContext from '../../../Contexts/UserContext';
+import Styles from '../../../scss/profilecard.module.scss';
 import Clipboard from '../../clipboard';
 import { Item, Menu, MenuCont } from '../../menu';
 
-const Profile = ({ Styles }) => {
+const Profile = () => {
   const user = useContext(UserContext);
   const Alert = useContext(AlertContext);
-  const [appstate] = useContext(AppContext);
-  const [, setEditPost] = useContext(editContext);
-  const { userid } = appstate;
-  const own =
-    userid === user._id ||
-    userid === '61346cba5f69790468c69b2d' ||
-    userid === '614ca3dadca93a001614286a';
+  // const own =
+  //   userid === user._id ||
+  //   userid === '61346cba5f69790468c69b2d' ||
+  //   userid === '614ca3dadca93a001614286a';
   const shareHandler = () => {
     Alert({
       state: true,
@@ -31,9 +27,6 @@ const Profile = ({ Styles }) => {
       cIcon: <i className="fas fa-share" />,
     });
   };
-  const editHandler = () => {
-    setEditPost({ type: 'UE_1' });
-  };
   return (
     <section className={Styles.profileCont}>
       <div className={Styles.inner}>
@@ -45,17 +38,15 @@ const Profile = ({ Styles }) => {
         </div>
         <div className={Styles.usrname}>
           <h1>{user.username}</h1>
+          <div className={Styles.menu}>
+            <MenuCont>
+              <Menu>
+                <Item icon={<i className="fas fa-share" />} name="Share" handler={shareHandler} />
+              </Menu>
+            </MenuCont>
+          </div>
         </div>
-        <div className={Styles.menu}>
-          <MenuCont>
-            <Menu>
-              <Item icon={<i className="fas fa-share" />} name="Share" handler={shareHandler} />
-              {own ? (
-                <Item icon={<i className="fas fa-edit" />} name="Edit" handler={editHandler} />
-              ) : null}
-            </Menu>
-          </MenuCont>
-        </div>
+
         <div />
       </div>
     </section>

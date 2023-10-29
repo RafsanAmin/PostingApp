@@ -72,13 +72,12 @@ const Verification = ({ userDataUp }) => {
         </div>
 
         <Input value={verCode} setValue={setVerCode} type="text" limit="6" />
-      </div>
-
-      <div className={`${Styles.updateButton} ${loading ? Styles.load : ''}`}>
-        <button type="button" onClick={submit} disabled={verCode !== userData?.code}>
-          {loading ? <img src="/loadingW.svg" width="20" alt="" /> : null}
-          Update Data
-        </button>
+        <div className={`${Styles.updateButton} ${loading ? Styles.load : ''}`}>
+          <button type="button" onClick={submit} disabled={verCode !== userData?.code}>
+            {loading ? <img src="/loadingW.svg" width="20" alt="" /> : null}
+            Update Data
+          </button>
+        </div>
       </div>
     </div>
   );

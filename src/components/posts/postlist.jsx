@@ -1,7 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { memo, useCallback, useContext, useEffect, useReducer, useState } from 'react';
+import { memo, useContext, useEffect, useReducer, useState } from 'react';
 import {
-  AutoSizer,
   CellMeasurer,
   CellMeasurerCache,
   List,
@@ -36,7 +35,7 @@ const reducer = (state, action) => {
       return state;
   }
 };
-const PostList = ({ type, user }) => {
+const PostList = ({ type, user, grpID }) => {
   const [post, setPosts] = useReducer(reducer, initialize);
   const [state, setState] = useContext(Context);
   const [, setEditPost] = useContext(editContext);
@@ -49,44 +48,56 @@ const PostList = ({ type, user }) => {
     defaultHeight: 400,
     fixedWidth: true,
   });
-  console.log('Rendering PostList');
+
   const render = ({ index, key, style, parent }) => (
     <CellMeasurer cache={heightCache} key={key} parent={parent} columnIndex={0} rowIndex={index}>
-      <div style={style}>
-        <PostCont post={post.posts[index]} setEditPost={setEditPost} />
-      </div>
+      {post.posts[index] ? (
+        <div style={style}>
+          <PostCont post={post.posts[index]} setEditPost={setEditPost} />
+        </div>
+      ) : (
+        <div style={{ ...style }}>
+          {' '}
+          <p style={{ height: '100px' }} />
+        </div>
+      )}
     </CellMeasurer>
   );
-  const main = useCallback(
-    async (newP) => {
-      try {
-        setLoading(true);
-        if (newP) {
-          const { posts } = await postAPI.getPost(type, 0, limit, user);
-          setPosts({ type: 'NEW', posts });
+  const main = async (newP) => {
+    try {
+      console.log('Workin');
+
+      setLoading(true);
+      if (newP) {
+        const { posts } = await postAPI.getPost(type, 0, limit, user, grpID);
+        setPosts({ type: 'NEW', posts });
+      } else {
+        const { posts, hasMore } = await postAPI.getPost(type, post.before, limit, user, grpID);
+        if (!hasMore) {
+          setState({ type: 'STOP' });
         } else {
-          const { posts, hasMore } = await postAPI.getPost(type, post.before, limit, user);
-          if (!hasMore) {
-            setState({ type: 'STOP' });
-          } else {
-            setPosts({ type: 'ADD', posts });
-          }
+          setPosts({ type: 'ADD', posts });
         }
-        setLoading(false);
-        setState({ type: 'RELOAD_0' });
-      } catch (err) {
-        Alert({ type: 'error', state: true, title: 'Error', desc: err.massage });
       }
-    },
-    [user, state]
-  );
+      setLoading(false);
+      setState({ type: 'RELOAD_0' });
+    } catch (err) {
+      Alert({ type: 'error', state: true, title: 'Error', desc: err.massage });
+    }
+  };
   useResizeTrigger(() => {
+    console.log('Resize Trigger');
+
     forceUpdate();
   }, []);
   useEffect(() => {
-    main(true);
+    if (!(state.fullReload || state.repost)) {
+      main(true);
+    }
   }, [user]);
   useEffect(() => {
+    console.log('Reload Trigger', loading, state.repost);
+
     if (!loading) {
       if (state.fullReload === true) {
         main(true);
@@ -122,25 +133,21 @@ const PostList = ({ type, user }) => {
         }}
       >
         <WindowScroller scrollElement={cont}>
-          {({ height, isScrolling, registerChild, scrollTop }) => (
-            <AutoSizer disableHeight style={{ width: '100%' }}>
-              {({ width }) => (
-                <div ref={registerChild}>
-                  <List
-                    overscanRowCount={1}
-                    autoHeight
-                    height={height}
-                    width={width}
-                    isScrolling={isScrolling}
-                    scrollTop={scrollTop}
-                    rowRenderer={render}
-                    deferredMeasurementCache={heightCache}
-                    rowHeight={heightCache.rowHeight}
-                    rowCount={post.posts.length}
-                  />
-                </div>
-              )}
-            </AutoSizer>
+          {({ height, isScrolling, registerChild, scrollTop, width }) => (
+            <div ref={registerChild}>
+              <List
+                overscanRowCount={1}
+                autoHeight
+                height={Math.max(height, 700)}
+                width={Math.min(700, width - 24)}
+                isScrolling={isScrolling}
+                scrollTop={scrollTop}
+                rowRenderer={render}
+                deferredMeasurementCache={heightCache}
+                rowHeight={heightCache.rowHeight}
+                rowCount={post.posts.length + 1}
+              />
+            </div>
           )}
         </WindowScroller>
       </div>

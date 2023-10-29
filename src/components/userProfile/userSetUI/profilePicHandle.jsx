@@ -1,11 +1,9 @@
 import React, { useContext, useRef, useState } from 'react';
 import AlertContext from '../../../Contexts/AlertContext';
-import UserContext from '../../../Contexts/UserContext';
 import fileValidator from '../../../utils/fileValidator';
 import FileDragHandler from '../../fileDragHandler/fileDragHandler';
 
 const ProfilePicHandle = ({ styles, State }) => {
-  const { _id } = useContext(UserContext);
   const [hoverToggler, setHoverToggler] = useState(false);
   const [userData, setState] = State;
   const Alert = useContext(AlertContext);
@@ -36,7 +34,7 @@ const ProfilePicHandle = ({ styles, State }) => {
     setState({ type: 'DEL_IMG' });
   };
   const imageLogic = (() => {
-    const { pfp, delPFP } = userData;
+    const { pfp, delPFP, _id } = userData;
     if (pfp && !delPFP) {
       return URL.createObjectURL(pfp);
     }

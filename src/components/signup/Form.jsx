@@ -4,10 +4,10 @@ import Link from 'next/link';
 import React, { useRef, useState } from 'react';
 import UserAuthenAPI from '../../API/UserAuthen';
 import fileValidator from '../../utils/fileValidator';
-import Checkbox from '../checkbox';
-import FileDragHandler from '../fileDragHandler/fileDragHandler';
 import Input from '../Input';
 import Loading from '../Loading';
+import Checkbox from '../checkbox';
+import FileDragHandler from '../fileDragHandler/fileDragHandler';
 
 function Login(props) {
   const { sui, alertBox } = props;
@@ -31,7 +31,7 @@ function Login(props) {
         profilePic: img,
         confPass: ConfirmPassword,
       };
-      console.log(UserInfo);
+
       const verficationCode = await UserAuthenAPI.verifyMail(UserInfo);
       sui({ ...UserInfo, code: verficationCode.verification });
       setLoading(false);
@@ -57,7 +57,7 @@ function Login(props) {
         1,
         'File must have to be a .jpg or .png file'
       );
-      console.log(clearedFiles[0]);
+
       setImg(clearedFiles[0]);
     } catch (err) {
       alertBox({

@@ -1,0 +1,34 @@
+@import './global/global';
+.cont {
+  margin-top: 2rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+  .card {
+    background-color: white;
+    padding: 0.75rem 1.25rem;
+    cursor: pointer;
+    display: flex;
+    gap: 1rem;
+    justify-content: space-between;
+    justify-items: left;
+    align-items: center;
+    border-radius: 10px;
+    border: 2px solid transparent;
+    & > p {
+      width: 100%;
+    }
+    .pfp img {
+      width: 50px;
+      border-radius: 50%;
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+      border-radius: 50%;
+      outline: 1px solid $grey-light;
+      outline-offset: 1px;
+    }
+    &:hover {
+      border: 2px solid $grey-lighter;
+    }
+  }
+}

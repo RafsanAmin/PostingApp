@@ -202,7 +202,6 @@ class UserAuthenAPIClass {
             noCookieAuthen ? `/uh/verifyForUpdateDataNoAuthen` : `/uh/verifyForUpdateData`,
             sendData
           ).then((res) => {
-            console.log(res);
             if (res.data && res.data.exists) {
               reject('Username already exists!');
             } else if (res.data.done && res.data.code) {
@@ -217,7 +216,6 @@ class UserAuthenAPIClass {
           });
         })
         .catch((err) => {
-          console.log(err);
           reject(err);
         });
     });
@@ -262,7 +260,6 @@ class UserAuthenAPIClass {
       const { bDay, bio, delPFP, id, pfp, work } = data;
       makeFormData({ bDay, bio, delPFP, id, pfp, work })
         .then((formData) => {
-          console.log(Array.from(formData));
           Axios.put(`/uh/updateUserData`, formData, {
             withCredentials: true,
             params: {
@@ -277,7 +274,6 @@ class UserAuthenAPIClass {
           });
         })
         .catch((err) => {
-          console.log(err);
           reject('There was an error');
         });
     });

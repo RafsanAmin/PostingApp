@@ -7,7 +7,7 @@ import AppContext from '../../Contexts/AppContext';
 import editContext from '../../Contexts/EditContext';
 import useResizeTrigger from '../../hooks/useResizeTrigger';
 import Styles from '../../scss/phandleui.module.scss';
-import { initialState, Reducer } from '../../state/imageHandlerState';
+import { Reducer, initialState } from '../../state/imageHandlerState';
 import fileValidator from '../../utils/fileValidator';
 import FileDragHandler from '../fileDragHandler/fileDragHandler';
 import TextArea from '../textarea';
@@ -22,7 +22,7 @@ const newNeditPostForm = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [oldPost, setOldPost] = useState({ user: '', oldPhotos: [] });
   const [state, setState] = useContext(editContext);
-  const [, setAppState] = useContext(AppContext);
+  const [s, setAppState] = useContext(AppContext);
   const [small, setSmall] = useState(false);
   const toggleState = useState(false);
   const [toggle, setToggle] = toggleState;
@@ -71,6 +71,7 @@ const newNeditPostForm = () => {
           date: `${time.toLocaleTimeString()} ${time.toLocaleDateString()} - ${
             days[time.getDay()]
           }`,
+          grpID: s.grpID,
         });
         setIsLoading(false);
         setImages({ type: 'CLEAR' });
@@ -128,7 +129,6 @@ const newNeditPostForm = () => {
     : () => {};
 
   const delImg = (e) => {
-    console.log(e.target.name);
     setImages({ type: 'DELETE', index: e.target.name });
   };
 
@@ -166,7 +166,7 @@ const newNeditPostForm = () => {
               5,
               'Only PNG, JPEG and GIF Files are allowed.'
             );
-            console.log(clearedFiles);
+
             setImages({ type: 'ADD', images: clearedFiles });
           } catch (err) {
             Alert({

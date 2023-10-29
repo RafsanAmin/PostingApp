@@ -16,11 +16,16 @@ const postAPI = {
   addPost(postData) {
     return new Promise((resolve, reject) => {
       const formData = new FormData();
-      const { text, images, date } = postData;
+      const { text, images, date, grpID } = postData;
       const texta = text.trim();
       if (texta) {
         formData.append('text', texta);
         formData.append('date', date);
+        if (grpID) {
+          formData.append('grpID', grpID);
+        } else {
+          formData.append('personal', 'true');
+        }
         if (images) {
           images.forEach((val, index) => {
             formData.append(`images${index}`, val);
@@ -30,7 +35,6 @@ const postAPI = {
           withCredentials: true,
         })
           .then((res) => {
-            console.log(res);
             if (res.data.done) {
               setTimeout(() => {
                 resolve(res.data.done);
@@ -40,7 +44,6 @@ const postAPI = {
             }
           })
           .catch((err) => {
-            console.log(err);
             reject('Unexpected Error!');
           });
       } else {
@@ -49,9 +52,9 @@ const postAPI = {
       }
     });
   },
-  getPostLatest: (before, limit) =>
+  getPostLatest: (before, limit, grpID) =>
     new Promise((resolve, reject) => {
-      Axios.get(`/pH/getPostsByDate`, { params: { limit, before } })
+      Axios.get(`/pH/getPostsByDate`, { params: { limit, before, grpID } })
         .then((res) => {
           if (res.data) {
             resolve(res.data);
@@ -60,7 +63,6 @@ const postAPI = {
           }
         })
         .catch((err) => {
-          console.log(err);
           reject('Unexpected Error!');
         });
     }),
@@ -79,7 +81,6 @@ const postAPI = {
           }
         })
         .catch((err) => {
-          console.log(err);
           reject('Unexpected Error!');
         });
     }),
@@ -99,16 +100,15 @@ const postAPI = {
           }
         })
         .catch((err) => {
-          console.log(err);
           reject('Unexpected Error!');
         });
     });
   },
   // eslint-disable-next-line no-unused-vars
-  getPost(type, before, limit, user) {
+  getPost(type, before, limit, user, grpID) {
     return new Promise((resolve, reject) => {
       if (type === 'latest') {
-        this.getPostLatest(before, limit)
+        this.getPostLatest(before, limit, grpID)
           .then((res) => {
             resolve(res);
           })
@@ -118,7 +118,6 @@ const postAPI = {
       } else if (type === 'user') {
         this.getPostofUser(limit, before, user)
           .then((res) => {
-            console.log(res);
             resolve(res);
           })
           .catch((err) => {
@@ -140,14 +139,12 @@ const postAPI = {
           }
         })
         .catch((err) => {
-          console.log(err);
           reject('Unexpected Error!');
         });
     });
   },
   updatePost(postData) {
     return new Promise((resolve, reject) => {
-      console.log(postData);
       const { text, oldPhotos, images, id, date } = postData;
       const texte = text.trim();
       if (texte) {
@@ -176,7 +173,6 @@ const postAPI = {
             }
           })
           .catch((err) => {
-            console.log(err);
             reject('Unexpected Error!');
           });
       } else {

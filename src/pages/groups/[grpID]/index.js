@@ -1,23 +1,24 @@
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
-import Alert from '../../components/alert';
-import Header from '../../components/header/header';
-import PostHandlerUI from '../../components/postHandlerUI/postHandlerUI';
-import Posts from '../../components/posts/posts';
-import TopBar from '../../components/topbar/topbar';
-import ContContext from '../../Contexts/ContContext';
-import { AlertContext, useAlert } from '../../hooks/useAlert';
-import { AppContext, reloadPost, useAppState } from '../../hooks/useAppState';
-import { editContext as EditContext, useEditState } from '../../hooks/useEditState';
-import useScrollTrigger from '../../hooks/useScrollTrigger';
-import useUserInfo from '../../hooks/useUserInfo';
-import Styles from '../../scss/postapp.module.scss';
+import { useEffect, useState } from 'react';
+import ContContext from '../../../Contexts/ContContext';
+import Alert from '../../../components/alert';
+import PostHandlerUI from '../../../components/postHandlerUI/postHandlerUI';
+import TopBar from '../../../components/topbar/topbar';
+import { AlertContext, useAlert } from '../../../hooks/useAlert';
+import { AppContext, reloadPost, useAppState } from '../../../hooks/useAppState';
+import { editContext as EditContext, useEditState } from '../../../hooks/useEditState';
+import useScrollTrigger from '../../../hooks/useScrollTrigger';
+import useUserInfo from '../../../hooks/useUserInfo';
+import Styles from '../../../scss/postapp.module.scss';
 
-import useFreeze from '../../hooks/useFreeze';
+import groupAPI from '../../../API/groupAPI';
+import Main from '../../../components/group/main';
+import Profile from '../../../components/group/profile';
+import useFreeze from '../../../hooks/useFreeze';
 
 // AP_S = new post form state
-const PostApp = () => {
+const PostApp = ({ grpID }) => {
   const { push } = useRouter();
   const AppStateArr = useAppState('post');
   const EditStateArr = useEditState();
@@ -26,7 +27,12 @@ const PostApp = () => {
   const [editState] = EditStateArr;
   const [alertProp, setAlert] = useAlert();
   const [contState, setContState] = useState();
-  console.log(EditStateArr);
+
+  useEffect(() => {
+    groupAPI.getData(grpID).then((resp) => {
+      setAppState({ type: 'GRP', grpInfo: resp.data });
+    });
+  }, []);
   useFreeze(editState.editPost.state || editState.addPost || alertProp.state, [
     editState.editPost,
     editState,
@@ -34,14 +40,15 @@ const PostApp = () => {
   ]);
   useUserInfo(async (status) => {
     if (status.done) {
-      setAppState({ type: 'USER', id: status.id });
+      setAppState({ type: 'USER_GRP', id: status.id, grpID });
+
       return 0;
     }
     push('/Userauth/Login');
   }, []);
   useScrollTrigger(
     (e) => {
-      console.log('Helllo');
+      console.log('Scroll Trigger');
       reloadPost(e, AppStateArr);
     },
     [AppStateArr]
@@ -76,11 +83,16 @@ const PostApp = () => {
                         : ''
                     }`}
                   >
-                    <Header />
-
-                    <ContContext.Provider value={contState}>
-                      <Posts />
-                    </ContContext.Provider>
+                    {appState.grpInfo ? (
+                      <div style={{ display: 'grid', placeItems: 'center' }}>
+                        <ContContext.Provider value={contState}>
+                          <Profile />
+                          <Main grpInfo={appState.grpInfo} />
+                        </ContContext.Provider>
+                      </div>
+                    ) : (
+                      ''
+                    )}
                   </div>
                 </>
               )}
@@ -91,5 +103,11 @@ const PostApp = () => {
     </>
   );
 };
-
+PostApp.getInitialProps = async ({ query }) => {
+  try {
+    return { grpID: query.grpID, error: false };
+  } catch (error) {
+    return { error, post: null };
+  }
+};
 export default PostApp;

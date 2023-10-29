@@ -7,6 +7,7 @@ import PostCont from '../../components/posts/postCont';
 import TopBar from '../../components/topbar/topbar';
 import { AlertContext, useAlert } from '../../hooks/useAlert';
 import { AppContext, useAppState } from '../../hooks/useAppState';
+import { editContext as EditContext, useEditState } from '../../hooks/useEditState';
 import useUserInfo from '../../hooks/useUserInfo';
 import Styles from '../../scss/postp.module.scss';
 
@@ -14,6 +15,8 @@ const postPage = ({ post, error }) => {
   const [alertProps, setAlert] = useAlert();
   const AppReducer = useAppState('PostSpecific');
   const [appState, setAppState] = AppReducer;
+  const EditStateArr = useEditState();
+
   useUserInfo(({ id }) => {
     setAppState({ type: 'USER', id });
   }, []);
@@ -35,19 +38,21 @@ const postPage = ({ post, error }) => {
         <meta property="og:image" content="https://rafpost.herokuapp.com/icon_192.png" />
       </Head>
       <AppContext.Provider value={AppReducer}>
-        <AlertContext.Provider value={setAlert}>
-          <TopBar />
-          <div className={Styles.cont}>
-            <Alert props={alertProps} />
-            <div className={`${alertProps.state ? 'freeze' : ''}`}>
-              {' '}
-              <PHI />
+        <EditContext.Provider value={EditStateArr}>
+          <AlertContext.Provider value={setAlert}>
+            <TopBar />
+            <div className={Styles.cont}>
+              <Alert props={alertProps} />
+              <div className={`${alertProps.state ? 'freeze' : ''}`}>
+                {' '}
+                <PHI />
+              </div>
+              <div className={alertProps.state || EditStateArr[0].editPost.state ? 'freeze' : ''}>
+                {error ? <Error type={error.code} /> : <PostCont post={post} />}
+              </div>
             </div>
-            <div className={alertProps.state || appState.editPost.state ? 'freeze' : ''}>
-              {error ? <Error type={error.code} /> : <PostCont post={post} />}
-            </div>
-          </div>
-        </AlertContext.Provider>
+          </AlertContext.Provider>
+        </EditContext.Provider>
       </AppContext.Provider>
     </>
   );

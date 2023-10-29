@@ -8,7 +8,6 @@ const makeFormData = (data) =>
 
       for (const property in data) {
         if (data[property] === null) {
-          console.log('skip');
         } else {
           formData.append(property, data[property]);
         }

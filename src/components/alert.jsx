@@ -6,9 +6,11 @@ const Alert = ({ props }) => {
   const { state, title, desc, type, button, cIcon, setState } = props;
   let iconType;
   useEffect(() => {
-    console.log('sas');
     if (state) {
       window.blur();
+    }
+    if (!state) {
+      setState(() => ({ state: false, title: '', desc: '', type: '', cIcon: false }));
     }
   }, [state]);
   if (cIcon) {

@@ -24,7 +24,10 @@ html {
   touch-action: manipulation;
   -ms-touch-action: manipulation;
 }
-
+.width_fix {
+  width: 100%;
+  max-width: calc(100vw - 1.5rem);
+}
 .freeze {
   pointer-events: none;
   opacity: 0.2;
@@ -43,8 +46,14 @@ html {
     text-shadow: -2px -2px 0px #fff, -2px 2px 0px #fff, 2px -2px 0px #fff, 2px 2px 0px #fff;
   }
 }
-@media only screen and (max-width: 340px) {
+@media only screen and (max-width: 360px) {
   html {
     font-size: clamp(14px, 2vw, 16px);
   }
+}
+
+i {
+  display: grid;
+  place-items: center;
+  place-content: center;
 }

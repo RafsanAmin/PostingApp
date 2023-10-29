@@ -1,0 +1,74 @@
+@import './global/global';
+
+.super {
+  width: 100%;
+  max-width: 700px;
+  display: grid;
+  padding-inline: 0.75rem;
+}
+.nav {
+  display: grid;
+  gap: 1rem;
+  margin-top: 2rem;
+  width: 100%;
+  grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
+  justify-items: center;
+  align-items: center;
+  .Item {
+    width: 100%;
+    display: flex;
+    gap: 1rem;
+    padding: 0.75rem 1.5rem;
+    cursor: pointer;
+    justify-items: center;
+    align-items: center;
+    background-color: white;
+    border: 2px solid transparent;
+    color: $blue-darker;
+    transition: 0.1s linear all;
+    filter: grayscale(1);
+    p {
+      font-weight: 500;
+      transition: 0.1s linear all;
+    }
+    border-radius: 10px;
+    i,
+    img {
+      width: 2rem;
+      font-size: 2rem;
+      color: $blue-primary;
+    }
+  }
+  .active {
+    border-bottom: 2px solid $blue-primary;
+    background-color: $blue-ll;
+    i,
+    img {
+    }
+    filter: grayscale(0);
+  }
+}
+
+.container {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  padding-bottom: 3rem;
+}
+
+@media only screen and (max-width: 660px) {
+  .nav {
+    gap: 0.25rem;
+    min-width: calc(100vw - 2.75rem);
+    .Item {
+      padding: 0.5rem 1rem;
+      font-size: 0.85rem;
+      flex-direction: column;
+      i,
+      img {
+        width: 1.5rem;
+        font-size: 1.5rem;
+      }
+    }
+  }
+}

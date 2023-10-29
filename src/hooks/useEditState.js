@@ -5,12 +5,12 @@ const AppReducer = (state, action) => {
   switch (action.type) {
     case 'AP_1':
       return { ...state, addPost: true };
-    case 'UE_1':
-      return { ...state, userEdit: true };
+    case 'AG_1':
+      return { ...state, addGroup: true };
     case 'EP_1':
       return { ...state, editPost: { state: true, post: action.post } };
     case 'PF_0':
-      return { ...state, addPost: false, editPost: { state: false, post: null }, userEdit: false };
+      return { ...state, addPost: false, editPost: { state: false, post: null }, addGroup: false };
     default:
       return state;
   }
@@ -18,7 +18,7 @@ const AppReducer = (state, action) => {
 const initalization = {
   addPost: false,
   editPost: { state: false, post: null },
-  userEdit: false,
+  addGroup: false,
 };
 const useEditState = () => {
   const [editState, setEditState] = useReducer(AppReducer, initalization);
@@ -27,4 +27,4 @@ const useEditState = () => {
   return editStateReducer;
 };
 
-export { useEditState, editContext };
+export { editContext, useEditState };

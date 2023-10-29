@@ -1,7 +1,7 @@
 import React from 'react';
 
 const Text = ({ text }) => {
-  const textR = text.split('\n');
+  const textR = String(text).split('\n');
   const rndm = () => {
     Math.random().toString();
   };
