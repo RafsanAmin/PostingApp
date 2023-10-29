@@ -14,7 +14,7 @@ import Styles from '../../scss/postp.module.scss';
 const postPage = ({ post, error }) => {
   const [alertProps, setAlert] = useAlert();
   const AppReducer = useAppState('PostSpecific');
-  const [appState, setAppState] = AppReducer;
+  const [, setAppState] = AppReducer;
   const EditStateArr = useEditState();
 
   useUserInfo(({ id }) => {
