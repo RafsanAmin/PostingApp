@@ -33,8 +33,6 @@ const PostApp = ({ grpID }) => {
     groupAPI
       .getData(grpID)
       .then((resp) => {
-        console.log(resp);
-
         setAppState({ type: 'GRP', grpInfo: resp.data });
       })
       .catch((err) => {
@@ -62,7 +60,6 @@ const PostApp = ({ grpID }) => {
   }, []);
   useScrollTrigger(
     (e) => {
-      console.log('Scroll Trigger');
       reloadPost(e, AppStateArr);
     },
     [AppStateArr]

@@ -18,12 +18,7 @@ const ValidationConfirm = ({ pstate }) => {
   const email = emailTrimmer(state.user.email);
   const Alert = useContext(AlertContext);
   const changePass = () => {
-    console.log('dsad', {
-      id: state.user.id,
-      pass: state.newPassword,
-      code,
-      vid: state.vid,
-    });
+
     dispatch({ type: 'L_1' });
     UserAuthenAPI.changePass({
       id: state.user.id,

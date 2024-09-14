@@ -14,11 +14,11 @@ const ChatArea = () => {
   const chatContRef = useRef();
   // const a = useContext(AlertContext);
 
-  console.log(app);
+  
   const addChat = (newChat, self) => {
     setChat((s) => [...s, { ...newChat, self }]);
 
-    console.log(chatContRef.current);
+    
 
     if (chatContRef && chatContRef?.current) {
       setTimeout(() => chatContRef.current.scrollTo(0, chatContRef.current.scrollHeight + 100), 50);
@@ -38,13 +38,13 @@ const ChatArea = () => {
     socket = io('/');
     socket.emit('join-room', app?.grpID);
     socket.on('resp', (r) => {
-      console.log(r);
+      
       if (r.done) {
         setConnected(true);
       }
     });
     socket.on('chat_b', (r) => {
-      console.log(r);
+      
       addChat(r);
     });
 

@@ -65,7 +65,7 @@ const PostList = ({ type, user, grpID }) => {
   );
   const main = async (newP) => {
     try {
-      console.log('Workin');
+      
 
       setLoading(true);
       if (newP) {
@@ -86,7 +86,7 @@ const PostList = ({ type, user, grpID }) => {
     }
   };
   useResizeTrigger(() => {
-    console.log('Resize Trigger');
+    
 
     forceUpdate();
   }, []);
@@ -96,7 +96,7 @@ const PostList = ({ type, user, grpID }) => {
     }
   }, [user]);
   useEffect(() => {
-    console.log('Reload Trigger', loading, state.repost);
+    
 
     if (!loading) {
       if (state.fullReload === true) {

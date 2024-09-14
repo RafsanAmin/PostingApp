@@ -222,17 +222,6 @@ class UserAuthenAPIClass {
 
   updateUserDataWithVer = ({ bDay, bio, delPFP, email, id, pass, pfp, username, work }) =>
     new Promise((resolve, reject) => {
-      console.log({
-        bDay,
-        bio,
-        delPFP,
-        email,
-        id,
-        pass,
-        pfp,
-        username,
-        work,
-      });
       makeFormData({ bDay, bio, delPFP, email, id, password: pass, pfp, username, work }).then(
         (formData) => {
           Axios.put(`/uh/updateUserData`, formData, {

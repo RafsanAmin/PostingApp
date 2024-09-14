@@ -99,7 +99,6 @@ const groupAPI = {
         }
       )
         .then((res) => {
-          console.log(res);
           if (res.data.done) {
             setTimeout(() => {
               resolve(res.data);

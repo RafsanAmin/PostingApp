@@ -22,11 +22,7 @@ function Login() {
   const remMeLabel = 'Remember Me';
   const setLogin = useCallback(async () => {
     setLoading(true);
-    console.log({
-      username: User.trim(),
-      password: Pass.trim(),
-      remMe,
-    });
+
     try {
       await UserAuthenAPI.login({
         username: User.trim(),
