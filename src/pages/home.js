@@ -32,10 +32,8 @@ const Page = () => {
               with RafPost!
             </p>
             <div>
-              <Link href="/Userauth/Login">
-                <button type="button">
-                  <Link href="/Userauth/Signup">SignUp</Link>
-                </button>
+              <Link href="/Userauth/Signup">
+                <button type="button">SignUp</button>
               </Link>
 
               {user ? (
