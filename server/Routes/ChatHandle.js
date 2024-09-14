@@ -5,32 +5,15 @@ const UserModel = require('../Database/UserModel');
 const authen = require('../middleware/authen');
 const cH = Router();
 const cookieParser = require('cookie-parser');
+const GroupModel = require('../Database/GroupModel');
 
 cH.use(cookieParser());
 cH.use(json());
-cH.post('/createGroup', authen, async (req, res) => {
-  const { _id } = req.user;
-  const { name } = req.body;
-  const doc = await ChatModel.create({
-    name,
-    members: [
-      {
-        uid: _id,
-        power: 'Creator',
-      },
-    ],
-  });
-  console.log(doc);
-  await UserModel.findOneAndUpdate({ _id }, { $push: { groups: doc._id } });
-  res.json({
-    done: true,
-  });
-});
 
-cH.post('/createGroup', authen, async (req, res) => {
+cH.get('/getChats', authen, async (req, res) => {
   const { _id } = req.user;
-  const { name } = req.body;
-  const doc = await ChatModel.create({
+  const { name } = req.query;
+  const doc = await GroupModel.create({
     name,
     members: [
       {
@@ -51,21 +34,29 @@ const SocketInstance = {
     const io = new Server(server);
 
     io.on('connection', (socket) => {
+      console.log('Socket is ON!');
       socket.on('join-room', (name, callback) => {
         console.log(name, callback);
-        ChatModel.findOne({ _id: name }, (err, data) => {
+        GroupModel.findOne({ _id: name }, (err, data) => {
           if (err) {
             socket.emit('resp', {
               msg: 'Group not Found!',
               done: false,
             });
           } else {
-            socket.join(token);
+            socket.join(name);
             socket.emit('resp', {
               msg: 'Successfully Connected',
-              done: false,
+              done: true,
             });
           }
+        });
+      });
+
+      socket.on('chat', ({ data, roomId }, callback) => {
+        GroupModel.updateOne({ _id: roomId }, { $push: { chats: data } }).then((d, err) => {
+          console.log(d, err);
+          socket.to(roomId).emit('chat_b', data);
         });
       });
       console.log('A User Added');

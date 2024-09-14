@@ -9,7 +9,7 @@ export default function Home() {
     if (status.done) {
       Router.replace('/dashboard');
     } else {
-      Router.replace('/Userauth/Login');
+      Router.replace('/home');
     }
   }, []);
   return <div />;

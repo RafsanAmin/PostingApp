@@ -5,6 +5,7 @@ const Error = ({ type }) => {
     if (type === '404') {
       return { code: '404', text: 'Not Found', desc: 'Your Requested thing has not been found.' };
     }
+
     if (type === '500') {
       return {
         code: '500',
@@ -17,6 +18,13 @@ const Error = ({ type }) => {
         code: '401',
         text: 'Unauthorized',
         desc: 'You must be logged in or it is a admin page.',
+      };
+    }
+    if (type === '403g') {
+      return {
+        code: '403',
+        text: 'Unauthorized',
+        desc: 'You are not joined in this group',
       };
     }
     if (type === 'off') {

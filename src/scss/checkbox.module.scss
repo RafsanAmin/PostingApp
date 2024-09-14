@@ -9,6 +9,8 @@
     position: relative;
     height: 20px;
     width: 20px;
+    flex-basis: 20px;
+    flex-shrink: 0;
     background-color: #fff;
     transition: 0.15s linear;
     aspect-ratio: 1 / 1;

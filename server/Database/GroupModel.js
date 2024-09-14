@@ -14,11 +14,9 @@ const GroupSchema = new Schema({
   ],
   chats: [
     {
-      uid: { type: Schema.Types.ObjectId, ref: 'User' },
+      userId: { type: Schema.Types.ObjectId, ref: 'User' },
       text: String,
-      img: String,
-      voice: String,
-      time: { type: Schema.Types.Date },
+      senderName: String,
     },
   ],
 });

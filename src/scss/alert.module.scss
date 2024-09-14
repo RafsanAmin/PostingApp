@@ -1,6 +1,9 @@
 @import './global/global';
-
 .alertWin {
+  a {
+    color: $blue-primary;
+    margin-left: 0.25rem;
+  }
   position: fixed;
   z-index: 10;
   width: 100%;

@@ -7,16 +7,18 @@ require('dotenv').config({ path: `${__dirname}/.env` });
 const postHandle = require('./server/Routes/PostHandle');
 const UserHandle = require('./server/Routes/UserHandle');
 const GroupHandle = require('./server/Routes/GroupHandle');
-const app = express();
+const cloudinary = require('cloudinary').v2;
+const { SocketInstance, cH } = require('./server/Routes/ChatHandle');
 const cookieParser = require('cookie-parser');
+
 // init and middlewares
 const dev = process.env.NODE_ENV !== 'production';
 const { DB_KEY } = process.env;
+const port = process.env.PORT || 80;
+
+const app = express();
 const nextApp = next({ dev });
 const handle = nextApp.getRequestHandler();
-const port = process.env.PORT || 80;
-const cloudinary = require('cloudinary').v2;
-const { SocketInstance, cH } = require('./server/Routes/ChatHandle');
 
 app.use(cors({ origin: 'http://localhost:3000', credentials: true }));
 app.use(cookieParser());

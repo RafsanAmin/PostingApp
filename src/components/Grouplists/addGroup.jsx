@@ -72,6 +72,9 @@ const AddGroup = () => {
               <i className="fa-solid fa-xmark" />
             </button>
           </div>
+          <div className={Styles.head}>
+            <h3>Create Group</h3>
+          </div>
           <div className={Styles.agGrid}>
             <ProfilePicHandle styles={Styles} State={[grpDetail, dispatchGrpDetail]} />
             <div>
@@ -96,6 +99,7 @@ const AddGroup = () => {
                   value={grpDetail.desc}
                   setValue={(d) => setF('desc', d)}
                   placeholder="Description"
+                  style={{ paddingTop: '1rem' }}
                 />
               </div>
             </div>

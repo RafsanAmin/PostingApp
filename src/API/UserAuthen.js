@@ -273,7 +273,7 @@ class UserAuthenAPIClass {
             }
           });
         })
-        .catch((err) => {
+        .catch(() => {
           reject('There was an error');
         });
     });

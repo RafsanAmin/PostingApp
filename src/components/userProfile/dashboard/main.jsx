@@ -23,7 +23,7 @@ const Dashboard = ({ user, own }) => (
         icon: <img src="/posts.svg" alt="" />,
         comp: (
           <div className="width_fix">
-            <Header type="post" />
+            {own ? <Header type="post" /> : null}
             <Postlist type="user" user={user._id} />
           </div>
         ),

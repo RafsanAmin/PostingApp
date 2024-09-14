@@ -28,7 +28,7 @@
   button {
     height: 40px;
     width: 40px;
-    border-radius: 10px;
+    border-radius: 20px;
     border: 0;
     cursor: pointer;
     transition: 0.15s linear;
@@ -152,8 +152,8 @@
   // max-height: 850px;
   // height: 100%;
   background-color: #fff;
-  @include shadow();
-  border-radius: 7.5px;
+
+  border-radius: 15px;
   overflow: hidden;
 
   .roller {
@@ -176,11 +176,16 @@
     }
   }
   .head {
-    padding-bottom: 1rem;
+    padding: {
+      left: 1rem;
+      bottom: 2rem;
+    }
+    text-align: left;
     h3 {
       color: $blue-dark;
       font-size: 2rem;
       font-family: Lexend;
+      font-weight: 600;
     }
   }
   .inputCont {
@@ -188,6 +193,7 @@
       padding-inline: 1rem;
       color: $grey-darker;
       font-weight: 500;
+      margin-top: 1rem;
     }
     textarea {
       margin-top: 0.5rem;
@@ -196,14 +202,14 @@
       border: 0;
       border: {
         width: 0;
-        radius: 7.5px;
+        radius: 15px;
       }
       @include scrollbar;
       width: 100%;
       background-color: $grey-lightest;
       color: $grey-dark;
       transition: 0.25s linear;
-      padding: 0.65rem 1.2rem 0.65rem 1.5rem;
+      padding: 1rem 1.2rem 1rem 1.5rem;
 
       &:focus {
         background-color: $blue-lighter;
@@ -229,6 +235,7 @@
   }
   .pfp {
     width: 100%;
+    margin-bottom: 1rem;
     @include grid_cent;
     .deleteBtn {
       position: absolute;

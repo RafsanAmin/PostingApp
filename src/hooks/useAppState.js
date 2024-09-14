@@ -12,11 +12,17 @@ const AppReducer = (state, action) => {
     case 'FULL_RELOAD':
       return { ...state, repost: false, fullReload: true, stop: false };
     case 'USER_GRP':
-      return { ...state, userid: action.id, grpID: action.grpID, own: action.own };
+      return {
+        ...state,
+        userid: action.id,
+        grpID: action.grpID,
+        own: action.own,
+        username: action?.name,
+      };
     case 'GRP':
       return { ...state, grpInfo: action.grpInfo };
     case 'USER':
-      return { ...state, userid: action.id };
+      return { ...state, userid: action.id, username: action?.name };
     case 'CONT': {
       return { ...state, cont: action.e };
     }
@@ -35,6 +41,7 @@ const initalization = (page) => ({
   grpID: undefined,
   grpInfo: undefined,
   own: false,
+  username: '',
 });
 
 const useAppState = (pageName) => {

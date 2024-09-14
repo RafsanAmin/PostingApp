@@ -34,7 +34,7 @@ const groupAPI = {
               reject(res.data.msg);
             }
           })
-          .catch((err) => {
+          .catch(() => {
             reject('Unexpected Error!');
           });
       } else {
@@ -58,10 +58,10 @@ const groupAPI = {
               resolve(res.data.done);
             }, 5000);
           } else {
-            reject(res.data.msg);
+            reject(res.data);
           }
         })
-        .catch((err) => {
+        .catch(() => {
           reject('Unexpected Error!');
         });
     });
@@ -84,7 +84,7 @@ const groupAPI = {
             reject(res.data.msg);
           }
         })
-        .catch((err) => {
+        .catch(() => {
           reject('Unexpected Error!');
         });
     });
@@ -99,16 +99,17 @@ const groupAPI = {
         }
       )
         .then((res) => {
+          console.log(res);
           if (res.data.done) {
             setTimeout(() => {
               resolve(res.data);
             }, 1000);
           } else {
-            reject(res.data.msg);
+            reject(res.data);
           }
         })
         .catch((err) => {
-          reject('Unexpected Error!');
+          reject(err);
         });
     });
   },

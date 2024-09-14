@@ -11,6 +11,10 @@ const cloudinary = require('cloudinary').v2;
 const handlePostFormReq = require('../utils/handleFormReq');
 gh.use(express.json());
 const busboy = require('connect-busboy');
+const gauthen = require('../middleware/groupAuthen');
+
+const gMiddlewares = [authen, gauthen];
+
 gh.use(
   busboy({
     highWaterMark: 2 * 1024 * 1024, // Set 2MiB buffer
@@ -73,7 +77,13 @@ gh.post('/joinGroup', authen, async (req, res) => {
     const isValid = await IdIsValid(grpId);
 
     const exst = isValid ? await GroupModel.exists({ _id: grpId }) : false;
-    if (exst) {
+
+    const usr = await UserModel.findOne({ _id: userID });
+
+    const existsGroup = usr.groups.includes(grpId);
+    if (existsGroup) {
+      res.json({ done: true, msg: 'Already joined!' });
+    } else if (exst) {
       await GroupModel.updateOne(
         { _id: grpId },
         {
@@ -90,7 +100,7 @@ gh.post('/joinGroup', authen, async (req, res) => {
       await UserModel.updateOne({ _id: userID }, { $addToSet: { groups: grpId } });
       res.json({ done: true });
     } else {
-      res.json({ done: false, msg: "Group Doesn't Exists" });
+      res.json({ done: false, msg: "Group Doesn't Exists", notfound: true });
     }
   } catch (err) {
     console.log(err);
@@ -98,7 +108,7 @@ gh.post('/joinGroup', authen, async (req, res) => {
   }
 });
 
-gh.post('/exitGroup', authen, async (req, res) => {
+gh.post('/exitGroup', gMiddlewares, async (req, res) => {
   try {
     const userID = jwt.verify(req.cookies.jwt, secret).id;
     const { grpId } = req.body;
@@ -128,7 +138,7 @@ gh.post('/exitGroup', authen, async (req, res) => {
   }
 });
 
-gh.get('/info', authen, async (req, res) => {
+gh.get('/info', gMiddlewares, async (req, res) => {
   try {
     const userID = jwt.verify(req.cookies.jwt, secret).id;
     const { grpId } = req.query;
@@ -154,7 +164,7 @@ gh.get('/info', authen, async (req, res) => {
   }
 });
 
-gh.post('/kickMember', authen, async (req, res) => {
+gh.post('/kickMember', gMiddlewares, async (req, res) => {
   try {
     const self = jwt.verify(req.cookies.jwt, secret).id;
     const { grpId, userID } = req.body;

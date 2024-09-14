@@ -169,7 +169,25 @@
       transform: scale(0);
     }
   }
+
+  .left {
+    order: 1;
+  }
+  .right {
+    order: 3;
+  }
 }
+.hero {
+  justify-content: center;
+  gap: 5rem;
+  position: static;
+
+  .brandContainer {
+    flex-basis: auto;
+    flex-grow: 0;
+  }
+}
+
 @media only screen and (max-width: 700px) {
   .topbar {
     .brandContainer {

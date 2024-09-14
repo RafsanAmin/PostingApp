@@ -1,6 +1,5 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import Head from 'next/head';
-import Package from '../../package.json';
 import '../../public/fav/all.min.css';
 import '../scss/global.scss';
 import '../scss/login.scss';
@@ -32,7 +31,7 @@ function MyApp({ Component, pageProps }) {
       </Head>
       <Component {...pageProps} />
 
-      <p
+      {/* <p
         style={{
           position: 'fixed',
           bottom: 0,
@@ -47,7 +46,7 @@ function MyApp({ Component, pageProps }) {
         Alpha v{Package.version} {Package.description}
         <br />
         It is not finished yet so it is missing many features and has major issues.
-      </p>
+      </p> */}
     </>
   );
 }

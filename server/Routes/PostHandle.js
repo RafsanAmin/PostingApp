@@ -8,6 +8,7 @@ const jwt = require('jsonwebtoken');
 const deleteImages = require('../utils/deleteImage');
 const authen = require('../middleware/authen');
 const handlePostFormReq = require('../utils/handleFormReq');
+const gauthen = require('../middleware/groupAuthen');
 pH.use(
   busboy({
     highWaterMark: 2 * 1024 * 1024, // Set 2MiB buffer
@@ -25,7 +26,7 @@ pH.post('/addPost', authen, async (req, res) => {
       const UID = jwt.verify(req.cookies.jwt, secret);
       await UserModel.findOne({ _id: UID.id }, (err, udata) => {
         if (!err) {
-          if (udata) {
+          if (udata && (udata?.groups?.includes(data.grpID) || data.personal)) {
             const uid = udata._id;
             const username = udata.username;
             const newPost = { ...data, likes: 0, uid, username };
@@ -37,6 +38,8 @@ pH.post('/addPost', authen, async (req, res) => {
               }
               res.status(200).json({ done: true, massage: 'Done Bro!' });
             });
+          } else if (!udata?.groups?.includes(data.grpID)) {
+            res.status(403).json({ done: false, massage: 'User Not In Group' });
           } else {
             res.status(403).json({ done: false, massage: 'User Not Logged In' });
           }

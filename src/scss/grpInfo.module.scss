@@ -18,6 +18,7 @@
     h2 {
       color: $blue-dark;
       font-size: 1.3rem;
+      font-weight: 500;
     }
     .memberList {
       display: flex;
@@ -32,9 +33,13 @@
         gap: 1rem;
         img {
           width: 45px;
+          height: 45px;
           border-radius: 50%;
           outline: 1px solid $grey-lighter;
           outline-offset: 1px;
+          flex-basis: 45px;
+          flex-shrink: 0;
+          object-fit: cover;
         }
         p {
           width: 100%;

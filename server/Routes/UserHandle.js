@@ -180,12 +180,13 @@ uh.get('/authen', async (req, res, next) => {
       });
     } else {
       const verified = jwt.verify(jwtToken, secret);
-      const alExist = await UserModelDB.exists({ _id: verified.id });
+      const alExist = await UserModelDB.findOne({ _id: verified.id });
       if (verified && alExist) {
         res.status(200).json({
           massage: 'Logged In',
           done: true,
           id: verified.id,
+          name: alExist.username,
         });
       } else {
         res.status(200).json({

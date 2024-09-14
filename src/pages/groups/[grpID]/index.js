@@ -13,6 +13,7 @@ import useUserInfo from '../../../hooks/useUserInfo';
 import Styles from '../../../scss/postapp.module.scss';
 
 import groupAPI from '../../../API/groupAPI';
+import Loading from '../../../components/Loading';
 import Main from '../../../components/group/main';
 import Profile from '../../../components/group/profile';
 import useFreeze from '../../../hooks/useFreeze';
@@ -29,10 +30,23 @@ const PostApp = ({ grpID }) => {
   const [contState, setContState] = useState();
 
   useEffect(() => {
-    groupAPI.getData(grpID).then((resp) => {
-      setAppState({ type: 'GRP', grpInfo: resp.data });
-    });
-  }, []);
+    groupAPI
+      .getData(grpID)
+      .then((resp) => {
+        console.log(resp);
+
+        setAppState({ type: 'GRP', grpInfo: resp.data });
+      })
+      .catch((err) => {
+        console.error(err);
+        if (err.nonMember) {
+          push('/403g');
+        } else {
+          push('/500');
+        }
+      });
+    setAppState({ type: 'RELOAD_0' });
+  }, [appState.fullReload]);
   useFreeze(editState.editPost.state || editState.addPost || alertProp.state, [
     editState.editPost,
     editState,
@@ -40,7 +54,7 @@ const PostApp = ({ grpID }) => {
   ]);
   useUserInfo(async (status) => {
     if (status.done) {
-      setAppState({ type: 'USER_GRP', id: status.id, grpID });
+      setAppState({ type: 'USER_GRP', id: status.id, grpID, name: status.name });
 
       return 0;
     }
@@ -58,48 +72,52 @@ const PostApp = ({ grpID }) => {
       <Head>
         <title>Rafpost - Postapp</title>
       </Head>
-      <div ref={(e) => setContState(e)} className={Styles.postAppWindow}>
-        <AppContext.Provider value={AppStateArr}>
-          <AlertContext.Provider value={setAlert}>
-            <EditContext.Provider value={EditStateArr}>
-              <TopBar
-                c={`s ${
-                  editState.editPost.state || editState.addPost || alertProp.state ? 'freeze' : ''
-                }`}
-              />
+      {AppStateArr[0].grpInfo ? (
+        <div ref={(e) => setContState(e)} className={Styles.postAppWindow}>
+          <AppContext.Provider value={AppStateArr}>
+            <AlertContext.Provider value={setAlert}>
+              <EditContext.Provider value={EditStateArr}>
+                <TopBar
+                  c={`s ${
+                    editState.editPost.state || editState.addPost || alertProp.state ? 'freeze' : ''
+                  }`}
+                />
 
-              {appState.userid && (
-                <>
-                  <Alert props={alertProp} />
-                  <div className={`s ${alertProp.state ? 'freeze' : ''}`}>
-                    {' '}
-                    <PostHandlerUI />
-                  </div>
+                {appState.userid && (
+                  <>
+                    <Alert props={alertProp} />
+                    <div className={`s ${alertProp.state ? 'freeze' : ''}`}>
+                      {' '}
+                      <PostHandlerUI />
+                    </div>
 
-                  <div
-                    className={`s ${
-                      editState.editPost.state || editState.addPost || alertProp.state
-                        ? 'freeze'
-                        : ''
-                    }`}
-                  >
-                    {appState.grpInfo ? (
-                      <div style={{ display: 'grid', placeItems: 'center' }}>
-                        <ContContext.Provider value={contState}>
-                          <Profile />
-                          <Main grpInfo={appState.grpInfo} />
-                        </ContContext.Provider>
-                      </div>
-                    ) : (
-                      ''
-                    )}
-                  </div>
-                </>
-              )}
-            </EditContext.Provider>
-          </AlertContext.Provider>
-        </AppContext.Provider>
-      </div>
+                    <div
+                      className={`s ${
+                        editState.editPost.state || editState.addPost || alertProp.state
+                          ? 'freeze'
+                          : ''
+                      }`}
+                    >
+                      {appState.grpInfo ? (
+                        <div style={{ display: 'grid', placeItems: 'center' }}>
+                          <ContContext.Provider value={contState}>
+                            <Profile />
+                            <Main grpInfo={appState.grpInfo} />
+                          </ContContext.Provider>
+                        </div>
+                      ) : (
+                        ''
+                      )}
+                    </div>
+                  </>
+                )}
+              </EditContext.Provider>
+            </AlertContext.Provider>
+          </AppContext.Provider>
+        </div>
+      ) : (
+        <Loading />
+      )}
     </>
   );
 };

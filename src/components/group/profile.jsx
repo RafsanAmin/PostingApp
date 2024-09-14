@@ -1,13 +1,18 @@
+import { useRouter } from 'next/router';
 import React, { useContext } from 'react';
+import urlPrefix from '../../API/getURL';
+import groupAPI from '../../API/groupAPI';
 import AlertContext from '../../Contexts/AlertContext';
 import AppContext from '../../Contexts/AppContext';
 import Styles from '../../scss/profilecard.module.scss';
 import Clipboard from '../clipboard';
 import { Item, Menu, MenuCont } from '../menu';
+import DeleteBtn from '../posts/dbtn';
 
 const Profile = () => {
-  const [App] = useContext(AppContext);
+  const [App, ss] = useContext(AppContext);
   const Alert = useContext(AlertContext);
+  const Router = useRouter();
   // const own =
   //   userid === user._id ||
   //   userid === '61346cba5f69790468c69b2d' ||
@@ -19,8 +24,8 @@ const Profile = () => {
       title: 'Share',
       desc: (
         <>
-          Share this ID so that your friend can join in this group.
-          <Clipboard copyText={`${App.grpInfo._id}`} />
+          Share this Link so that your friend can join in this group.
+          <Clipboard copyText={`${urlPrefix}/groups/join/${App.grpInfo._id}`} />
         </>
       ),
       cIcon: <i className="fas fa-share" />,
@@ -41,6 +46,38 @@ const Profile = () => {
             <MenuCont>
               <Menu>
                 <Item icon={<i className="fas fa-share" />} name="Share" handler={shareHandler} />
+                <Item
+                  name="Exit"
+                  icon={<i className="fa-solid fa-times" />}
+                  handler={(e) => {
+                    e.stopPropagation();
+
+                    Alert({
+                      state: true,
+                      title: 'Sure?',
+                      desc: 'Are you sure want to Leave?',
+                      type: 'warn',
+                      button: (
+                        <DeleteBtn
+                          func={() => {
+                            groupAPI
+                              .exitGroup(App.grpInfo._id)
+                              .then(() => {
+                                ss({ type: 'FULL_RELOAD' });
+                                Alert({ state: false });
+                              })
+                              .catch(() => {
+                                ss({ type: 'FULL_RELOAD' });
+                                Alert({ state: false });
+                              });
+
+                            Router.push('/dashboard?t=2');
+                          }}
+                        />
+                      ),
+                    });
+                  }}
+                />
               </Menu>
             </MenuCont>
           </div>

@@ -44,17 +44,8 @@ function Profile(props) {
       title: 'About',
       desc: (
         <>
-          A Posting App Made by HRM Rafsan Amin (Me). <br />
-          ** You can to github repo by{' '}
-          <a href="https://github.com/RafsanAmin/PostingApp" target="_blank" rel="noreferrer">
-            clicking this Link
-          </a>
-          .<br />
-          ** You can also{' '}
-          <a href="https://rafsanamin.epizy.com/" target="_blank" rel="noreferrer">
-            click this Link
-          </a>{' '}
-          to visit my portfolio website.
+          A Posting App Made by HRM Rafsan Amin.
+          <a href="/home">Know more</a>
         </>
       ),
     });

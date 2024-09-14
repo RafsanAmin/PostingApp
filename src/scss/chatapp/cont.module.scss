@@ -1,29 +1,105 @@
+@import '../global/global';
 .cont {
   display: grid;
-  grid-template-columns: 0.3fr 0.7fr;
-  grid-template-rows: 0.1fr 1fr;
-  height: calc(100vh - 70px);
   width: 100%;
-  justify-content: center;
-  margin: auto;
+  margin-top: 1rem;
 }
 
 .cont > div {
   background-color: #fff;
-  border: 1px solid #000;
   width: 100%;
-  height: 100%;
+  height: 50vh;
+  border-radius: 15px;
+  padding: 1.25rem;
+  flex-direction: column;
+  display: flex;
+  justify-content: space-between;
+  // over
+  gap: 1.5rem;
 }
 
-.cont > div:nth-child(1) {
-  grid-row: 1 / 2;
-  grid-column: 1 / 2;
-}
-.cont > div:nth-child(2) {
-  grid-row: 1 / 3;
-  grid-column: 2 / 3;
-}
-.cont > div:nth-child(3) {
-  grid-row: 2 / 3;
-  grid-column: 1 / 2;
+.cont {
+  .chatList {
+    flex: 1;
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding-right: 0.5rem;
+    .chat {
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+      img {
+        width: 30px;
+        height: 30px;
+        border-radius: 9999px;
+        flex-shrink: 0;
+        flex-basis: 30px;
+        object-fit: cover;
+      }
+      .text {
+        background-color: $blue-lighter;
+        border-radius: 10px;
+        padding: 0.75rem;
+        max-width: 80%;
+        width: fit-content;
+        overflow-x: clip;
+        overflow-y: visible;
+        font-weight: 300;
+      }
+      .user {
+        font-size: smaller;
+        display: block;
+        color: $blue-dark;
+        opacity: 0.75;
+      }
+    }
+
+    .self {
+      align-self: flex-end;
+      flex-direction: row-reverse;
+      text-align: right;
+      .text {
+        background-color: $blue-lightest;
+      }
+    }
+  }
+  .write {
+    display: flex;
+    gap: 0.5rem;
+    input {
+      flex: 1;
+      border: none;
+      background-color: $grey-lightest;
+      border-radius: 10px;
+      padding: {
+        inline: 1rem;
+        block: 1rem;
+      }
+    }
+    button {
+      background-color: $blue-primary;
+      color: white;
+      border: 0;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: 0.2s ease-in-out;
+      &:hover {
+        opacity: 0.75;
+      }
+      &:disabled {
+        opacity: 0.4;
+        pointer-events: none;
+      }
+      &:active {
+        scale: 0.9;
+      }
+
+      padding: {
+        inline: 1rem;
+        block: 1rem;
+      }
+    }
+  }
 }

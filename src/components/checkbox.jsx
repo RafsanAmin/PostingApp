@@ -3,7 +3,7 @@ import Styles from '../scss/checkbox.module.scss';
 
 const Checkbox = ({ setState, state, label }) => (
   <div
-    className={Styles.checkboxCont}
+    className={`${Styles.checkboxCont}`}
     onClick={() => {
       setState(!state);
     }}

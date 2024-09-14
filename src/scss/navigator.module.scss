@@ -40,10 +40,14 @@
     }
   }
   .active {
-    border-bottom: 2px solid $blue-primary;
-    background-color: $blue-ll;
+    // border-bottom: 2px solid $blue-primary;
+    background-color: $blue-primary;
+    color: white;
     i,
     img {
+      color: rgba(255, 255, 255, 0.5);
+      fill: rgba(255, 255, 255, 0.5);
+      filter: brightness(0) invert(1);
     }
     filter: grayscale(0);
   }
@@ -61,9 +65,10 @@
     gap: 0.25rem;
     min-width: calc(100vw - 2.75rem);
     .Item {
-      padding: 0.5rem 1rem;
+      padding: 1rem 1rem;
       font-size: 0.85rem;
       flex-direction: column;
+      gap: 0.375rem;
       i,
       img {
         width: 1.5rem;

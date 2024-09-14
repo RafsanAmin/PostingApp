@@ -1,4 +1,5 @@
 import React from 'react';
+import ChatCont from '../chatapp/cont';
 import Header from '../header/header';
 import Navigator from '../navigator';
 import Postlist from '../posts/postlist';
@@ -30,9 +31,10 @@ const Main = ({ grpInfo }) => (
         text: 'Chat',
         icon: <i className="far fa-comment-dots" />,
         comp: (
-          <div style={{ width: '100%', display: 'grid', placeItems: 'center', minHeight: '250px' }}>
-            <h2>Feature Coming Soon!</h2>
-          </div>
+          // <div style={{ width: '100%', display: 'grid', placeItems: 'center', minHeight: '250px' }}>
+          //   <h2>Feature Coming Soon!</h2>
+          // </div>
+          <ChatCont />
         ),
       },
       //   {

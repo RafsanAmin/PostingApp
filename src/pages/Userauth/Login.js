@@ -58,7 +58,7 @@ function Login() {
   }, [setLogin]);
   useUserInfo((status) => {
     if (status.done) {
-      Router.replace('/App/Post');
+      Router.replace('/User/own');
     } else {
       Router.replace('/Userauth/Login');
     }
