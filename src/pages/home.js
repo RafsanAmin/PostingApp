@@ -1,3 +1,4 @@
+import Head from 'next/head';
 import Link from 'next/link';
 import React, { useState } from 'react';
 import TopBar from '../components/topbar/topbar';
@@ -13,6 +14,9 @@ const Page = () => {
   }, []);
   return (
     <div className={Styles.cont}>
+      <Head>
+        <title>Rafpost - Home</title>
+      </Head>
       <TopBar hero />
       <div>
         <div className={Styles.hero}>
@@ -21,10 +25,7 @@ const Page = () => {
             <h1 className="">
               Post, <span className={Styles.span1}>Chat</span>, Connect <br /> &{' '}
               <span className={Styles.span2}>Share</span>{' '}
-              <span span className={Styles.span3}>
-                Effortlessly
-              </span>
-              !
+              <span className={Styles.span3}>Effortlessly</span>!
             </h1>
             <p>
               Seamlessly connect and share with group chats and posts. Stay in the loop effortlessly
